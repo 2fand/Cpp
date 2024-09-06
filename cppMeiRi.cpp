@@ -15,3 +15,9 @@ int main() {
 	return 0;
 }
 *///“cin”^
+/*
+int main() {
+	cout << __DATE__ << endl;
+	return 0;
+}
+*///“__DATE__”^
