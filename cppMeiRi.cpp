@@ -21,3 +21,10 @@ int main() {
 	return 0;
 }
 *///“__DATE__”^
+/*
+int main() {
+	string str = "Hello, world!";
+	cout << str << endl;
+	return 0;
+}
+*///“string”^
