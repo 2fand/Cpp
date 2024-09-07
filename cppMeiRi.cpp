@@ -46,3 +46,21 @@ int main() {
 	return 0;
 }
 *///“求三数最大值”(考虑相等的情况)^
+/*
+int main() {
+	int i = 0;
+	cin >> i;
+	switch (i) {
+	case 0:
+		cout << "Hello, world!" << endl;
+		break;
+	case 1:
+		cout << "Byebye, world!" << endl;
+		break;
+	default:
+		cout << "NiHao, world!" << endl;
+		break;
+	}
+	return 0;
+}
+*///“switch语句”^
