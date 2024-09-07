@@ -28,3 +28,21 @@ int main() {
 	return 0;
 }
 *///“string”^
+/*
+int main() {
+	int i = 0;
+	int ia = 0;
+	int ib = 0;
+	cin >> i >> ia >> ib;
+	if (i >= ia && i >= ib) {
+		cout << i << endl;
+	}
+	else if (ia >= i && ia >= ib) {
+		cout << ia << endl;
+	}
+	else {
+		cout << ib << endl;
+	}
+	return 0;
+}
+*///“求三数最大值”(考虑相等的情况)^
