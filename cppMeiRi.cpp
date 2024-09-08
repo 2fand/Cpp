@@ -73,3 +73,12 @@ int main() {
 	return 0;
 }
 *///“<<和>>”^
+/*
+int main() {
+	int i = 0;
+	int ia = 0;
+	cin >> i >> ia;
+	cout << (i ^ ia) << endl;
+	return 0;
+}
+*///“按位异或^”^
