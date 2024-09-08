@@ -64,3 +64,12 @@ int main() {
 	return 0;
 }
 *///“switch语句”^
+/*
+int main() {
+	int i = 0;
+	cin >> i;
+	cout << (i << 1) << endl;
+	cout << (i >> 1) << endl;
+	return 0;
+}
+*///“<<和>>”^
