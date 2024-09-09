@@ -88,3 +88,9 @@ int main() {
 	return 0;
 }
 *///“BLUE”^
+/*
+int main() {
+	cout << "\033[33;4mYELLOW" << endl;
+	return 0;
+}
+*///“YELLOW”^
