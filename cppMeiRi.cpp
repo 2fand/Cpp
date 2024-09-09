@@ -82,3 +82,9 @@ int main() {
 	return 0;
 }
 *///“按位异或^”^
+/*
+int main() {
+	cout << "\033[36mBLUE" << endl;
+	return 0;
+}
+*///“BLUE”^
