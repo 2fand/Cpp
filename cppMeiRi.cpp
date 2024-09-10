@@ -94,3 +94,9 @@ int main() {
 	return 0;
 }
 *///“YELLOW”^
+/*
+int main() {
+	cout << "\033[32;1;7mGREEN" << endl;
+	return 0;
+}
+*///“GREEN”^
