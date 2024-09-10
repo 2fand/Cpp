@@ -100,3 +100,12 @@ int main() {
 	return 0;
 }
 *///“GREEN”^
+/*
+int main() {
+	int i = 0;
+	cin >> i;
+	i > 0 && cout << "+";
+	cout << i << endl;
+	return 0;
+}
+*///自动添加正负号^
