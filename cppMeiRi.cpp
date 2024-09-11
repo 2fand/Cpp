@@ -109,3 +109,9 @@ int main() {
 	return 0;
 }
 *///自动添加正负号^
+/*
+int main() {
+	cout << 1145E4;
+	return 0;
+}
+*///“1145E4”^
