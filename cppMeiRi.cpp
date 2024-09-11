@@ -115,3 +115,9 @@ int main() {
 	return 0;
 }
 *///“1145E4”^
+/*
+int main() {
+	cout << 6E8F;
+	return 0;
+}
+*///“6E8F”^
