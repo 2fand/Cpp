@@ -121,3 +121,14 @@ int main() {
 	return 0;
 }
 *///“6E8F”^
+/*
+int main() {
+	int arr[10] = { 0,1,2,3,4,5,7,6,8,9 };
+	int i = 0;
+	for (; i < 10; i++) {
+		cout << arr[i] << " ";
+	}
+	cout << endl;
+	return 0;
+}
+*///“数组”^
