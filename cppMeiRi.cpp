@@ -132,3 +132,12 @@ int main() {
 	return 0;
 }
 *///“数组”^
+/*
+int main() {
+	string str = "Hello, ";
+	cout << str;
+	str = "world!\n";
+	cout << str;
+	return 0;
+}
+*///“string字符串的特殊之处”^
