@@ -152,3 +152,15 @@ int main() {
 	return 0;
 }
 *///“指针”^
+/*
+struct Box {
+	int ix;
+	int iy;
+};
+int main() {
+	Box b = { 3,7 };
+	Box ba = { 4,5 };
+	cout << "箱子b的xy坐标：(" << b.ix << ", " << b.iy << ")" << endl << "箱子ba的xy坐标：(" << ba.ix << ", " << ba.iy << ")" << endl;
+	return 0;
+}
+*///“结构体”^
