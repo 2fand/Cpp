@@ -141,3 +141,14 @@ int main() {
 	return 0;
 }
 *///“string字符串的特殊之处”^
+/*
+int main() {
+	int i = 0;
+	int* ip = &i;
+	*ip = 114514;
+	cout << "ip = 0x" << ip << endl;
+	cout << "*ip = " << *ip << endl;
+	cout << "i = " << i << endl;
+	return 0;
+}
+*///“指针”^
