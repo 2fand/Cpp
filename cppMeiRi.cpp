@@ -164,3 +164,13 @@ int main() {
 	return 0;
 }
 *///“结构体”^
+/*
+union test {
+	int i;
+	char ch;
+};
+int main() {
+	test t = {114514};
+	cout << t.i << " " << t.ch << endl;
+}
+*///“联合”^
