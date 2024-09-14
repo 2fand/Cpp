@@ -172,5 +172,19 @@ union test {
 int main() {
 	test t = {114514};
 	cout << t.i << " " << t.ch << endl;
+ 	return 0;
 }
 *///“联合”^
+/*
+enum RGB {
+	R,
+	G,
+	B,
+};
+int main() {
+	cout << "R = " << R << endl;
+	cout << "G = " << G << endl;
+	cout << "B = " << B << endl;
+	return 0;
+}
+*///“枚举”^
