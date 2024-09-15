@@ -199,3 +199,15 @@ int main() {
 	return 0;
 }
 *///“new和delete”^
+/*
+int main() {
+	int i = 114514;
+	int& ia = i;
+	cout << "i = " << i << "    ia = " << ia << endl;
+	ia = 666;
+	cout << "i = " << i << "    ia = " << ia << endl;
+	i = 1314520;
+	cout << "i = " << i << "    ia = " << ia << endl;
+	return 0;
+}
+*///“引用&”^
