@@ -188,3 +188,14 @@ int main() {
 	return 0;
 }
 *///“枚举”^
+/*
+int main() {
+	int* ip = new int(10);
+	cout << "*ip = " << *ip << endl;
+	cout << "*ip = " << *ip << endl;
+	cout << "*ip = " << *ip << endl;
+	delete ip;
+	//cout << "*ip = " << *ip << endl; <-- ERROR
+	return 0;
+}
+*///“new和delete”^
