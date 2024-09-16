@@ -302,3 +302,17 @@ int main() {
 	return 0;
 }
 *///“C++3D迷宫”(选自我的CSDN博客)^
+/*
+void fun() {
+	cout << -1 << endl;
+}
+void fun(int i) {
+	cout << 1 << " " << i << endl;
+}
+int main() {
+	fun();
+	fun(7);
+	fun(114514);
+	return 0;
+}
+*///“函数重载”^
