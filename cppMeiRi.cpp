@@ -1,4 +1,6 @@
 #include <iostream>// <-- 必备
+#include <string>
+#include <cstring>
 using namespace std;// <-- 必备
 /*
 int main() {
