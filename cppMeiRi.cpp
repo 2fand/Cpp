@@ -316,3 +316,125 @@ int main() {
 	return 0;
 }
 *///“函数重载”^
+/*
+enum RBYG {
+	R = 1,
+	B = 2,
+	Y = 4,
+	G = 7,
+};
+struct heal {
+	int ix;
+	int iy;
+	enum RBYG rbyg;
+	int HOrD;
+};
+void printmaze(const char strmaze[11][11], const int ihea, heal healarr[54]) {
+	int i = 0;
+	int ia = 0;
+	int ib = 0;
+	string str = "0";
+	for (; i < 11; i++) {
+		for (ia = 0; ia < 11; ia++) {
+			for (ib = 0; ib < 54; ib++) {
+				if (healarr[ib].ix == i && healarr[ib].iy == ia) {
+					if (2 == healarr[ib].HOrD || -2 == healarr[ib].HOrD) {
+						str = "35;1";
+					}
+					else {
+						switch (healarr[ib].rbyg) {
+						case R:
+							str = "31;1";
+							break;
+						case B:
+							str = "36";
+							break;
+						case Y:
+							str = "33";
+							break;
+						case G:
+							str = "32;1";
+							break;
+						default:
+							break;
+						}
+					}
+					break;
+				}
+			}
+			cout << "\033[" << ('P' != strmaze[i][ia] ? 'G' == strmaze[i][ia] ? "32;1" : str : "0") << "m" << strmaze[i][ia] << "\033[0m";
+			str = "0";
+		}
+		cout << "|" << endl;
+	}
+	cout << "-----------@" << endl << "\033[3" << (ihea > 6 ? "2;1" : ihea > 3 ? "3" : "1") << "m你现在的生命值为：" << ihea << endl << "\033[0m";
+}
+int main() {
+	char str[9] = "color 0";
+	char strmaze[11][11] = {
+		'P','X','O',' ',' ',' ',' ','X','X','O','O',
+		'*','*','*','*',' ','X',' ',' ','X','O','O',
+		'O','X','X','X',' ',' ','X',' ',' ','*','*',
+		'*','*','*','*','O',' ','*','*','X','O','O',
+		' ','X',' ','*','*','*','*',' ',' ','X','O',
+		' ','X','X','*','X','O','*',' ',' ',' ','X',
+		'X','*',' ','O',' ','X','*',' ',' ','X','O',
+		' ','*','X',' ','X',' ',' ','*',' ',' ','X',
+		'O','*','X','*',' ',' ',' ','*',' ','X','X',
+		'X','O','X','*','X',' ',' ',' ','X','X','X',
+		'O','X','O','*','O','X',' ','X','X','X','G',
+	};
+	char strmazer[11][11] = { 0 };
+	char* cp = &strmaze[0][0];
+	char ch = 0;
+	int ihea = 10;
+	int i = 0;
+	heal healarr[54] = { {0,1,R,-1},{0,2,R,1},{0,7,R,-1},{0,8,B,-1},{0,9,R,1},{0,10,R,1},{1,5,G,-1},{1,8,Y,-1},{1,9,R,1},{1,10,B,1},{2,0,G,1},{2,1,R,-1},{2,2,R,-1},{2,3,R,-1},{2,6,B,-1},{3,4,Y,1},{3,8,Y,-1},{3,9,R,1},{3,10,R,1},{4,1,B,-1},{4,9,B,-1},{4,10,Y,1},{5,1,R,-1},{5,2,R,-1},{5,4,R,1},{5,5,R,-1},{5,10,B,-1},{6,0,Y,-1},{6,3,G,1},{6,5,Y,-1},{6,9,Y,-1},{6,10,Y,2},{7,2,R,-1},{7,4,G,-1},{7,10,B,-1},{8,0,Y,1},{8,2,B,-1},{8,9,R,-1},{8,10,G,-1},{9,0,R,-1},{9,1,G,1},{9,2,Y,-1},{9,4,B,1},{9,8,R,-1},{9,9,G,-2},{9,10,G,-2},{10,0,Y,1},{10,1,B,-1},{10,2,G,1},{10,4,B,1},{10,5,R,-1},{10,7,B,-1},{10,8,G,-1},{10,9,G,-2} };
+	heal healarrR[54] = { 0 };
+	memcpy(healarrR, healarr, sizeof healarr);
+	memcpy(strmazer, strmaze, sizeof strmaze);
+	cout << "欢迎你来玩这个\033[31m掉血迷宫\033[0m，在这个迷宫中，“P”是你，“*”是墙，空格是你可以走的地方，而\033[32;1m“G”\033[0m是\033[32;1m终点\033[0m，走到这能让你\033[32;1m胜利\033[0m，并且，按“w”使你上移，按“a”使你左移，按“s”使你下移，按“d”使你右移，按“r”重置这个迷宫，\033[31;1m“X”\033[0m是\033[31;1m陷阱\033[0m，你如果踩了他，就会根据它的\033[31;1m颜\033[0;36m色\033[31m扣掉相应的血\033[0m，其中，\033[31;1m红色扣1血\033[0m，\033[36m蓝色扣2血\033[0m，\033[33m黄色扣4血\033[0m，\033[32;1m绿色扣7血\033[0m，而\033[35;1m紫色扣14血\033[0m，\033[4m并且会\033[31m永远出现在这个迷宫中\033[0m，而\033[32;1m“O”\033[0m是\033[32;1m血瓶\033[0m。到这就会使你用\033[32;1m血瓶加血\033[0m，\033[4m但\033[32;1;4m血瓶\033[0;4m用完之后就不能再使用了\033[0m，其中，\033[31;1m红色加1血\033[0m，\033[36m蓝色加2血\033[0m，\033[33m黄色加4血\033[0m，\033[32;1m绿色加7血\033[0m，\033[35;1m紫色加14血\033[0m。这就是这迷宫的规则，你听明白了吗?" << endl << endl;
+	system("pause");
+	system("cls");
+	while ('G' == strmaze[10][10] && ihea >= 1) {
+		int ix = (cp - &strmaze[0][0]) / 11;
+		int iy = (cp - &strmaze[0][0]) % 11;
+		for (i = 0; i < 54; i++) {
+			healarr[i].HOrD < 0 && ('P' == strmaze[healarr[i].ix][healarr[i].iy] && (ihea += healarr[i].rbyg * healarr[i].HOrD), ' ' == strmaze[healarr[i].ix][healarr[i].iy] && (strmaze[healarr[i].ix][healarr[i].iy] = 'X'));
+			healarr[i].HOrD > 0 && ('P' == strmaze[healarr[i].ix][healarr[i].iy] && (ihea += healarr[i].rbyg * healarr[i].HOrD), 'O' != strmaze[healarr[i].ix][healarr[i].iy] && (healarr[i].HOrD = 0));
+		}
+		printmaze(strmaze, ihea, healarr);
+		cin >> ch;
+		rewind(stdin);
+		*cp = ' ';
+		switch (ch) {
+		case 'w':
+			ix && '*' != *(cp - 11) && (cp -= 11);
+			break;
+		case 'a':
+			iy && '*' != *(cp - 1) && (cp--);
+			break;
+		case 's':
+			10 != ix && '*' != *(cp + 11) && (cp += 11);
+			break;
+		case 'd':
+			10 != iy && '*' != *(cp + 1) && (cp++);
+			break;
+		case 'r':
+			memcpy(healarr, healarrR, sizeof healarr);
+			memcpy(strmaze, strmazer, sizeof strmaze);
+			ihea = 10;
+			cp = &strmaze[0][0];
+			break; 
+		default:
+			break;
+		}
+		*cp = 'P';
+		system("cls");
+	}
+	ihea >= 1 && (str[7] = 'A'), ihea >= 1 || (str[7] = '4');
+	system(str);
+	cout << (ihea >= 1 ? "恭喜你，你赢了" : "很遗憾，你输了") << endl;
+	return 0;
+}
+*///“C++掉血迷宫”(选自我的CSDN博客)^
