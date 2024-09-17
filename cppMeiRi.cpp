@@ -438,3 +438,19 @@ int main() {
 	return 0;
 }
 *///“C++掉血迷宫”(选自我的CSDN博客)^
+/*
+class One {
+public:
+	int i;
+	int fun() {
+		return 1;
+	}
+};
+int main() {
+	One o = { 0 };
+	One oa = { 2 };
+	cout << o.i << " " << oa.i << endl;
+	cout << o.fun() << " " << oa.fun() << endl;
+	return 0;
+}
+*///“类(对象)的使用”^
