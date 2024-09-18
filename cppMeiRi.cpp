@@ -468,3 +468,15 @@ int main() {
 	return 0;
 }
 *///“构造函数”^
+/*
+class Test {
+public:
+	~Test() {
+		cout << "Hello, world!" << endl;
+	}
+};
+int main() {
+	Test t;
+	return 0;
+}
+*///“析构函数”^
