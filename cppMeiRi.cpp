@@ -456,3 +456,15 @@ int main() {
 	return 0;
 }
 *///“类(对象)的使用”^
+/*
+class Test {
+public:
+	Test() {
+		cout << "Hello, world!" << endl;
+	}
+};
+int main() {
+	Test t;
+	return 0;
+}
+*///“构造函数”^
