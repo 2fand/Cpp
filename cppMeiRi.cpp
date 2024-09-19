@@ -487,3 +487,10 @@ int main() {
 	return 0;
 }
 *///“auto”^
+/*
+int main() {
+	static int i = 123;
+	cout << i << endl;
+	return 0;
+}
+*///“static”^
