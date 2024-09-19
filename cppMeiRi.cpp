@@ -480,3 +480,10 @@ int main() {
 	return 0;
 }
 *///“析构函数”^
+/*
+int main() {
+	auto i = 123;
+	cout << i << endl;
+	return 0;
+}
+*///“auto”^
