@@ -494,3 +494,10 @@ int main() {
 	return 0;
 }
 *///“static”^
+/*
+int main() {
+	register int i = 123;
+	cout << i << endl;
+	return 0;
+}
+*///“register”^
