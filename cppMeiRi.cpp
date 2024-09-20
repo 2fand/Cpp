@@ -501,3 +501,19 @@ int main() {
 	return 0;
 }
 *///“register”^
+/*
+class Test {
+public:
+	int i;
+private:
+	int ia;
+};
+int main() {
+	Test t;
+	t.i = 123;
+	//t.ia = 123;//ERR
+	cout << t.i << endl;
+	//cout << t.ia << endl;//ERR
+	return 0;
+}
+*///“private”^
