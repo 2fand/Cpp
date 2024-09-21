@@ -600,3 +600,19 @@ int main() {
 	return 0;
 }
 *///“C++门迷宫”(选自我的CSDN博客)^
+/*
+class Test {
+public:
+	int i;
+protected:
+	int ia;
+};
+int main() {
+	Test t;
+	t.i = 123;
+	//t.ia = 123;//ERR
+	cout << t.i << endl;
+	//cout << t.ia << endl;//ERR
+	return 0;
+}
+*///“protected”^
