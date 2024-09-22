@@ -616,3 +616,44 @@ int main() {
 	return 0;
 }
 *///“protected”^
+/*
+void printmap(const char strmap[11][11]) {
+	int i = 0;
+	int ia = 0;
+	for (; i < 11; i++) {
+		for (ia = 0; ia < 11; ia++) {
+			cout << "\033[" << ('@' == strmap[i][ia] ? "33" : '+' == strmap[i][ia] || '-' == strmap[i][ia] || '|' == strmap[i][ia] ? "33;1" : "0") << "m" << strmap[i][ia] << "\033[0m";
+		}
+		cout << "|" << endl;
+	}
+	cout << "-----------*" << endl;
+}
+int main() {
+	char strmap[11][11] = {0};
+	int dotarr[4] = { -1, -1, -1, -1 };
+	int i = 1;
+	memset(strmap, ' ', sizeof strmap);
+	for (; i < 3; i++) {
+		printmap(strmap);
+		cout << "请输入第" << i << "个点的xy坐标(x y)(0<=x<=10, 0<=y<=10)" << (2 == i ? "\033[4m(不可重叠)\033[0m" : "") << " -> ";
+		cin >> dotarr[(i - 1) * 2] >> dotarr[(i - 1) * 2 + 1];
+		while (dotarr[(i - 1) * 2] < 0 || dotarr[(i - 1) * 2] > 10 || dotarr[(i - 1) * 2 + 1] < 0 || dotarr[(i - 1) * 2 + 1] > 10 || dotarr[0] == dotarr[2] && dotarr[1] == dotarr[3]) {
+			cout << "\033[31;1m输入错误\033[0m，请重新输入(0<=x<=10, 0<=y<=10) -> ";
+			cin >> dotarr[(i - 1) * 2] >> dotarr[(i - 1) * 2 + 1];
+		}
+		strmap[dotarr[(i - 1) * 2]][dotarr[(i - 1) * 2 + 1]] = '@';
+		system("cls");
+	}
+	for (char* cp = &strmap[dotarr[0]][dotarr[1]]; !(dotarr[0] == dotarr[2] && dotarr[1] == dotarr[3]); Sleep(100)) {
+		system("cls");
+		printmap(strmap);
+		if (dotarr[1] != dotarr[3]) {
+			(cp += PANADD(dotarr[1], dotarr[3]));
+			(dotarr[1] += PANADD(dotarr[1], dotarr[3])) == dotarr[3] && (*cp = '+'), dotarr[1] == dotarr[3] || (*cp = '-');
+			continue;
+		}
+		dotarr[0] != dotarr[2] && (cp += 11 * PANADD(dotarr[0], dotarr[2]), (*cp = '|'), (dotarr[0] += PANADD(dotarr[0], dotarr[2])));
+	}
+	return 0;
+}
+*///“C++两点成一线”(选自我的CSDN博客)^
