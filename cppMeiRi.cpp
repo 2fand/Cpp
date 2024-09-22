@@ -1,7 +1,9 @@
 #include <iostream>// <-- 必备
 #include <string>
 #include <cstring>
+#include <Windows.h>
 using namespace std;// <-- 必备
+#define PANADD(A,B) ((A) < (B) ? 1 : -1)// <------ “C++两点成一线”中的宏
 /*
 int main() {
 	cout << endl;
