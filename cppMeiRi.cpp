@@ -3,7 +3,8 @@
 #include <cstring>
 #include <Windows.h>
 using namespace std;// <-- 必备
-#define PANADD(A,B) ((A) < (B) ? 1 : -1)// <------ “C++两点成一线”中的宏
+#define PANADD(A,B) ((A) < (B) ? 1 : -1) // <------ “C++两点成一线”中的宏
+#define NAME(A) #A // <------ “#”中的宏
 /*
 int main() {
 	cout << endl;
@@ -659,3 +660,14 @@ int main() {
 	return 0;
 }
 *///“C++两点成一线”(选自我的CSDN博客)^
+/*
+int main() {
+	int i = 0;
+	int ia = 56;
+	string str = "48+989+";
+	cout << NAME(i) << " = " << i << endl;
+	cout << NAME(ia) << " = " << ia << endl;
+	cout << NAME(str) << " = " << str << endl;
+	return 0;
+}
+*///“#”^
