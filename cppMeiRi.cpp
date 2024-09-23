@@ -671,3 +671,9 @@ int main() {
 	return 0;
 }
 *///“#”^
+/*
+int main() {
+	cout << __FILE__ << endl;
+	return 0;
+}
+*///“__FILE__”^
