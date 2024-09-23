@@ -677,3 +677,9 @@ int main() {
 	return 0;
 }
 *///“__FILE__”^
+/*
+int main() {
+	cout << __LINE__ << endl;
+	return 0;
+}
+*///“__LINE__”^
