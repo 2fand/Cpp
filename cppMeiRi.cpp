@@ -689,3 +689,13 @@ int main() {
 	return 0;
 }
 *///“__FUNCTION__”^
+/*
+void fun(int i = 10){
+	cout << i << endl;
+}
+int main() {
+	fun();
+	fun(114154);
+	return 0;
+}
+*///“函数的默认参数”^
