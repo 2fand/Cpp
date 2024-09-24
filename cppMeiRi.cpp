@@ -683,3 +683,9 @@ int main() {
 	return 0;
 }
 *///“__LINE__”^
+/*
+int main() {
+	cout << __FUNCTION__ << endl;
+	return 0;
+}
+*///“__FUNCTION__”^
