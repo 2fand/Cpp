@@ -716,3 +716,15 @@ int main() {
 	return 0;
 }
 *///“##”^
+/*
+void fun(int) {
+	//cout << int << endl;//ERR
+	cout << "!@#$%^&*()" << endl;
+}
+int main() {
+	//fun();//ERR
+	fun(-78904367);
+	fun(')');
+	return 0;
+}
+*///“函数的占位参数”^
