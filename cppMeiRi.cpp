@@ -5,6 +5,11 @@
 using namespace std;// <-- 必备
 #define PANADD(A,B) ((A) < (B) ? 1 : -1) // <------ “C++两点成一线”中的宏
 #define NAME(A) #A // <------ “#”中的宏
+#define CAT(A,B) A##B // <------ “##”中的宏
+#define NU 45 // <------ “##”中的宏
+#define LL // <------ “##”中的宏
+#define E ; // <------ “##”中的宏
+#define OF using namespace std; // <------ “##”中的宏
 /*
 int main() {
 	cout << endl;
@@ -699,3 +704,15 @@ int main() {
 	return 0;
 }
 *///“函数的默认参数”^
+/*
+enum ABC {
+	en,
+	dl
+};
+int main() {
+	cout << CAT(114, 514) << endl;
+	cout << CAT(en, dl);
+	cout << CAT(NU, LL) << " " << CAT(E, OF) << endl;
+	return 0;
+}
+*///“##”^
