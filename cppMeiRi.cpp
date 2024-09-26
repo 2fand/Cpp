@@ -728,3 +728,15 @@ int main() {
 	return 0;
 }
 *///“函数的占位参数”^
+/*
+void fun(int = 123) {
+	//cout << int << endl;//ERR
+	cout << "!@#$%asdfghjkl^&*()" << endl;
+}
+int main() {
+	fun();//OK
+	fun(-78904367);
+	fun(')');
+	return 0;
+}
+*///“函数的默认占位参数”^
