@@ -896,3 +896,21 @@ int main() {
 	return 0;
 }
 *///“C++黑暗迷宫”(选自我的CSDN博客)^
+/*
+class m_int {
+public:
+	m_int(int inum) {
+		i = inum;
+	}
+	int operator/(m_int mi) {
+		return i / mi.i;
+	}
+	int i;
+};
+int main() {
+	m_int mi = 114514;
+	m_int mia = 666;
+	cout << mi / mia << endl;
+	return 0;
+}
+*///“重载除号运算符”^
