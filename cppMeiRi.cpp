@@ -935,3 +935,21 @@ int main() {
 	return 0;
 }
 *///“重载左移运算符”^
+/*
+class m_int {
+public:
+	m_int(int inum) {
+		i = inum;
+	}
+	int operator<(m_int mi) {
+		return i < mi.i;
+	}
+	int i;
+};
+int main() {
+	m_int mi = 0;
+	m_int mia = 8;
+	cout << (mi < mia) << endl;
+	return 0;
+}
+*///“重载小于号运算符”^
