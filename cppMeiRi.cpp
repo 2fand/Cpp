@@ -914,3 +914,24 @@ int main() {
 	return 0;
 }
 *///“重载除号运算符”^
+/*
+class m_int {
+public:
+	m_int(int inum) {
+		i = inum;
+	}
+	int operator+(m_int mi) {
+		return i + mi.i;
+	}
+	int i;
+};
+ostream& operator<<(ostream& cout, const m_int m_i) {
+	return cout << m_i.i;
+}
+int main() {
+	m_int mi = 114514;
+	m_int mia = 666;
+	cout << mi + mia << endl;
+	return 0;
+}
+*///“重载左移运算符”^
