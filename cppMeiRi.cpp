@@ -953,3 +953,89 @@ int main() {
 	return 0;
 }
 *///“重载小于号运算符”^
+/*
+enum XY {
+	X,
+	Y
+};
+class Player{
+private:
+	int ix;
+	int iy;
+	int ij;
+public:
+	void left_move(char* cp, int iy) {
+
+	}
+	void right_move(char* cp, int iy) {
+
+	}
+	void jump() {
+
+	}
+	int& sgetxy(XY xymode) {
+		return xymode ? iy : ix;
+	}
+	void upOrDown() {
+
+	}
+};
+void printmap(const char strmap[11][11]) {
+	int i = 0;
+	int ia = 0;
+	for (; i < 11; i++) {
+		for (ia = 0; ia < 11; ia++) {
+			cout << "\033[" << ('G' == strmap[i][ia] ? "32;1m" : "0m") << strmap[i][ia] << "\033[0m";
+		}
+		cout << "|" << endl;
+	}
+	cout << "-----------@" << endl;
+}
+int main() {
+	char strmap[11][11] = {
+		' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+		' ','G',' ',' ',' ',' ',' ','*','*','*',' ',
+		' ','*','*','*',' ',' ',' ',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+		' ',' ',' ',' ','*','*','*',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+		' ','*','*','*',' ',' ','*','*','*',' ',' ',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+		' ',' ','*','*','*',' ',' ',' ','*','*','*',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+		'P',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '
+	};
+	char* cp = &strmap[10][0];
+	Player p;
+	char ch = 0;
+	int i = 0;
+	//cout << "欢迎你来玩这个\033[33m门\033[0m迷宫，在这个迷宫中，“P”是你，“*”是墙，你不能走到这，空格是你可以走的地方，“w”使你上移，“a”使你左移，“s”使你下移，“d”使你右移，而\033[32;1m“G”\033[0m是\033[32;1m终点\033[0m，走到这能让你\033[32;1m胜利\033[0m，并且，\033[33m“0”\033[0m是\033[33m门\033[0m，按“\033[33mz\033[0m”键进入就可以走到\033[33m另外一扇门\033[0m的前面。这就是这迷宫的规则，你听明白了吗?" << endl << endl;
+	//system("pause");
+	system("cls");
+	while ('G' == strmap[1][1]) {
+		p.sgetxy(X) = (cp - &strmap[0][0]) / 11;
+		p.sgetxy(Y) = (cp - &strmap[0][0]) % 11;
+		printmap(strmap);
+		cin >> ch;
+		rewind(stdin);
+		*cp = ' ';
+		switch (ch) {
+		case 'a':
+			p.sgetxy(Y) && '*' != *(cp - 1)&& (cp--);
+			break;
+		case 'd':
+			10 != p.sgetxy(Y) && '*' != *(cp + 1) && (cp++);
+			break;
+		case 'w':
+
+		default:
+			break;
+		}
+		*cp = 'P';
+		system("cls");
+	}
+	system("color 0A");
+	cout << "恭喜你，你赢了" << endl;
+	return 0;
+}
+*///“C++平台跳跃游戏测试版Alpha1.0”^
