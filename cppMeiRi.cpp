@@ -1456,3 +1456,9 @@ void Player::upOrDown(char** cpp) {
 	}
 }
 *///“C++平台跳跃游戏”(选自我的CSDN博客)^
+/*
+int main() {
+	std::cout << "Hello, world! - ::" << std::endl;
+	return 0;
+}
+*///“::”^
