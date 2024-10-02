@@ -1332,3 +1332,127 @@ int main() {
 	return 0;
 }
 *///“C++平台跳跃游戏临正1.0”^
+/*
+//cppMeiRi.cpp
+#include <iostream>
+#include "Player.h"
+using namespace std;
+void printmap(const char strmap[11][11], const int icoin) {
+	int i = 0;
+	int ia = 0;
+	for (; i < 11; i++) {
+		for (ia = 0; ia < 11; ia++) {
+			cout << "\033[" << ('G' == strmap[i][ia] ? "32;1m" : '$' == strmap[i][ia] ? "33m" : "0m") << strmap[i][ia] << "\033[0m";
+		}
+		cout << "|" << endl;
+	}
+	cout << "-----------@" << endl << "\033[33" << (20 == icoin ? ";1" : "") << "m$ * " << icoin << "\033[0m" << endl;
+}
+int main() {
+	char str[9] = "color 0";
+	char strmap[11][11] = {
+		' ',' ',' ',' ',' ',' ',' ',' ','$','$',' ',
+		' ','G',' ',' ',' ','$',' ','*','*','*',' ',
+		' ','*','*','*',' ',' ',' ',' ',' ',' ',' ',
+		'$',' ',' ',' ','$',' ','$',' ',' ','$',' ',
+		' ',' ','$',' ','*','*','*',' ','$',' ',' ',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+		' ','*','*','*',' ',' ','*','*','*',' ',' ',
+		' ',' ','$',' ','$',' ',' ',' ','$',' ',' ',
+		' ',' ','*','*','*',' ','$',' ','*','*','*',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ','$','$',
+		'P',' ','$','$','$',' ',' ',' ',' ','$','$'
+	};
+	char* cp = &strmap[10][0];
+	Player p;
+	char ch = 0;
+	int icoin = 0;
+	int coinarr[40] = { 0,8,0,9,1,5,3,0,3,4,3,6,3,9,4,2,4,8,7,2,7,4,7,8,8,6,9,9,9,10,10,2,10,3,10,4,10,9,10,10 };
+	cout << "欢迎你来玩这个平台跳跃游戏，在这个游戏中，“P”是你，“*”是平台，你不能走到这，空格是\033[30;1m空气\033[0m，“w”使你跳，就像\033[31;1m马里奥\033[0m一样，“a”使你左移，“d”使你右移，而\033[32;1m“G”\033[0m是\033[32;1m终点\033[0m，走到这能让你\033[32;1m胜利\033[0m，并且，\033[33m“$”\033[0m是\033[33m金币\033[0m，得到\033[33m它\033[0m就会使你\033[33m获得\033[0m一个\033[33m金币\033[0m。这就是这游戏的规则，你听明白了吗?" << endl << endl;
+	system("pause");
+	system("cls");
+	while ('G' == strmap[1][1]) {
+		p.sgetxy(X) = (cp - &strmap[0][0]) / 11;
+		p.sgetxy(Y) = (cp - &strmap[0][0]) % 11;
+		for (ch = 0; ch < 40; ch += 2) {
+			p.sgetxy(X) == coinarr[ch] && p.sgetxy(Y) == coinarr[ch + 1] && (coinarr[ch] = -1, icoin++);
+		}
+		printmap(strmap, icoin);
+		cin >> ch;
+		rewind(stdin);
+		*cp = ' ';
+		switch (ch) {
+		case 'a':
+			p.left_move(&cp);
+			break;
+		case 'd':
+			p.right_move(&cp);
+			break;
+		case 'w':
+			p.jump(&cp);
+			break;
+		default:
+			break;
+		}
+		p.upOrDown(&cp);
+		*cp = 'P';
+		system("cls");
+	}
+	20 == icoin && (str[7] = 'E'), 20 == icoin || (str[7] = '6');
+	system(str);
+	cout << "恭喜你，你赢了，获得了金币" << icoin << "枚" << endl;
+	return 0;
+}
+//Player.h
+#pragma once
+#include <iostream>
+using namespace std;
+#define JUMPHIGH 3
+enum XY {
+	X,
+	Y,
+};
+class Player {
+private:
+	int ix;
+	int iy;
+	int ij;
+public:
+	Player();
+	void jump(char** cpp);
+	void left_move(char** cpp);
+	void right_move(char** cpp);
+	int& sgetxy(XY xymode);
+	void upOrDown(char** cpp);
+};
+//Player.cpp
+#include <iostream>
+#include "Player.h"
+using namespace std;
+Player::Player(){
+	ij = 0;
+}
+void Player::jump(char** cpp) {
+	(10 == ix || '*' == (*cpp)[11]) && (ij = JUMPHIGH);
+}
+void Player::left_move(char** cpp) {
+	iy && '*' != *(*cpp - 1) && ((*cpp)--);
+}
+void Player::right_move(char** cpp) {
+	10 != iy && '*' != *(*cpp + 1) && ((*cpp)++);
+}
+int& Player::sgetxy(XY xymode) {
+	return xymode ? iy : ix;
+}
+void Player::upOrDown(char** cpp) {
+	if (ij > 0 && ix && '*' != (*cpp)[-11]) {
+		ij--, * cpp -= 11;
+	}
+	else if ('*' != (*cpp)[11] && (!ix || '*' == (*cpp)[-11])) {
+		ij = 0, * cpp += 11;
+	}
+	else if ('*' != (*cpp)[11] && 10 != ix) {
+		*cpp += 11;
+	}
+}
+*///“C++平台跳跃游戏”(选自我的CSDN博客)^
