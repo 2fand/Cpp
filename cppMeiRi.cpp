@@ -1462,3 +1462,42 @@ int main() {
 	return 0;
 }
 *///“::”^
+/*
+//trigger.h
+#pragma once
+#include <iostream>
+using namespace std;
+class trigger {
+private:
+	int MISX;
+	int MISY;
+	int MIEX;
+	int MIEY;
+	int Mtrig;
+	bool MBt;
+	static bool MSB;
+	static bool MSBa;
+	static bool MSBb;
+public:
+	trigger(int istartx, int istarty, int iendx, int iendy, int trig) :MISY(istarty), MIEX(iendx), MIEY(iendy), MISX(istartx), Mtrig(trig), MBt(false) {
+		MSB = false;
+		MSBa = false;
+		MSBb = false;
+	}
+	void check(int ix, int iy, char strmap[11][11], char* cp = NULL);
+};
+//trigger.cpp
+#include <iostream>
+#include "trigger.h"
+using namespace std;
+void trigger::check(int ix, int iy, char strmap[11][11], char* cp = NULL) {
+	if (MISX <= ix && ix <= MIEX && MISY <= iy && iy <= MIEY && Mtrig - 4 ? (!MBt) : 1) {
+		switch (MBt = true, Mtrig) {
+		case 0:
+			break;
+		default:
+			break;
+		}
+	}
+}
+*///“触发器类”^
