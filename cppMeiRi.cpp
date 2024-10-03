@@ -1500,4 +1500,177 @@ void trigger::check(int ix, int iy, char strmap[11][11], char* cp = NULL) {
 		}
 	}
 }
-*///“触发器类”^
+*///“触发器类1”^
+/*
+//Game.cpp
+#include <iostream>
+#include "Player.h"
+#include "trigger.h"
+using namespace std;
+void printmap(const char strmap[22][22]) {
+	int i = 0;
+	int ia = 0;
+	for (; i < 22; i++) {
+		for (ia = 0; ia < 22; ia++) {
+			cout << "\033[" << ('G' == strmap[i][ia] ? "32;1m" : 'X' == strmap[i][ia] ? "31;1m" : "0m") << strmap[i][ia] << "\033[0m";
+		}
+		cout << "|" << endl;
+	}
+	cout << "-----------@" << endl;
+}
+int main() {
+	char str[9] = "color 0";
+	char strmap[22][22] = {
+		'G',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','t',' ',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','t',' ',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ','X','X','X',' ',' ',' ',' ',' ',' ',' ','t',' ',' ',' ',' ',' ',
+		' ','t','t','t',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','t',' ',' ',' ',' ','#',
+		' ','*','*','*',' ','t',' ',' ',' ','t',' ',' ',' ',' ',' ',' ','t',' ',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ','*','X','*',' ',' ',' ',' ',' ',' ',' ','t',' ',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','t',' ',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ','t','*','*','*','t',' ',' ',' ',' ',' ',' ','t',' ',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','t','t','t',' ',' ','t',' ',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ','t',' ','t',' ',' ','t','t','t',' ',' ','t',' ',' ',' ','S',' ',
+		'X','X','X','X','X','X','X','X','X','X','X','*','*','*','X','X','X','X','X','X','*',' ',
+		' ','t',' ','t',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',' ','S',
+		'*','*','*','*','*','*','*','*','*',' ',' ',' ',' ',' ',' ',' ','t','t','*',' ',' ','*',
+		' ','t','X',' ',' ',' ',' ','t','t','*','X','*',' ',' ',' ','t',' ','*',' ',' ',' ',' ',
+		'G','t',' ',' ',' ','X',' ','t','t',' ',' ','t','*',' ','t',' ',' ','*',' ',' ',' ',' ',
+		'*','*','*','*','*','*','*','t','t',' ',' ','t',' ',' ','t',' ',' ','*','t','t',' ',' ',
+		' ',' ',' ',' ',' ','t',' ','*',' ',' ','X','t',' ',' ',' ',' ',' ','*',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ','t',' ',' ','*','*','*','*','*','t',' ','t','t','*',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ','*',' ',' ',' ',' ','X','X','X',' ',' ',' ',' ',' ',' ','*',' ',' ',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','X','t',' ',' ','*','*','*','*',' ',' ',' ',
+		' ',' ',' ','t',' ',' ',' ',' ',' ','X',' ',' ','t','X',' ','*',' ',' ',' ',' ',' ',' ',
+		'P','X','X','*','X','X','X',' ','X','X','X',' ','X','X','X','*','X','X','X','X','X','X',
+	};
+	char* cp = &strmap[21][0];
+	Player p;
+	char ch = 0;
+	trigger t[22] = { trigger(20,3,20,3,0), trigger(16,5,16,6,1),trigger(19,12,20,12,2),trigger(17,13,17,13,3),trigger(17,15,17,16,3),trigger(14,14,14,15,3),trigger(13,16,13,17,3),trigger(15,18,15,19,3),trigger(11,20,11,21,4),trigger(3,21,3,21,5),trigger(0,16,9,16,6),trigger(8,11,10,12,7),trigger(4,5,7,9,8),trigger(9,6,9,8,9),trigger(3,1,3,3,10),trigger(11,1,11,1,11),trigger(11,3,11,3,12),trigger(13,1,14,1,13),trigger(13,7,15,8,14),trigger(15,11,17,11,15),trigger(15,11,17,11,16),trigger(21,13,21,13,17)};
+	//cout << "欢迎你来玩这个平台跳跃游戏，在这个游戏中，“P”是你，“*”是平台，你不能走到这，空格是\033[30;1m空气\033[0m，“w”使你跳，就像\033[31;1m马里奥\033[0m一样，“a”使你左移，“d”使你右移，而\033[32;1m“G”\033[0m是\033[32;1m终点\033[0m，走到这能让你\033[32;1m胜利\033[0m，并且，\033[33m“$”\033[0m是\033[33m金币\033[0m，得到\033[33m它\033[0m就会使你\033[33m获得\033[0m一个\033[33m金币\033[0m。这就是这游戏的规则，你听明白了吗?" << endl << endl;
+	//system("pause");
+	system("cls");
+	while ('G' == strmap[0][0]) {
+		p.sgetxy(X) = (cp - &strmap[0][0]) / 22;
+		p.sgetxy(Y) = (cp - &strmap[0][0]) % 22;
+		printmap(strmap);
+		cin >> ch;
+		rewind(stdin);
+		*cp = ' ';
+		switch (ch) {
+		case 'a':
+			p.left_move(&cp);
+			break;
+		case 'd':
+			p.right_move(&cp);
+			break;
+		case 'w':
+			p.jump(&cp);
+			break;
+		case 'z':
+			break;
+		case 'r':
+			break;
+		default:
+			break;
+		}
+		p.upOrDown(&cp);
+		*cp = 'P';
+		system("cls");
+	}
+	system("color 0A");
+	cout << "恭喜你，你赢了" << endl;
+	return 0;
+}
+//trigger.h
+#pragma once
+#include <iostream>
+using namespace std;
+class trigger {
+private:
+	int MISX;
+	int MISY;
+	int MIEX;
+	int MIEY;
+	int Mtrig;
+	bool MBt;
+	static bool MSB;
+	static bool MSBa;
+	static bool MSBb;
+public:
+	trigger(int istartx, int istarty, int iendx, int iendy, int trig) :MISY(istarty), MIEX(iendx), MIEY(iendy), MISX(istartx), Mtrig(trig), MBt(false) {
+		MSB = false;
+		MSBa = false;
+		MSBb = false;
+	}
+	void check(int ix, int iy, char(*strmap)[11][11], char* cp = NULL);
+};
+//trigger.cpp
+#include <iostream>
+#include "trigger.h"
+using namespace std;
+void trigger::check(int ix, int iy, char (*strmap)[11][11], char* cp = NULL) {
+	int i = 0;
+	if (MISX <= ix && ix <= MIEX && MISY <= iy && iy <= MIEY && Mtrig - 4 ? (!MBt) : 1) {
+		switch (MBt = true, Mtrig) {
+		case 0:
+			(*strmap)[21][3] = 'X';
+			break;
+		case 1:
+			for (i = 16; i < 21; i++) {
+				(*strmap)[i][6] = 'X';
+			}
+			break;
+		case 2:
+			for (i = 18; i < 22; i++) {
+				if ('X' == (*strmap)[i][13]) {
+					(*strmap)[i][13] = ' ';
+				}
+				else {
+					(*strmap)[i][13] = 'X';
+				}
+			}
+			break;
+		case 3:
+			for (i = MISX; i <= MIEX; i++) {
+				for (int ia = MISY; ia <= MIEY; ia++) {
+					(*strmap)[i][ia] = 'X';
+				}
+			}
+			break;
+		case 4:
+			break;
+		case 5:
+			break;
+		case 6:
+			break;
+		case 7:
+			break;
+		case 8:
+			break;
+		case 9:
+			break;
+		case 10:
+			break;
+		case 11:
+			break;
+		case 12:
+			break;
+		case 13:
+			break;
+		case 14:
+			break;
+		case 15:
+			break;
+		case 16:
+			break;
+		case 17:
+			(*strmap)[21][13] = 'X';
+			break;
+		default:
+			break;
+		}
+	}
+}
+*///“触发器类2”^
