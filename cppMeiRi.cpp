@@ -1674,3 +1674,110 @@ void trigger::check(int ix, int iy, char (*strmap)[11][11], char* cp = NULL) {
 	}
 }
 *///“触发器类2”^
+/*
+//Player.cpp
+#include <iostream>
+#include <algorithm>
+#include "trigger.h"
+#include "Player.h"
+using namespace std;
+Player::Player(){
+	ij = 2;
+	ijh = 0;
+	blr = 1;
+}
+bool trigger::MSB = false;
+void Player::printmap(const char strmap[22][22]) {
+	int i = 0;
+	int ia = 0;
+	for (; i < 22; i++) {
+		for (ia = 0; ia < 22; ia++) {
+			cout << "\033[" << ('G' == strmap[i][ia] ? "32;1m" : 'X' == strmap[i][ia] ? "31;1m" : "0m") << strmap[i][ia] << "\033[0m";
+		}
+		cout << "|" << endl;
+	}
+	cout << "----------------------@" << endl;
+}
+void Player::Djump(char** cpp) {
+	switch (ij) {
+	case 2:
+		((21 == ix || '*' == (*cpp)[22] || '#' == (*cpp)[22]) && (ij = 1, ijh = JUMPHIGH), (21 != ix && '*' != (*cpp)[22] && '#' != (*cpp)[22]) && (ij = 0, ijh = JUMPHIGH));
+		break;
+	case 1:
+		((21 == ix || '*' == (*cpp)[22] || '#' == (*cpp)[22]) && (ij = 2), (21 != ix && '*' != (*cpp)[22] && '#' != (*cpp)[22]) && (ij = 0, ijh = JUMPHIGH));
+		break;
+	default:
+		rejump(cpp);
+		((21 == ix || '*' == (*cpp)[22] || '#' == (*cpp)[22]) && (ij = 1, ijh = JUMPHIGH), (21 != ix && '*' != (*cpp)[22] && '#' != (*cpp)[22]) && (ij = 0, ijh = JUMPHIGH));
+		break;
+	}
+}
+void Player::left_move(char** cpp) {
+	(iy && '*' != *(*cpp - 1) && '#' != *(*cpp - 1) && ((*cpp)--));
+	blr = false;
+}
+void Player::right_move(char** cpp) {
+	21 != iy && '*' != *(*cpp + 1) && '#' != *(*cpp + 1) && ((*cpp)++);
+	blr = true;
+}
+int& Player::sgetxy(XY xymode) {
+	return xymode ? iy : ix;
+}
+void Player::upOrDown(char** cpp) {
+	if (ijh > 0 && ix && '*' != (*cpp)[-22] && '#' != (*cpp)[-22]) {
+		ijh--, *cpp -= 22;
+	}
+	else if ('*' != (*cpp)[22] && '#' != (*cpp)[22] && (!ix || '*' == (*cpp)[-22] || '#' == (*cpp)[-22])) {
+		ijh = 0, *cpp += 22;
+	}
+	else if ('*' != (*cpp)[22] && '#' != (*cpp)[22] && 21 != ix) {
+		*cpp += 22;
+	}
+}
+void Player::gameover(char** cpp,const char strmap[22][22]) {
+	char ch = 0;
+	system("cls");
+	printmap(strmap); 
+	cout << "\033[31;1m游戏结束 请按r键重新开始\033[0m" << endl;
+	while (ch - 'r') {
+		cin >> ch;
+		rewind(stdin);
+		system("cls");
+		if (ch - 'r') {
+			printmap(strmap);
+			cout << "\033[31;1m游戏结束 请按r键重新开始\033[0m" << endl;
+		}
+	}
+	reset(cpp);
+}
+void Player::reset(char** cpp) {
+
+}
+void Player::rejump(char** cpp) {
+	(21 == ix || '*' == (*cpp)[22]) && (ij = 2);
+}
+void Player::shoot(int& i, char** cpp) {
+	if ((!i) && (iy && blr || 21 != iy && (!blr))) {
+		v.push_back({*cpp, blr, iy});
+		i = 3;
+	}
+}
+void Player::shootmove() {
+	vector<trir>::iterator ite = v.end();
+	for (vector<trir>::iterator it = v.begin();ite!=it;it++) {
+		(' ' == *it->cp || '@' == *it->cp) && (*it->cp = ' ');
+		'#' == *it->cp && (MSB = true);
+		if ('*' == *it->cp || '#' == *it->cp || (!it->iy && (!it->b)) || (21 == it->iy && it->b)) {
+			vector<trir>::iterator ita = it++;
+			ite--;
+			v.erase(ita);
+		}
+		if (!v.size() || ite <= it) {
+			break;
+		}
+		it->cp -= 1 - it->b * 2;
+		it->iy -= 1 - it->b * 2;
+		(' ' == *it->cp || '@' == *it->cp) && (*it->cp = '@');
+	}
+}
+*///射弹^
