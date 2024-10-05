@@ -2043,3 +2043,168 @@ int main() {
 	return 0;
 }
 *///“似亡”^
+/*
+//Game.cpp
+#include <iostream>
+#include <cstring>
+#include <fstream>
+#include "Player.h"
+#include "trigger.h"
+using namespace std;
+void deadset(int (*deadarr)[3], fstream& fs) {
+	int i = 0;
+	for (; i < 3; i++) {
+		fs >> (*deadarr)[i];
+		fs.flush();
+	}
+}
+void printstart() {
+	cout << "*****    * * *   ***   *   *  *   *   ***      ***    ***     *****   ***     *****  *   *  *****   \033[32;1m* *  ***    * *\033[0m" << endl;
+	cout << "  *      * * *  *   *  **  *  **  *  *   *    *      *   *      *    *   *      *    *   *  *     \033[32;1m * *  *      * *\033[0m " << endl;
+	cout << "  *      * * *  *****  * * *  * * *  *****    *  **  *   *      *    *   *      *    *****  *****       \033[32;1m* ***\033[0m      " << endl;
+	cout << "  *       * *   *   *  *  **  *  **  *   *    *   *  *   *      *    *   *      *    *   *  *           \033[32;1m*   *\033[0m      " << endl;
+	cout << "*****     * *   *   *  *   *  *   *  *   *     ***    ***       *     ***       *    *   *  *****        \033[32;1m***\033[0m       " << endl;
+}
+int main() {
+	char strmap[22][22] = {
+		'G',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ','X','X','X',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','#',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ','*','X','*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ','*','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','S',' ',
+		'X','X','X','X','X','X','X','X','X','X','X','*','*','*','X','X','X','X','X','X','*',' ',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',' ','S',
+		'*','*','*','*','*','*','*','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',' ',' ','*',
+		' ',' ','X',' ',' ',' ',' ',' ',' ','*','X','*',' ',' ',' ',' ',' ','*',' ',' ',' ',' ',
+		'G',' ',' ',' ',' ','X',' ',' ',' ',' ',' ',' ','*',' ',' ',' ',' ','*',' ',' ',' ',' ',
+		'*','*','*','*','*','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ',' ','*',' ',' ','X',' ',' ',' ',' ',' ',' ','*',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ',' ',' ','*','*','*','*','*',' ',' ',' ',' ','*',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','X','X',' ',' ',' ',' ',' ',' ',' ','*',' ',' ',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','X',' ',' ',' ','*','*','*','*',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ','X',' ',' ',' ','X',' ','*',' ',' ',' ',' ',' ',' ',
+		' ','X','X','*','X','X','X',' ','X','X','X',' ','X','X','X','*','X','X','X','X','X','X',
+	};
+	char strmapr[22][22] = { 0 };
+	memcpy(strmapr, strmap, sizeof strmap);
+	Player p;
+	char ch = 0;
+	int itrap = -1;
+	int ishoot = 0;
+	int ibsv = 0;
+	fstream fs("s.txt", ios::in);
+	fs.flush();
+	if ((!fs.is_open()) || fs.eof()) {
+		fs.close();
+		fs.open("s.txt", ios::out);
+		fs << "0 0 0 0";
+		fs.close();
+		fs.open("s.txt", ios::in);
+	}
+	bool barr[3] = { 0 };
+	fs >> ibsv;
+	for (ch = 0; ch < 3; ch++) {
+		barr[ch] = (ibsv & (1 << ch));
+	}
+	trigger t[23] = { trigger(20,3,20,3,0), trigger(16,5,16,6,1),trigger(19,12,20,12,2),trigger(17,13,17,13,3),trigger(17,15,17,16,3),trigger(14,14,14,15,3),trigger(13,16,13,17,3),trigger(15,18,15,19,3),trigger(11,20,11,21,4),trigger(3,21,3,21,5),trigger(0,16,9,16,6),trigger(8,11,9,13,7),trigger(4,5,7,9,8),trigger(9,6,9,8,9),trigger(3,1,3,3,10),trigger(11,1,11,1,11),trigger(11,3,11,3,12),trigger(13,1,14,1,13),trigger(13,7,15,8,14),trigger(15,11,17,11,15),trigger(16,12,17,12,16),trigger(21,13,21,13,17),trigger(11,8,11,8,18) };
+	printstart();
+	cout << endl << endl << endl << endl << endl << endl << endl << "\t\t\t\t\t  ";
+	system("pause");
+	system("cls");
+	printstart();
+	cout << endl << "              \033[31;1m********\033[0m                          \033[33m********\033[0m                              \033[32;1m********\033[0m" << endl;
+	cout << "             \033[31;1m* SAVE 1 *\033[0m                        \033[33m* SAVE 2 *\033[0m                            \033[32;1m* SAVE 3 *\033[0m" << endl;
+	cout << "              \033[31;1m********\033[0m                          \033[33m********\033[0m                              \033[32;1m********\033[0m" << endl << endl;
+	cout << "游戏内：a左走    d右走    w二段跳，空中一段    z\033[33m存档\033[0m/射弹    r重开    \033[31;1m“X”死\033[0m   “*”墙    \033[31;1m“#”按钮\033[0m，\033[32;1m射就触发机关\033[0m    \033[33m“S”存档\033[0m    \033[32;1m“G”终点\033[0m" << endl <<  "开始界面：1~3选择要玩的存档    d删存档" << endl << endl << endl;
+	cin >> ch;
+	int deadarr[3] = { 0 };
+	deadset(&deadarr, fs);
+	while (ch < '1' || ch > '3') {
+		while (rewind(stdin), 'd' != ch && (ch < '1' || ch > '3')) {
+			cout << "\033[31;1m输入错误，请重新输入\033[0m" << endl << endl;
+			cin >> ch;
+		}
+		cout << "\033[31;1m请输入要删除的存档编号(输入错误就不删除存档)\033[0m" << endl << endl;
+		cin >> ch;
+		if (rewind(stdin), ch < '1' || ch > '3') {
+			cout << "\033[31;1m输入错误，不删除存档\033[0m" << endl << endl;
+			cin >> ch;
+			continue;
+		}
+		int index = ch - 1 - '0';
+		(ibsv & (1 << index)) && (ibsv -= (1 << index));
+		fs.close();
+		fs.open("s.txt", ios::trunc | ios::out);
+		deadarr[index] = 0;
+		fs << ibsv;
+		for (int i = 0; i < 3; i++) {
+			fs << " " << deadarr[i];
+		}
+		cout << "\033[32m删除成功!\033[0m" << endl << endl;
+		cin >> ch;
+	}
+	int barri = (--ch -= '0');
+	system("cls");
+	char* cp = (t[0].saveset(barr[barri]) ? &strmap[9][20] : &strmap[21][0]);
+	*cp = 'P';
+	fs << (char)(ibsv + '0');
+	fs.flush();
+	while ('G' == strmap[0][0]) {
+		' ' == strmap[9][20] && (strmap[9][20] = 'S');
+		' ' == strmap[11][21] && (strmap[11][21] = 'S');
+		p.sgetxy(X) = (cp - &strmap[0][0]) / 22;
+		p.sgetxy(Y) = (cp - &strmap[0][0]) % 22;
+		p.printmap(strmap, deadarr[barri]);
+		cin >> ch;
+		rewind(stdin);
+		*cp = ' ';
+		switch (ch) {
+		case 'a':
+			p.left_move(&cp);
+			break;
+		case 'd':
+			p.right_move(&cp);
+			break;
+		case 'w':
+			p.Djump(&cp);
+			break;
+		case 'z':
+			p.shoot(ishoot, &cp);
+			break;
+		case 'r':
+			p.reset(&cp, &strmap, &strmapr, &t, deadarr[barri]);
+			break;
+		default:
+			break;
+		}
+		for (int i = 0; i < 23; i++) {
+			t[i].check(p.sgetxy(X), p.sgetxy(Y), &strmap, &strmapr, p, itrap, &cp, ch, &t, deadarr[barri]);
+		}
+		itrap > 0 && itrap--, !itrap && (strmap[14][5] = ' ', strmap[15][5] = 'X');
+		p.upOrDown(&cp);
+		p.shootmove(&strmap, barri, ibsv);
+		p.rejump(&cp);
+		if ('X' == *cp) {
+			p.gameover(&cp, &strmap, &strmapr, &t, deadarr[barri]);
+		}
+		*cp = 'P';
+		ishoot > 0 && ishoot--;
+		system("cls");
+		fs.open("s.txt", ios::trunc | ios::out);
+		fs << (char)(ibsv + '0');
+		for (int i = 0; i < 3; i++) {
+			fs << " " << deadarr[i];
+		}
+		fs.close();
+	}
+	system("color 0A");
+	cout << "恭喜你，你赢了，似了" << deadarr[barri] << "次" << endl;
+	fs.close();
+	return 0;
+}
+*///“删档”^
