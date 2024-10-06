@@ -2229,3 +2229,545 @@ bool cmp::operator()(trir t, trir ta) {
 	return t.iy < ta.iy;
 }
 *///“函数对象”
+/*
+//Game.cpp
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <iostream>
+#include <cstring>
+#include <fstream>
+#include <cstdio>
+#include "Player.h"
+#include "trigger.h"
+using namespace std;
+void deadset(int (*deadarr)[3], fstream& fs) {
+	int i = 0;
+	for (; i < 3; i++) {
+		fs >> (*deadarr)[i];
+		fs.flush();
+	}
+}
+void printstart() {
+	cout << "*****    * * *   ***   *   *  *   *   ***      ***    ***     *****   ***     *****  *   *  *****   \033[32;1m* *  ***    * *\033[0m" << endl;
+	cout << "  *      * * *  *   *  **  *  **  *  *   *    *      *   *      *    *   *      *    *   *  *     \033[32;1m * *  *      * *\033[0m " << endl;
+	cout << "  *      * * *  *****  * * *  * * *  *****    *  **  *   *      *    *   *      *    *****  *****       \033[32;1m* ***\033[0m      " << endl;
+	cout << "  *       * *   *   *  *  **  *  **  *   *    *   *  *   *      *    *   *      *    *   *  *           \033[32;1m*   *\033[0m      " << endl;
+	cout << "*****     * *   *   *  *   *  *   *  *   *     ***    ***       *     ***       *    *   *  *****        \033[32;1m***\033[0m       " << endl;
+}
+int main() {
+	system("title I WANNA GO TO THE \"G\"");
+	char strmap[22][22] = {
+		'G',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ','X','X','X',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','#',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ','*','X','*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ','*','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','S',' ',
+		'X','X','X','X','X','X','X','X','X','X','X','*','*','*','X','X','X','X','X','X','*',' ',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',' ','S',
+		'*','*','*','*','*','*','*','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',' ',' ','*',
+		' ',' ','X',' ',' ',' ',' ',' ',' ','*','X','*',' ',' ',' ',' ',' ','*',' ',' ',' ',' ',
+		'G',' ',' ',' ',' ','X',' ',' ',' ',' ',' ',' ','*',' ',' ',' ',' ','*',' ',' ',' ',' ',
+		'*','*','*','*','*','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ',' ','*',' ',' ','X',' ',' ',' ',' ',' ',' ','*',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ',' ',' ','*','*','*','*','*',' ',' ',' ',' ','*',' ',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','X','X',' ',' ',' ',' ',' ',' ',' ','*',' ',' ',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','X',' ',' ',' ','*','*','*','*',' ',' ',' ',
+		' ',' ',' ',' ',' ',' ',' ',' ',' ','X',' ',' ',' ','X',' ','*',' ',' ',' ',' ',' ',' ',
+		' ','X','X','*','X','X','X',' ','X','X','X',' ','X','X','X','*','X','X','X','X','X','X',
+	};
+	char strmapr[22][22] = { 0 };
+	memcpy(strmapr, strmap, sizeof strmap);
+	Player p;
+	char ch = 0;
+	int itrap = -1;
+	int ishoot = 0;
+	int ibsv = 0;
+	fstream fs("s.txt", ios::in);
+	fs.flush();
+	if ((!fs.is_open()) || fs.eof()) {
+		fs.close();
+		fs.open("s.txt", ios::out);
+		fs << "0 0 0 0";
+		fs.close();
+		fs.open("s.txt", ios::in);
+	}
+	bool barr[3] = { 0 };
+	fs >> ibsv;
+	for (ch = 0; ch < 3; ch++) {
+		barr[ch] = (ibsv & (1 << ch));
+	}
+	trigger t[23] = { trigger(20,3,20,3,0), trigger(16,5,16,6,1),trigger(19,12,20,12,2),trigger(17,13,17,13,3),trigger(17,15,17,16,3),trigger(14,14,14,15,3),trigger(13,16,13,17,3),trigger(15,18,15,19,3),trigger(11,20,11,21,4),trigger(3,21,3,21,5),trigger(0,16,9,16,6),trigger(8,11,9,13,7),trigger(4,5,7,9,8),trigger(9,6,9,8,9),trigger(3,1,3,3,10),trigger(11,1,11,1,11),trigger(11,3,11,3,12),trigger(13,1,14,1,13),trigger(13,7,15,8,14),trigger(15,11,17,11,15),trigger(16,12,17,12,16),trigger(21,13,21,13,17),trigger(11,8,11,8,18) };
+	printstart();
+	cout << endl << endl << endl << endl << endl << endl << endl << "\t\t\t\t\t  ";
+	system("pause");
+	system("cls");
+	printstart();
+	cout << endl << "              \033[31;1m********\033[0m                          \033[33m********\033[0m                              \033[32;1m********\033[0m" << endl;
+	cout << "             \033[31;1m* SAVE 1 *\033[0m                        \033[33m* SAVE 2 *\033[0m                            \033[32;1m* SAVE 3 *\033[0m" << endl;
+	cout << "              \033[31;1m********\033[0m                          \033[33m********\033[0m                              \033[32;1m********\033[0m" << endl << endl;
+	cout << "游戏内：a左走    d右走    w二段跳，空中一段    z\033[33m存档\033[0m/射弹    r重开    \033[31;1m“X”死\033[0m   “*”墙    \033[31;1m“#”按钮\033[0m，\033[32;1m射就触发机关\033[0m    \033[33m“S”存档\033[0m    \033[32;1m“G”终点\033[0m" << endl <<  "开始界面：1~3选择要玩的存档    d删存档" << endl << endl << endl;
+	cin >> ch;
+	int deadarr[3] = { 0 };
+	deadset(&deadarr, fs);
+	while (ch < '1' || ch > '3') {
+		while (rewind(stdin), (ch < '1' || ch > '3') && 'd' != ch) {
+			cout << "\033[31;1m输入错误，请重新输入\033[0m" << endl << endl;
+			cin >> ch;
+			if (ch >= '1' && ch <= '3') {
+				goto g;
+			}
+		}
+		cout << "\033[31;1m请输入要删除的存档编号(输入错误就不删除存档)\033[0m" << endl << endl;
+		cin >> ch;
+		if (rewind(stdin), ch < '1' || ch > '3') {
+			cout << "\033[31;1m输入错误，不删除存档\033[0m" << endl << endl;
+			cin >> ch;
+			continue;
+		}
+		int index = ch - 1 - '0';
+		(ibsv & (1 << index)) && (ibsv -= (1 << index));
+		fs.close();
+		fs.open("s.txt", ios::trunc | ios::out);
+		deadarr[index] = 0;
+		fs << ibsv;
+		for (int i = 0; i < 3; i++) {
+			fs << " " << deadarr[i];
+		}
+		fs.flush();
+		cout << "\033[32m删除成功!\033[0m" << endl << endl;
+		cin >> ch;
+	}
+	g:
+	int barri = (--ch -= '0');
+	system("cls");
+	char* cp = (t[0].saveset(barr[barri]) ? &strmap[9][20] : &strmap[21][0]);
+	*cp = 'P';
+	fs << (char)(ibsv + '0');
+	fs.close();
+	while ('G' == strmap[0][0]) {
+		char str[100] = "title I WANNA GO TO THE \"G\" : 似亡 * ";
+		char stra[100] = "";
+		sprintf(stra, "%d", deadarr[barri]);
+		strcat(str, stra);
+		system(str);
+		' ' == strmap[9][20] && (strmap[9][20] = 'S');
+		' ' == strmap[11][21] && (strmap[11][21] = 'S');
+		p.sgetxy(X) = (cp - &strmap[0][0]) / 22;
+		p.sgetxy(Y) = (cp - &strmap[0][0]) % 22;
+		p.printmap(strmap);
+		cin >> ch;
+		rewind(stdin);
+		*cp = ' ';
+		switch (ch) {
+		case 'a':
+			p.left_move(&cp);
+			break;
+		case 'd':
+			p.right_move(&cp);
+			break;
+		case 'w':
+			p.Djump(&cp);
+			break;
+		case 'z':
+			p.shoot(ishoot, &cp);
+			break;
+		case 'r':
+			p.reset(&cp, &strmap, &strmapr, &t, deadarr[barri]);
+			break;
+		default:
+			break;
+		}
+		for (int i = 0; i < 23; i++) {
+			t[i].check(p.sgetxy(X), p.sgetxy(Y), &strmap, &strmapr, p, itrap, &cp, ch, &t, deadarr[barri]);
+		}
+		itrap > 0 && itrap--, !itrap && (strmap[14][5] = ' ', strmap[15][5] = 'X');
+		p.upOrDown(&cp);
+		p.shootmove(&strmap, barri, ibsv);
+		p.rejump(&cp);
+		if ('X' == *cp) {
+			p.gameover(&cp, &strmap, &strmapr, &t, deadarr[barri]);
+		}
+		*cp = 'P';
+		ishoot > 0 && ishoot--;
+		system("cls");
+		fs.open("s.txt", ios::trunc | ios::out);
+		fs << (char)(ibsv + '0');
+		for (int i = 0; i < 3; i++) {
+			sprintf(str, "%d", deadarr[i]);
+			fs << " " << str;
+		}
+		fs.close();
+	}
+	system("color 0A");
+	cout << "恭喜你，你赢了，似了" << deadarr[barri] << "次" << endl;
+	fs.close();
+	return 0;
+}
+//Cmp.h
+#pragma once
+#include <iostream>
+#include <vector>
+#include "Player.h"
+using namespace std;
+class cmp {
+public:
+	bool operator()(trir t, trir ta);
+};
+//Cmp.cpp
+#include <iostream>
+#include <vector>
+#include "Cmp.h"
+#include "Player.h"
+using namespace std;
+bool cmp::operator()(trir t, trir ta) {
+	return t.iy < ta.iy;
+}
+//Player.h
+#pragma once
+#include <iostream>
+#include <vector>
+#include "trigger.h"
+using namespace std;
+#define JUMPHIGH 3
+enum XY {
+	X,
+	Y,
+};
+struct trir {
+	char* cp;
+	bool b;
+	int iy;
+};
+class Player {
+private:
+	int ix;
+	int iy;
+	int ijh;
+	int ij;
+	bool blr;
+	vector<trir> v;
+public:
+	friend class trigger;
+	Player();
+	void printmap(const char strmap[22][22]);
+	void Djump(char** cpp);
+	void left_move(char** cpp);
+	void right_move(char** cpp);
+	int& sgetxy(XY xymode);
+	void upOrDown(char** cpp);
+	void gameover(char** cpp, char(*strmap)[22][22], const char(*strmapr)[22][22], trigger(*tarr)[23], int& idead);
+	void reset(char** cpp, char(*strmap)[22][22], const char(*strmapr)[22][22], trigger(*tarr)[23], int& idead);
+	void rejump(char** cp);
+	void shoot(int& i, char** cpp);
+	void shootmove(const char (*strmap)[22][22], int barri, int& ibsv);
+};
+//Player.cpp
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+#include <fstream>
+#include "trigger.h"
+#include "Player.h"
+#include "Cmp.h"
+using namespace std;
+Player::Player(){
+	ij = 2;
+	ijh = 0;
+	blr = 1;
+}
+bool MSB = false;
+bool MSBa = false;
+bool MSBb = false;
+bool MSBc = false;
+bool MSv = false;
+void Player::printmap(const char strmap[22][22]) {
+	int i = 0;
+	int ia = 0;
+	for (; i < 22; i++) {
+		for (ia = 0; ia < 22; ia++) {
+			cout << "\033[" << ('G' == strmap[i][ia] ? "32;1m" : 'X' == strmap[i][ia] ? "31;1m" : '#' == strmap[i][ia] ? trigger::MSB ? "32;1m" : "31;1m" : 'S' == strmap[i][ia] ? ((!trigger::MSv) || 21 == ia) ? "33m" : "33;1m" : '@' == strmap[i][ia] ? "33m" : "0m") << strmap[i][ia] << "\033[0m";
+		}
+		cout << "|" << endl;
+	}
+	cout << "----------------------@" << endl;
+}
+void Player::Djump(char** cpp) {
+	switch (ij) {
+	case 2:
+		((21 == ix || '*' == (*cpp)[22] || '#' == (*cpp)[22]) && (ij = 1, ijh = JUMPHIGH), (21 != ix && '*' != (*cpp)[22] && '#' != (*cpp)[22]) && (ij = 0, ijh = JUMPHIGH));
+		break;
+	case 1:
+		((21 == ix || '*' == (*cpp)[22] || '#' == (*cpp)[22]) && (ij = 2), (21 != ix && '*' != (*cpp)[22] && '#' != (*cpp)[22]) && (ij = 0, ijh = JUMPHIGH));
+		break;
+	default:
+		rejump(cpp);
+		((21 == ix || '*' == (*cpp)[22] || '#' == (*cpp)[22]) && (ij = 1, ijh = JUMPHIGH), (21 != ix && '*' != (*cpp)[22] && '#' != (*cpp)[22]) && (ij = 0));
+		break;
+	}
+}
+void Player::left_move(char** cpp) {
+	(iy && '*' != *(*cpp - 1) && '#' != *(*cpp - 1) && ((*cpp)--));
+	blr = false;
+}
+void Player::right_move(char** cpp) {
+	21 != iy && '*' != *(*cpp + 1) && '#' != *(*cpp + 1) && ((*cpp)++);
+	blr = true;
+}
+int& Player::sgetxy(XY xymode) {
+	return xymode ? iy : ix;
+}
+void Player::upOrDown(char** cpp) {
+	if (ijh > 0 && ix && '*' != (*cpp)[-22] && '#' != (*cpp)[-22]) {
+		ijh--, *cpp -= 22;
+	}
+	else if ('*' != (*cpp)[22] && '#' != (*cpp)[22] && (!ix || '*' == (*cpp)[-22] || '#' == (*cpp)[-22])) {
+		ijh = 0, *cpp += 22;
+	}
+	else if ('*' != (*cpp)[22] && '#' != (*cpp)[22] && 21 != ix) {
+		*cpp += 22;
+	}
+}
+void Player::gameover(char** cpp, char (*strmap)[22][22], const char (*strmapr)[22][22], trigger(*tarr)[23], int& idead) {
+	char ch = 0;
+	system("cls");
+	' ' == (*strmap)[9][20] && ((*strmap)[9][20] = 'S');
+	printmap(*strmap);
+	cout << "\033[31;1m游戏结束 请按r键重新开始\033[0m" << endl;
+	while (ch - 'r') {
+		cin >> ch;
+		rewind(stdin);
+		system("cls");
+		if (ch - 'r') {
+			printmap(*strmap);
+			cout << "\033[31;1m游戏结束 请按r键重新开始\033[0m" << endl;
+		}
+	}
+	reset(cpp, strmap, strmapr, tarr, idead);
+}
+void Player::reset(char** cpp, char(*strmap)[22][22], const char(*strmapr)[22][22], trigger(*tarr)[23], int& idead) {
+	idead++;
+	trigger::MSv && (*cpp = &((*strmap)[9][20]), ix = 9, iy = 20), trigger::MSv || (*cpp = &((*strmap)[21][0]), ix = 21, iy = 0);
+	trigger::MSB = false;
+	MSBa = false;
+	MSBb = false;
+	MSBc = false;
+	blr = true;
+	int i = 0;
+	memcpy(*strmap, *strmapr, sizeof(*strmapr));
+	for (; i < 23; i++) {
+		(*tarr)[i].MBt = false;
+	}
+	v.clear();
+	rejump(cpp);
+}
+void Player::rejump(char** cpp) {
+	(21 == ix || '*' == (*cpp)[22]) && (ij = 2);
+}
+void Player::shoot(int& i, char** cpp) {
+	if ((!i) && (iy && blr || 21 != iy && (!blr))) {
+		v.push_back({*cpp, blr, iy});
+		i = 3;
+	}
+}
+void Player::shootmove(const char(*strmap)[22][22], int barri, int& ibsv) {
+	for (vector<trir>::iterator it = v.begin();v.end()!=it;it++) {
+		(' ' == *it->cp || '@' == *it->cp) && (*it->cp = ' ');
+		'#' == *it->cp && (trigger::MSB = true);
+		if (&((*strmap)[9][20]) == it->cp) {
+			trigger::MSv = true;
+			(!(ibsv & (1 << barri))) && (ibsv += (1 << barri));
+		}
+		if ('*' == *it->cp || '#' == *it->cp || (!it->iy && (!it->b)) || (21 == it->iy && it->b)) {
+			it->iy = -1;
+		}
+		if (0 <= it->iy) {
+			it->cp -= (1 - it->b * 2);
+			it->iy -= (1 - it->b * 2);
+			(' ' == *it->cp || '@' == *it->cp) && (*it->cp = '@');
+		}
+	}
+	sort(v.begin(), v.end(), cmp());
+	while ((!v.empty()) && 0 > v.begin()->iy) {
+		v.erase(v.begin());
+	}
+}
+//trigger.h
+#pragma once
+#include <iostream>
+#include "Player.h"
+using namespace std;
+class trigger {
+private:
+	int MISX;
+	int MISY;
+	int MIEX;
+	int MIEY;
+	int Mtrig;
+	bool MBt;
+	static bool MSB;
+	static bool MSBa;
+	static bool MSBb;
+	static bool MSBc;
+	static bool MSv;
+public:
+	friend class Player;
+	trigger(int istartx, int istarty, int iendx, int iendy, int trig) :MISY(istarty), MIEX(iendx), MIEY(iendy), MISX(istartx), Mtrig(trig), MBt(false) {}
+	void check(int ix, int iy, char(*strmap)[22][22], const char(*strmapr)[22][22], Player& p, int& ii, char** cpp, char ch, trigger(*tarr)[23], int& idead);
+	bool saveset(bool b);
+};
+//trigger.cpp
+#include <iostream>
+#include "trigger.h"
+#include <string>
+#include "Player.h"
+using namespace std;
+bool trigger::MSB = false;
+bool trigger::MSBa = false;
+bool trigger::MSBb = false;
+bool trigger::MSBc = false;
+bool trigger::MSv = false;
+void trigger::check(int ix, int iy, char (*strmap)[22][22], const char (*strmapr)[22][22],Player& p, int& ii, char** cpp, char ch, trigger(*tarr)[23], int& idead) {
+	int i = 0;
+	if (MISX <= ix && ix <= MIEX && MISY <= iy && iy <= MIEY && (Mtrig - 4 && Mtrig - 8 && Mtrig - 16 && Mtrig - 18 ? (!MBt) : 1)) {
+		switch (MBt = true, Mtrig) {
+		case 0:
+			(*strmap)[21][3] = 'X';
+			p.gameover(cpp, strmap, strmapr, tarr, idead);
+			break;
+		case 1:
+			for (i = 16; i < 21; i++) {
+				(*strmap)[i][6] = 'X';
+			}
+			break;
+		case 2:
+			for (i = 18; i < 22; i++) {
+				if ('X' == (*strmap)[i][13]) {
+					(*strmap)[i][13] = ' ';
+				}
+				else {
+					(*strmap)[i][13] = 'X';
+				}
+			}
+			break;
+		case 3:
+			for (i = MISX; i <= MIEX; i++) {
+				for (int ia = MISY; ia <= MIEY; ia++) {
+					(*strmap)[i][ia] = 'X';
+				}
+			}
+			p.gameover(cpp, strmap, strmapr, tarr, idead);
+			break;
+		case 4:
+			if ('z' == ch) { 
+				(*strmap)[13][19] = 'L';
+				(*strmap)[13][20] = 'O';
+				(*strmap)[13][21] = 'L';
+				p.gameover(cpp, strmap, strmapr, tarr, idead);
+			}
+			break;
+		case 5:
+			break;
+		case 6:
+			if (!MSB) {
+				for (i = 0; i < 10; i++) {
+					(*strmap)[i][15] = 'X';
+				}
+			}
+			break;
+		case 7:
+			for (i = 8; i < 10; i++) {
+				(*strmap)[i][10] = '*';
+				(*strmap)[i][14] = '*';
+			}
+			for (; i < 15; i++) {
+				(*strmap)[7][i] = '*';
+			}
+			break;
+		case 8:
+			((!MSBa) && '*' == (*cpp)[22]) && ((*cpp)[22] = 'X');
+			break;
+		case 9:
+			MSBa = true;
+			for (i = 6; i < 9; i++) {
+				(*strmap)[10][i] = '*';
+			}
+			break;
+		case 10:
+			for (i = 1; i < 4; i++) {
+				(*strmap)[4][i] = '*';
+			}
+			break;
+		case 11:
+		{ 
+			string str = "LOL LOL"; 
+			char* cpa = &((*strmap)[11][2]);
+			char* cpb = &(str[0]);
+			for (i = 0; i < 7; i++, cpa++, cpb++) {
+				*cpa = *cpb;
+			}
+			MSBb = true;
+		}
+		break;
+		case 12:
+			(*strmap)[11][0] = 'G';
+			(*strmap)[14][0] = ' ';
+			break;
+		case 13:
+			(*strmap)[11][0] = 'G';
+			(*strmap)[13][0] = ' ';
+			(*strmap)[13][5] = 'X';
+			(*strmap)[13][2] = ' ';
+			(*strmap)[15][5] = '*';
+			for (i = 16; i < 21; i++) {
+				(*strmap)[i][0] = 'L';
+				(*strmap)[i][1] = 'O';
+				(*strmap)[i][2] = 'L';
+			}
+			break;
+		case 14:
+			ii = 10;
+			break;
+		case 15:
+			MSBc = true;
+			for (i = 10; i < 13; i++) {
+				(*strmap)[14][i] = 'X';
+			}
+			(*strmap)[13][10] = '*';
+			for (i = 0; i < 11; i++) {
+				(*strmap)[10][i] = '*';
+			}
+			if (*cpp == &((*strmap)[14][12])) {
+				p.gameover(cpp, strmap, strmapr, tarr, idead);
+			}
+			break;
+		case 16:
+			if (MSBc) {
+				(*strmap)[14][10] = ' ';
+				(*strmap)[14][11] = ' ';
+				'*' == (*cpp)[11] && ((*cpp)[11] = 'X');
+			}
+			break;
+		case 17:
+			(*strmap)[21][13] = 'X';
+			break;
+		case 18:
+			if (MSBb) {
+				*cpp = &((*strmap)[11][7]);
+				(*strmap)[11][8] = '*';
+				MSBb = false;
+			}
+			break;
+		default:
+			break;
+		}
+	}
+}
+bool trigger::saveset(bool b) {
+	MSv = b;
+	return MSv;
+}
+*///“C++版iwanna完成”
