@@ -2208,3 +2208,24 @@ int main() {
 	return 0;
 }
 *///“删档”^
+/*
+//Cmp.h
+#pragma once
+#include <iostream>
+#include <vector>
+#include "Player.h"
+using namespace std;
+class cmp {
+public:
+	bool operator()(trir t, trir ta);
+};
+//Cmp.cpp
+#include <iostream>
+#include <vector>
+#include "Cmp.h"
+#include "Player.h"
+using namespace std;
+bool cmp::operator()(trir t, trir ta) {
+	return t.iy < ta.iy;
+}
+*///“函数对象”
