@@ -2771,3 +2771,10 @@ bool trigger::saveset(bool b) {
 	return MSv;
 }
 *///“C++版iwanna完成”
+/*
+int main() {
+	char str[100] = "123";
+	cout << atoi(str)+1 << endl;
+	return 0;
+}
+*///“atoi函数”^
