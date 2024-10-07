@@ -2778,3 +2778,10 @@ int main() {
 	return 0;
 }
 *///“atoi函数”^
+/*
+int main() {
+	char str[100] = "123999999";
+	cout << atol(str)+1 << endl;
+	return 0;
+}
+*///“atol函数”^
