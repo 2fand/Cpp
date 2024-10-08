@@ -2785,3 +2785,160 @@ int main() {
 	return 0;
 }
 *///“atol函数”^
+/*
+//Game.cpp
+#include <iostream>
+#include "Player.h"
+using namespace std;
+int main() {
+	char strmap[11][11] = {
+		'*','*','*','*','*','*','*','*','*','*','*',
+		'*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
+		'*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
+		'*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
+		'*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
+		'*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
+		'*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
+		'*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
+		'*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
+		'P',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
+		'*','*','*','*','*','*','*','*','*','*','*',
+	};
+	Player p;
+	char ch = 0;
+	//system("pause");
+	//system("cls");
+	char* cp = &strmap[9][0];
+	*cp = 'P';
+	while (1 || 'G' == strmap[0][0]) {
+		p.sgetxy(X) = (cp - &strmap[0][0]) / 11;
+		p.sgetxy(Y) = (cp - &strmap[0][0]) % 11;
+		p.printmap(strmap);
+		cin >> ch;
+		rewind(stdin);
+		*cp = ' ';
+		switch (ch) {
+		case 'a':
+			p.left_move(&cp);
+			break;
+		case 'd':
+			p.right_move(&cp);
+			break;
+		case 'w':
+			p.jump(&cp);
+			break;
+		case 'z':
+			p.shoot();
+		default:
+			break;
+		}
+		p.upOrDown(&cp);
+		*cp = 'P';
+		system("cls");
+	}
+	system("color 0A");
+	cout << "恭喜你，你赢了" << endl;
+	return 0;
+}
+//Player.h
+#pragma once
+#include <iostream>
+#include <vector>
+#include "trigger.h"
+using namespace std;
+#define JUMPHIGH 3
+enum XYH {
+	X,
+	Y,
+	HEAL
+};
+struct trir {
+	char* cp;
+	bool b;
+	int iy;
+};
+class Player {
+private:
+	int ix;
+	int iy;
+	int ijh;
+	int iheal;
+	bool blr;
+	vector<trir> v;
+public:
+	Player();
+	void printmap(const char strmap[11][11]);
+	void jump(char** cpp);
+	void left_move(char** cpp);
+	void right_move(char** cpp);
+	int& sgetxyh(XYH xyhmode);
+	void upOrDown(char** cpp);
+	void gameover();
+	void reset();
+	void shoot();
+	void shootmove();
+};
+//Player.cpp
+#include <iostream>
+#include "Player.h"
+using namespace std;
+Player::Player(){
+	ijh = 0;
+	blr = 1;
+}
+void Player::printmap(const char strmap[11][11]) {
+	int i = 0;
+	int ia = 0;
+	for (; i < 11; i++) {
+		for (ia = 0; ia < 11; ia++) {
+			cout << "\033[" << ('G' == strmap[i][ia] ? "32;1m" : 'v' == strmap[i][ia] ? "36m" : '&' == strmap[i][ia] || 'o' == strmap[i][ia] || 'O' == strmap[i][ia] || 'X' == strmap[i][ia] ? "31;1m" : '+' == strmap[i][ia] ? "33m" : "0m") << strmap[i][ia] << "\033[0m";
+		}
+		cout << "|" << endl;
+	}
+	cout << "-----------@" << endl;
+}
+void Player::jump(char** cpp) {
+	10 == ix || '*' == (*cpp)[11] && (ijh = JUMPHIGH);
+}
+void Player::left_move(char** cpp) {
+	(iy && '*' != *(*cpp - 1) && ((*cpp)--));
+	blr = false;
+}
+void Player::right_move(char** cpp) {
+	10 != iy && '*' != *(*cpp + 1) && ((*cpp)++);
+	blr = true;
+}
+int& Player::sgetxyh(XYH xyhmode) {
+	switch (xyhmode) {
+	case X:
+		return ix;
+	case Y:
+		return iy;
+	default:
+		return iheal;
+	}
+}
+void Player::upOrDown(char** cpp) {
+	if (ijh > 0 && ix && '*' != (*cpp)[-11]) {
+		ijh--, *cpp -= 11;
+	}
+	else if ('*' != (*cpp)[11] && !ix || '*' == (*cpp)[-11]) {
+		ijh = 0, *cpp += 11;
+	}
+	else if ('*' != (*cpp)[11] && 10 != ix) {
+		*cpp += 11;
+	}
+}
+void Player::gameover() {
+
+}
+void Player::reset() {
+
+}
+void Player::shoot() {
+
+}
+void Player::shootmove() {
+
+}
+*///“C++打小怪游戏始版”
