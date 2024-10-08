@@ -2942,3 +2942,16 @@ void Player::shootmove() {
 
 }
 *///“C++打小怪游戏始版”
+/*
+//moster.h
+#pragma once
+#include <iostream>
+using namespace std;
+class moster {
+protected:
+	char* mcp;
+	int m_iheal;
+public:
+	virtual void mosterdo() = 0;
+};
+*///“纯虚函数”^
