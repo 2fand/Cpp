@@ -2985,3 +2985,45 @@ void MUD::mosterdo() {
 	m_cpp -= 11 * (1 - 2 * mbud);//上下落
 }//撞墙换方向，碰地会反落
 *///“M^”完成^
+/*
+//MO.cpp
+#include <iostream>
+#include "MO.h"
+using namespace std;
+MO::MO(WASD wasd, map<char*, WASD>m) {
+	m_wasd = wasd;
+	m_m = m;
+}
+void MO::mosterdo() {
+	if (!m_m.empty()) {
+		int arr[4] = { -11,-1,11,1 };
+		for (map<char*, WASD>::iterator it = m_m.begin(); m_m.end() != it; it++) {
+			*m_cpp == it->first && (m_wasd = it->second);
+		}
+		*m_cpp += (arr[m_wasd]);
+	}
+	else {
+		if ()
+	}
+}//遇向则转，看路前行（1），或追玩者（2）
+//MO.h
+#pragma once
+#include <iostream>
+#include <map>
+#include "moster.h"
+using namespace std;
+enum WASD {
+	W,
+	A,
+	S,
+	D
+};
+class MO : public moster {
+private:
+	WASD m_wasd;
+	map<char*, WASD>m_m;//[strmap point, wasd]...
+public:
+	MO(WASD wasd, map<char*, WASD>m);
+	void mosterdo();
+};
+*///“MO”第一部分完成^
