@@ -2955,3 +2955,33 @@ public:
 	virtual void mosterdo() = 0;
 };
 *///“纯虚函数”^
+/*
+//M^.h
+#pragma once
+#include <iostream>
+#include "moster.h"
+using namespace std;
+class MUD : public moster {
+private:
+	bool mblr;
+	bool mbud;
+public:
+	MUD(bool b, bool ba);
+	void mosterdo();
+};
+//M^.cpp
+#include <iostream>
+using namespace std;
+#include "m^.h"
+MUD::MUD(bool b, bool ba) {
+	mblr = b;
+	mbud = ba;
+}
+void MUD::mosterdo() {
+	' ' == **m_cpp && (mbud && (**m_cpp = 'v'), mbud && (**m_cpp = '^'));//使见
+	'*' == (*m_cpp)[-1] && (mblr = 1), '*' == (*m_cpp)[1] && (mblr = 0);//撞墙换方向
+	m_cpp -= (1 - 2 * mblr);//左右移
+	'*' == (*m_cpp)[11] && (mbud = 0), '*' == (*m_cpp)[-11] && (mbud = 1);//碰地会反转
+	m_cpp -= 11 * (1 - 2 * mbud);//上下落
+}//撞墙换方向，碰地会反落
+*///“M^”完成^
