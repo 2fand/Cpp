@@ -3027,3 +3027,48 @@ public:
 	void mosterdo();
 };
 *///“MO”第一部分完成^
+/*
+//MO.cpp
+#include <iostream>
+#include "MO.h"
+#define NNEG(A, B) ((A) < (B) ? 1 : (A) > (B) ? -1 : 0)
+using namespace std;
+pair<int, int> s_m_pxy;
+void MO::exset(pair<int, int>& pxy, int ix, int iy) {
+	pxy.first = ix;
+	pxy.second = iy;
+}
+void MO::mosterdo() {
+	if (!m_m.empty()) {
+		int arr[8] = { -11,-1,11,1 };
+		for (map<char*, WASD>::iterator it = m_m.begin(); m_m.end() != it; it++) {
+			*m_cpp == it->first && (m_wasd = it->second);
+		}
+		switch (*m_cpp += (arr[m_wasd]), m_wasd) {
+		case W:
+			m_pxy.second--;
+			break;
+		case A:
+			m_pxy.first--;
+			break;
+		case S:
+			m_pxy.second++;
+			break;
+		case D:
+			m_pxy.first++;
+			break;
+		default:
+			break;
+		}
+	}
+	else {
+		*m_cpp += NNEG(m_pxy.first, s_m_pxy.first);
+		*m_cpp += 11 * NNEG(m_pxy.second, s_m_pxy.second);
+		m_pxy.first += NNEG(m_pxy.first, s_m_pxy.first);
+		m_pxy.second -= NNEG(m_pxy.second, s_m_pxy.second);
+	}
+}//遇向则转，看路前行（1），或追玩者（2）
+void MO::set_s_pxy(int ix, int iy) {
+	s_m_pxy = { ix, iy };
+}
+*///“MO”第二部分完成^
