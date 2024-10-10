@@ -3072,3 +3072,17 @@ void MO::set_s_pxy(int ix, int iy) {
 	s_m_pxy = { ix, iy };
 }
 *///“MO”第二部分完成^
+/*
+//moster.cpp#include <iostream>
+#include "moster.h"
+using namespace std;
+void moster::set(vector<trir> v) {
+	m_v = v;
+}
+void moster::hude() {
+	for (vector<trir>::iterator it; m_v.end() != it; it++) {
+		*m_cpp == it->cp && m_iheal--;
+	}//检测扣血
+	m_iheal || 1;//检测死亡(1 = 未做)
+}
+*///“怪物扣血”^
