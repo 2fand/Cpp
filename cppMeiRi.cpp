@@ -3086,3 +3086,16 @@ void moster::hude() {
 	m_iheal || 1;//检测死亡(1 = 未做)
 }
 *///“怪物扣血”^
+/*
+//mosters.h
+#pragma once
+#include <iostream>
+using namespace std;
+#include "moster.h"
+#include "m_o.h"
+#include "m&.h"
+#include "m^.h"
+#include "mO.h"
+#include "m+.h"
+#include "mX.h"
+*///“头文件包含”
