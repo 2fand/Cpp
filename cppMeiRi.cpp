@@ -3099,3 +3099,50 @@ using namespace std;
 #include "m+.h"
 #include "mX.h"
 *///“头文件包含”
+/*
+//M_o.cpp
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+#include "M_o.h"
+using namespace std;
+void M_o::near() {
+	int arr[8] = { -12, -11, -10, -1, 1, -10, -11, -12 };
+	int i = 0;
+	for (; i < 8; i++) {
+		if ('*' == (*m_cpp)[arr[i]]) {
+			m_iheal = -1;
+		}
+	}
+}
+void M_o::mosterdo() {
+	switch (rand() % 8) {//随便移动
+	case 0:
+		'*' != *m_cpp[-12] && ((*m_cpp) -= 12);
+		break;
+	case 1:
+		'*' != *m_cpp[-11] && ((*m_cpp) -= 11);
+		break;
+	case 2:
+		'*' != *m_cpp[-10] && ((*m_cpp) -= 10);
+		break;
+	case 3:
+		'*' != *m_cpp[-1] && ((*m_cpp)--);
+		break;
+	case 4:
+		'*' != *m_cpp[1] && ((*m_cpp)++);
+		break;
+	case 5:
+		'*' != *m_cpp[11] && ((*m_cpp) += 11);
+		break;
+	case 6:
+		'*' != *m_cpp[12] && ((*m_cpp) += 12);
+		break;
+	case 7:
+		'*' != *m_cpp[13] && ((*m_cpp) += 13);
+		break;
+	default:
+		break;
+	}
+}//随便移动，有墙不动
+*///“M_o”完成构造
