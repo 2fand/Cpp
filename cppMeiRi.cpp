@@ -3098,7 +3098,7 @@ using namespace std;
 #include "mO.h"
 #include "m+.h"
 #include "mX.h"
-*///“头文件包含”
+*///“头文件包含”^
 /*
 //M_o.cpp
 #include <iostream>
@@ -3145,7 +3145,7 @@ void M_o::mosterdo() {
 		break;
 	}
 }//随便移动，有墙不动
-*///“M_o”完成构造
+*///“M_o”完成构造^
 /*
 //M+.cpp
 #include <iostream>
@@ -3171,3 +3171,59 @@ public:
 	void mosterdo();
 };
 *///“M+”完成构造^
+#include "M_o.h"
+void Mplus::mosterdo() {
+	**m_cpp = '+';
+}
+void summon(vector<pair<int, vector<moster*>>>& vpm, int i) {
+	M_o o;
+	vpm[i].second.push_back(&o);
+}
+//M+.h
+#pragma once
+#include <iostream>
+#include "moster.h"
+#include <vector>
+using namespace std;
+class Mplus : public moster {
+public:
+	void summon(vector<pair<int, vector<moster*>>>& vpm, int i);//生成
+	void mosterdo();
+};
+*///“M+”完成构造^
+/*
+//MX.cpp
+#include <iostream>
+using namespace std;
+#include "mX.h"
+void MX::mosterdo() {
+	vector<trir>::iterator it = m_v->begin();
+	for (; m_v->end() != it; it++) {
+		if (*m_cpp == it->cp) {
+			break;
+		}
+	}
+	if (*m_cpp == m_cp || m_v->end() != it) {
+		do {
+			**m_cpp = chs;//还原
+			*m_cpp = &((*m_strmap)[rand() % 9 + 1][rand() % 9 + 1]);
+			chs = **m_cpp;//记砖
+		} while ('*' == (*m_cpp)[-1] && '*' == (*m_cpp)[1]);
+	}
+	**m_cpp = 'X';//使见
+}//被玩家碰到传，受伤传(两旁有砖不传)，并见
+//MX.h
+#pragma once
+#include <iostream>
+#include "moster.h"
+using namespace std;
+class MX : public moster {
+private:
+	char*& m_cp;//玩家的地点，不用xy坐标
+	char(*m_strmap)[11][11];
+	char chs;
+public:
+	MX(char*& cp, char(*strmap)[11][11]) : m_cp(cp), m_strmap(strmap), chs(**m_cpp) {};
+	void mosterdo();
+};
+*///所有怪物已完成构造^
