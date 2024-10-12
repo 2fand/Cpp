@@ -3146,3 +3146,28 @@ void M_o::mosterdo() {
 	}
 }//随便移动，有墙不动
 *///“M_o”完成构造
+/*
+//M+.cpp
+#include <iostream>
+using namespace std;
+#include "m+.h"
+#include "M_o.h"
+void Mplus::mosterdo() {
+	**m_cpp = '+';
+}
+void summon(vector<pair<int, vector<moster*>>>& vpm, int i) {
+	M_o o;
+	vpm[i].second.push_back(&o);
+}
+//M+.h
+#pragma once
+#include <iostream>
+#include "moster.h"
+#include <vector>
+using namespace std;
+class Mplus : public moster {
+public:
+	void summon(vector<pair<int, vector<moster*>>>& vpm, int i);//生成
+	void mosterdo();
+};
+*///“M+”完成构造^
