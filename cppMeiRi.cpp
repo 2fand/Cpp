@@ -3523,3 +3523,289 @@ void Mand::mosterdo() {
 	**m_cpp = '&';//使见
 }//撞墙换方向，会自然下落
 *///“‘M&’正式死亡”^
+/*
+//Game.cpp
+#include <iostream>
+#include "Player.h"
+#include "mosters.h"
+#include "cmpm.h"
+#include "isvp.h"
+#include <cstdlib>
+#include <ctime>
+#include <algorithm>
+#include <string>
+using namespace std;
+//#define DEBUG
+void MDoAndHunt(moster* mp) {
+	mp->hunt();
+	mp->mosterdo();
+}
+void del(moster* mp) {
+	delete mp;
+}
+int main() {
+	srand((unsigned int)time(NULL));
+	char strmap[11][11] = {
+		'*','*','*','*','*','*','*','*','*','*','*',
+		'*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
+		'*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
+		'*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
+		'*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
+		'*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
+		'*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
+		'*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
+		'*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
+		'P',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
+		'*','*','*','*','*','*','*','*','*','*','*',
+	};
+	bool bb = 1;
+	char ch = 0;
+	int i = 0;
+	Player p;
+	char* cp = &strmap[9][0];
+	map<char*, WASD>m;
+	vector<moster*>mpv = { new Mand(), new Mand(), new Mand(), new M_o(), new MUD(), new MO(), new MX(), new Mplus()};//mpv里一共要有的怪物们
+	isv ism;//用来布置怪物
+	vector<isv> vism;//地牢布置与怪物布置，无时即BOSS战(+)(int为编号)
+	char* strcp[3] = { &strmap[5][1], &strmap[5][9], &strmap[3][4]};
+	//随机设置地牢布置与怪物布置
+	for (; ch < 10; ch++) {
+		vism.push_back(ism);
+		vism[ch].id = ch;
+		switch (ch) {
+		case 0:
+			for (vism[ch].str = "&&&"; i < 3; i++) {
+				vism[ch].vmp.push_back(mpv[i]);
+				vism[ch].vmp[i]->set(p.sgetxyhs(), &strcp[i], 3, NULL, NULL, 0, 0, i % 2);
+			}
+			break;
+		case 1:
+			//未完成
+
+			break;
+		case 2:
+			//未完成
+
+			break;
+		case 3:
+			//未完成
+
+			break;
+		case 4:
+			//未完成
+
+			break;
+		case 5:
+			//未完成
+
+			break;
+		case 6:
+			//未完成
+
+			break;
+		case 7:
+			//未完成
+
+			break;
+		case 8:
+			//未完成
+
+			break;
+		case 9:
+			//未完成
+
+			break;
+		default:
+			break;
+		}
+	}
+	//random_shuffle(vism.begin(), vism.end());//使地牢随机化
+	while (4 != vism.size()) {
+		vism.pop_back();//删除不重要的东西
+	}
+#ifdef DEBUG
+	p.sgetxyhs(HEAL) = 999;//设置默认生命值
+#else 
+	p.sgetxyhs(HEAL) = 3;
+#endif
+	int ishoot = 0;
+	bool b = 0;
+	//system("pause");
+	//system("cls");
+	char str[9] = "color 0";
+	while (p.sgetxyhs(HEAL) && bb && 'P' != strmap[9][10]) {
+		MO mo;
+		//如果玩家踏进新的地牢(具体位置：&strmap[9][1])(!b)，b设为真，并重置怪物生成和地牢生成(vism无时BOSS战(+))
+		if (!b && &strmap[9][1] == cp) {
+			b = 1;
+			strmap[9][0] = '*';
+			vism.front().cp = &(vism.front().str[0]);
+			switch (vism.front().id) {
+			case 0:
+			{
+				for (ch = 2; ch < 5; ch++) {
+#ifndef DEBUG
+					strmap[7][ch] = '*';
+					strmap[7][ch + 4] = '*';
+					strmap[4][ch + 1] = '*';
+#else
+					strmap[7][ch] = '*';
+					strmap[7][ch + 3] = '*';
+					strmap[7][ch + 6] = '*';
+					strmap[4][ch + 1] = '*';
+#endif
+				}
+			}
+				break;
+			case 1:
+				//未完成
+
+				break;
+			case 2:
+				//未完成
+
+				break;
+			case 3:
+				//未完成
+
+				break;
+			case 4:
+				//未完成
+
+				break;
+			case 5:
+				//未完成
+
+				break;
+			case 6:
+				//未完成
+
+				break;
+			case 7:
+				//未完成
+
+				break;
+			case 8:
+				//未完成
+
+				break;
+			case 9:
+				//未完成
+
+				break;
+			default:
+				break;
+			}
+			for (ch = 0; *(vism.front().cp); ch++, vism.front().cp++) {
+				*vism.front().vmp[ch]->getcpp() = *vism.front().cp;
+			}
+		}
+		p.sgetxyhs(X) = (cp - &strmap[0][0]) / 11;
+		p.sgetxyhs(Y) = (cp - &strmap[0][0]) % 11;
+		mo.set_s_pxy(p.sgetxyhs(X), p.sgetxyhs(Y));
+		p.printmap(strmap);
+		cin >> ch;
+		rewind(stdin);
+		*cp = ' ';
+		//玩弹怪依次动
+		//玩动
+		switch (ch) {
+		case 'a':
+			p.left_move(&cp);
+			break;
+		case 'd':
+			p.right_move(&cp);
+			break;
+		case 'w':
+			p.jump(&cp);
+			break;
+		case 'z':
+			p.shoot(ishoot, &cp);
+		default:
+			break;
+		}
+		p.upOrDown(&cp);
+		ishoot > 0 && ishoot--;
+		p.shootmove(&strmap, 1);//子弹删
+		//怪物动
+		if (b && ' ' != strmap[9][10]) {
+			for_each(vism.front().vmp.begin(), vism.front().vmp.end(), MDoAndHunt);
+		}
+		//有怪物使你扣血
+		' ' == *cp || cout << (p.sgetxyhs(HEAL)--, "\a"), ' ' == *cp && (*cp = 'P');
+		//没血使怪物死亡
+		if (' ' != strmap[9][10]) {
+			sort(vism.front().vmp.begin(), vism.front().vmp.end(), cmpm());//对怪物血量进行升序排序
+			while (!vism.front().vmp.empty() && vism.front().vmp.front()->getheal() < 1) {
+				if (-1 == vism.front().vmp.front()->getheal()) {
+					int ir = 0;
+					//把怪物“o”转换成其他怪物
+					switch (ir = rand() % 4) {
+					case 0:
+						mpv.push_back(new Mand());
+						break;
+					case 1:
+						mpv.push_back(new MO());
+						break;
+					case 2:
+						mpv.push_back(new MX());
+						break;
+					case 3:
+						mpv.push_back(new MUD());
+						break;
+					default:
+						break;
+					}
+					vism[ch].vmp.push_back(mpv.back());
+					char* cpa = NULL;
+					int mx = 0;
+					int my = 0;
+					while (' ' == *cpa) {
+						cpa = &strmap[mx = rand() % 9 + 1][my = rand() % 9 + 1];
+					}
+					switch (ir) {
+					case 0:
+						vism[ch].vmp.front()->set(p.sgetxyhs(), &cpa, 3, NULL, NULL, 0, 0, rand() % 2);//怪物“&”
+						break;
+					case 1:
+						vism[ch].vmp.front()->set(p.sgetxyhs(), &cpa, 3, NULL, NULL, 0, 0, rand() % 2, rand() % 2);//怪物“^”
+						break;
+					case 2:
+						vism[ch].vmp.front()->set(p.sgetxyhs(), &cpa, 3, NULL, NULL, mx, my);//怪物“O”
+						break;
+					case 3:
+						vism[ch].vmp.front()->set(p.sgetxyhs(), &cpa, 3, &cp, &strmap);//怪物“X”
+						break;
+					default:
+						break;
+					}
+				}
+				//如果该地只有一个空格，那么设怪物所在的位置为空格
+				vism.front().vmp.erase(vism.front().vmp.begin());//删除怪物
+			}
+		}
+		p.shootmove(&strmap, 0);
+		system("cls");//清屏
+		//如果vism的第0项vmp为空，那么开门，并头删
+		if (vism.front().vmp.empty() && '*' == strmap[9][10]) {
+			strmap[9][10] = ' ';
+			vism.erase(vism.begin());
+		}
+		//如果进门，那么重置地图('*'  -->  ' ')，并把b设为假
+		if ('P' == strmap[9][10]) {
+			for (b = 0, ch = 1; ch < 10; ch++) {
+				for (i = 1; i < 10; i++) {
+					strmap[ch][i] = ' ';
+				}
+			}
+			//并把cp设为&strmap[9][0]
+			cp = &strmap[9][0];
+		}
+	}
+	bb && (str[7] = 'C'), bb || (str[7] = 'A');
+	system(str);
+	cout << (bb ? "很遗憾，你输了" : "恭喜你，你赢了") << endl;
+	for_each(mpv.begin(), mpv.end(), del);
+	return 0;
+}
+*///“启用DEBUG功能”^
