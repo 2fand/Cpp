@@ -4990,3 +4990,346 @@ int main() {
 	return 0;
 }
 *///“已解决显示不完全bug”^
+/*
+//Game.cpp
+#include <iostream>
+#include "Player.h"
+#include "mosters.h"
+#include "cmpm.h"
+#include "isvp.h"
+#include <cstdlib>
+#include <ctime>
+#include <algorithm>
+#include <string>
+using namespace std;
+#define DEBUG
+void MDoAndHunt(moster* mp) {
+	mp->hunt();
+	mp->mosterdo();
+}
+void MShow(moster* mp) {
+	*mp->getcp() = mp->getm();
+}
+void del(moster* mp) {
+	delete mp;
+}
+int main() {
+	srand((unsigned int)time(NULL));
+	char strmap[11][11] = {
+		'*','*','*','*','*','*','*','*','*','*','*',
+		'*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
+		'*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
+		'*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
+		'*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
+		'*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
+		'*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
+		'*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
+		'*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
+		'P',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
+		'*','*','*','*','*','*','*','*','*','*','*',
+	};
+	bool bb = 1;
+	char ch = 0;
+	int i = 0;
+	Player p;
+	char* cp = &strmap[9][0];
+	vector<map<int, int>>vm;
+	map<char*, WASD>m;
+	isv ism;//用来布置怪物
+	vector<isv> vism;//地牢布置与怪物布置，无时即BOSS战(+)(int为编号)
+	char* strcp[7] = { &strmap[5][1], &strmap[5][9], &strmap[3][4], &strmap[1][8], &strmap[9][2], &strmap[1][1], &strmap[9][9], };//请注意先后顺序，否则会出bug
+	vector<moster*>mpv = { new Mand(), new Mand(), new Mand(), new MUD(), new MUD(), new MUD(), new MUD(), };//mpv里一共要有的怪物们
+	//随机设置地牢布置与怪物布置
+	for (; ch < 11; ch++) {
+		vism.push_back(ism);
+		vism[ch].id = ch;
+		int itemp = 0;
+		int ia = rand() % 10;
+		ia += ia / 2;
+		switch (ch) {
+		case 0:
+			for (itemp = i + 3, vism[ch].str = "&&&"; i < itemp; i++) {
+				vism[ch].vmp.push_back(mpv[i]);
+				vism[ch].vmp.back()->set(p.sgetxyhs(), &strcp[i], 3, NULL, NULL, 0, 0, i % 2);
+			}
+			break;
+		case 1:
+			for (itemp = i + 4, vism[ch].str = "^v^v"; i < itemp; i++) {
+				vism[ch].vmp.push_back(mpv[i]);
+				vism[ch].vmp.back()->set(p.sgetxyhs(), &strcp[i], 2, NULL, NULL, 0, 0, i % 2, (i + 1) % 2);
+			}
+			break;
+		case 10:
+			//未完成
+
+			break;
+		case 3:
+			//未完成
+
+			break;
+		case 4:
+			//未完成
+
+			break;
+		case 5:
+			//未完成
+
+			break;
+		case 6:
+			//未完成
+
+			break;
+		case 7:
+			//未完成
+
+			break;
+		case 8:
+			//未完成
+
+			break;
+		case 9:
+			//未完成
+
+			break;
+		case 2:
+			for (itemp = i + ia; i < itemp; i++) {
+				pair<bool, bool>pbb = {rand() % 2, rand() % 2};
+				pair<int, int>pxy = {rand() % 9 + 1, rand() % 9 + 1};
+				while ((7 == pxy.first || 5 == pxy.first) && 4 == pxy.second) {
+					pxy = { rand() % 9 + 1, rand() % 9 + 1 };
+				}
+				strcp[i] = &strmap[pxy.first][pxy.second];
+				switch (rand() % 2) {
+				case 0:
+					mpv.push_back(new Mand());
+					vism[ch].str += '&';
+					vism[ch].vmp.push_back(mpv.back());
+					vism[ch].vmp.back()->set(p.sgetxyhs(), &strcp[i], 3, NULL, NULL, 0, 0, pbb.first);
+					break;
+				case 1:
+					mpv.push_back(new MUD());
+					if (pbb.second) {
+						vism[ch].str += 'v';
+					}
+					else {
+						vism[ch].str += '^';
+					}
+					vism[ch].vmp.push_back(mpv.back());
+					vism[ch].vmp.back()->set(p.sgetxyhs(), &strcp[i], 2, NULL, NULL, 0, 0, pbb.first, pbb.second);
+					break;
+				//case 2:
+
+					//break;
+				//case 3:
+
+					//break;
+				default:
+
+					break;
+				}
+			}
+			break;
+		default:
+			break;
+		}
+	}
+	//random_shuffle(vism.begin(), vism.end());//使地牢随机化
+	while (4 != vism.size()) {
+		vism.pop_back();//删除不重要的东西
+	}
+#ifdef DEBUG
+	p.sgetxyhs(HEAL) = 999;//设置默认生命值
+#else 
+	p.sgetxyhs(HEAL) = 3;
+#endif
+	int ishoot = 0;
+	bool b = 0;
+	//system("pause");
+	//system("cls");
+	char str[9] = "color 0";
+	while (p.sgetxyhs(HEAL) && (bb || 'P' != strmap[9][10])) {
+		MO mo;
+		//如果玩家踏进新的地牢(具体位置：&strmap[9][1])(!b)，b设为真，并重置怪物生成和地牢生成(vism无时BOSS战(+))
+		if (!b && &strmap[9][1] == cp) {
+			b = 1;
+			strmap[9][0] = '*';
+			vism.front().cp = &(vism.front().str[0]);
+			switch (vism.front().id) {
+			case 0:
+				for (ch = 2; ch < 5; ch++) {
+					strmap[7][ch] = '*';
+					strmap[7][ch + 4] = '*';
+					strmap[4][ch + 1] = '*';
+				}
+				break;
+			case 1:
+				for (ch = 1; ch < 4; ch++) {
+					strmap[2][ch] = '*';
+					strmap[5][ch + 3] = '*';
+					strmap[8][ch + 6] = '*';
+				}
+				break;
+			//case 2:
+				//未完成
+
+				break;
+			case 3:
+				//未完成
+
+				break;
+			case 4:
+				//未完成
+
+				break;
+			case 5:
+				//未完成
+
+				break;
+			case 6:
+				//未完成
+
+				break;
+			case 7:
+				//未完成
+
+				break;
+			case 8:
+				//未完成
+
+				break;
+			case 9:
+				//未完成
+
+			case 2:
+				strmap[4][5] = '*';
+				strmap[7][5] = '*';
+				break;
+			default:
+				break;
+			}
+			for (ch = 0; *(vism.front().cp); ch++, vism.front().cp++) {
+				*vism.front().vmp[ch]->getcp() = *vism.front().cp;
+			}
+		}
+		p.sgetxyhs(X) = (cp - &strmap[0][0]) / 11;
+		p.sgetxyhs(Y) = (cp - &strmap[0][0]) % 11;
+		mo.set_s_pxy(p.sgetxyhs(X), p.sgetxyhs(Y));
+		p.printmap(strmap);
+		cin >> ch;
+		rewind(stdin);
+		*cp = ' ';
+		//玩弹怪依次动
+		//玩动
+		switch (ch) {
+		case 'a':
+			p.left_move(&cp);
+			break;
+		case 'd':
+			p.right_move(&cp);
+			break;
+		case 'w':
+			p.jump(&cp);
+			break;
+		case 'z':
+			p.shoot(ishoot, &cp);
+		default:
+			break;
+		}
+		p.upOrDown(&cp);
+		ishoot > 0 && ishoot--;
+		p.shootmove(&strmap, 1);//子弹删
+		//有怪物使你扣血
+		' ' == *cp || cout << (p.sgetxyhs(HEAL)--, "\a"), ' ' == *cp && (*cp = 'P');
+		//没血使怪物死亡
+		if (' ' != strmap[9][10]) {
+			sort(vism.front().vmp.begin(), vism.front().vmp.end(), cmpm());//对怪物血量进行升序排序
+			while (!vism.front().vmp.empty() && vism.front().vmp.front()->getheal() < 1) {
+				if (-1 == vism.front().vmp.front()->getheal()) {
+					int ir = 0;
+					//把怪物“o”转换成其他怪物
+					switch (ir = rand() % 4) {
+					case 0:
+						mpv.push_back(new Mand());
+						break;
+					case 1:
+						mpv.push_back(new MO());
+						break;
+					case 2:
+						mpv.push_back(new MX());
+						break;
+					case 3:
+						mpv.push_back(new MUD());
+						break;
+					default:
+						break;
+					}
+					vism[ch].vmp.push_back(mpv.back());
+					char* cpa = NULL;
+					int mx = 0;
+					int my = 0;
+					while (' ' == *cpa) {
+						cpa = &strmap[mx = rand() % 9 + 1][my = rand() % 9 + 1];
+					}
+					switch (ir) {
+					case 0:
+						vism[ch].vmp.front()->set(p.sgetxyhs(), &cpa, 3, NULL, NULL, 0, 0, rand() % 2);//怪物“&”
+						break;
+					case 1:
+						vism[ch].vmp.front()->set(p.sgetxyhs(), &cpa, 3, NULL, NULL, 0, 0, rand() % 2, rand() % 2);//怪物“^”
+						break;
+					case 2:
+						vism[ch].vmp.front()->set(p.sgetxyhs(), &cpa, 3, NULL, NULL, mx, my);//怪物“O”
+						break;
+					case 3:
+						vism[ch].vmp.front()->set(p.sgetxyhs(), &cpa, 3, &cp, &strmap);//怪物“X”
+						break;
+					default:
+						break;
+					}
+				}
+				//如果该地只有一个怪物，那么设怪物所在的位置为空格
+				vector<moster*>::iterator it = vism.front().vmp.begin() + 1;
+				for (; it != vism.front().vmp.end(); it++) {
+					if (vism.front().vmp.front()->getcp() == (*it)->getcp()) {
+						break;
+					}
+				}
+				if (it == vism.front().vmp.end()) {
+					*vism.front().vmp.front()->getcp() = ' ';
+				}
+				vism.front().vmp.erase(vism.front().vmp.begin());//删除怪物
+			}
+		}
+		//怪物动
+		if (b && '*' == strmap[9][10]) {
+			for_each(vism.front().vmp.begin(), vism.front().vmp.end(), MDoAndHunt);
+			for_each(vism.front().vmp.begin(), vism.front().vmp.end(), MShow);
+		}
+		p.shootmove(&strmap, 0);
+		system("cls");//清屏
+		//如果vism的第0项vmp为空，那么开门，并头删
+		if (vism.front().vmp.empty() && '*' == strmap[9][10]) {
+			strmap[9][10] = ' ';
+			vism.erase(vism.begin());
+		}
+		//如果进门，那么重置地图('*'  -->  ' ')，并把b设为假
+		if ('P' == strmap[9][10]) {
+			for (b = 0, ch = 1; ch < 10; ch++) {
+				for (i = 1; i < 10; i++) {
+					strmap[ch][i] = ' ';
+				}
+			}
+			//下一地牢初始化
+			strmap[9][10] = '*';
+			strmap[9][0] = 'P';
+			//并把cp设为&strmap[9][0]
+			cp = &strmap[9][0];
+		}
+	}
+	bb && (str[7] = 'C'), bb || (str[7] = 'A');
+	system(str);
+	cout << (bb ? "很遗憾，你输了" : "恭喜你，你赢了") << endl;
+	for_each(mpv.begin(), mpv.end(), del);
+	return 0;
+}
+*///“随机怪地牢已完成”^
