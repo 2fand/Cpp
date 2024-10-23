@@ -9822,3 +9822,45 @@ int main() {
 	return 0;
 }
 *///“M_o的改变机制已改变”^
+/*
+//M^.cpp
+#include <iostream>
+using namespace std;
+#include "m^.h"
+MUD::MUD() {
+	this->set();
+}
+void MUD::set(vector<trir>* v, char** cpp, int iheal, map<char**, WASD>*, char**, char(*)[11][11], int, int, bool b, bool ba) {
+	m_v = v;//vector<trir>* = NULL, char** = NULL, char** = NULL, pair<int, int>* = NULL, int = 0, int = 0, int = 3, bool = 0, bool = 0
+	m_cpp = cpp;
+	m_iheal = iheal;
+	mblr = b;
+	mbud = ba;
+}
+void MUD::mosterdo() {
+	**m_cpp = ' ';
+	if (!mblr && '*' == (*m_cpp)[-1]) {
+		mblr = 1;
+	}
+	else if(mblr && '*' == (*m_cpp)[1]){
+		mblr = 0;
+	}//撞墙换方向
+	'*' != (*m_cpp)[-(1 - 2 * mblr)] && (*m_cpp -= (1 - 2 * mblr));//左右移
+	if (mbud && '*' == (*m_cpp)[-11]) {
+		mbud = 0;
+	}
+	else if (!mbud && '*' == (*m_cpp)[11]) {
+		mbud = 1;
+	}//碰地会反转
+	'*' != (*m_cpp)[-(11 * (1 - 2 * mbud))] && (*m_cpp += 11 * (1 - 2 * mbud));//上下落
+	//mbud || (**m_cpp = 'v'), mbud && (**m_cpp = '^');//使见
+}//撞墙换方向，碰地会反落
+char MUD::getm() {
+	if (mbud) {
+		return '^';
+	}
+	else {
+		return 'v';
+	}
+}
+*///“M^”的移动机制已改变^
