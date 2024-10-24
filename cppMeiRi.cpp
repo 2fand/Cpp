@@ -10299,3 +10299,30 @@ int main() {
 	return 0;
 }
 *///已成功显示出两个及以上的“M_o”^
+/*
+//M_o.cpp
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+#include "M_o.h"
+using namespace std;
+void M_o::near() {
+	int arr[8] = { -12, -11, -10, -1, 1, 10, 11, 12 };
+	int i = 0;
+	for (; i < 8; i++) {
+		if ('*' == (*m_cpp)[arr[i]]) {
+			m_iheal = -1;
+			break;
+		}
+	}
+}
+void M_o::mosterdo() {
+	**m_cpp = ' ';
+	int arr[8] = { -12, -11, -10, -1, 1, 10, 11, 12 };
+	int ir = 0;
+	(near(), '*') != (*m_cpp)[arr[ir = rand() % 8]] && ((*m_cpp) -= arr[ir]);
+}//随便移动，有墙不动
+char M_o::getm() {
+	return 'o';
+}
+*///“M_o”的移动机制已做优化^
