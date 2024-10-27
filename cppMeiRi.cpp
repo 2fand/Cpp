@@ -12596,3 +12596,32 @@ int main() {
 	return 0;
 }
 *///“M+”正式被玩家击败^
+/*
+//M_o.cpp
+#include <iostream>
+#include <ctime>
+#include "M_o.h"
+using namespace std;
+void M_o::near() {
+	int arr[8] = { -12, -11, -10, -1, 1, 10, 11, 12 };
+	int i = 0;
+	for (; i < 8; i++) {
+		if ('*' == (*m_cpp)[arr[i]]) {
+			m_iheal = -1;
+			break;
+		}
+	}
+}
+void M_o::mosterdo() {
+	int arr[8] = { -12, -11, -10, -1, 1, 10, 11, 12 };
+	int ir = 0;
+	'*' != **m_cpp && (**m_cpp = ' ');
+	tempcp = (near(), *m_cpp);
+	m_cpp = NULL;
+	'*' != tempcp[arr[ir = rand() % 8]] && (tempcp -= arr[ir]);//bug点：一级指针会“带动”二级指针
+	m_cpp = &tempcp;
+}//随便移动，有墙不动
+char M_o::getm() {
+	return 'o';
+}
+*///“M_o”指针非常同步bug已修复^
