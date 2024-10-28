@@ -13078,3 +13078,141 @@ int main() {
 	return 0;
 }
 *///“再次完全解决破墙bug”^
+/*
+//MO.cpp
+#include <iostream>
+using namespace std;
+#include "MO.h"
+#define NNEG(A, B) ((A) < (B) ? 1 : (A) > (B) ? -1 : 0)
+pair<int, int> MO::s_m_pxy = {0, 0};
+MO::MO() {
+	this->set();
+}
+void MO::set(vector<trir>* v, char** cpp, int iheal, map<char**, WASD>*m, char**, char(*)[11][11], int ix, int iy, bool, bool) {
+	m_v = v;//vector<trir>* = NULL, char** = NULL, pair<int, int>* = NULL, int = 0, int = 0, int = 3, bool = 0, bool = 0
+	m_cpp = cpp;
+	m_iheal = iheal;
+	m_pxy.first = ix;
+	m_pxy.second = iy;
+	if (m) { 
+		m_m = *m;
+	}
+}
+void MO::mosterdo() {
+	'*' != **m_cpp && (**m_cpp = ' ');
+	tempcp = *m_cpp;
+	m_cpp = NULL;
+	if (!m_m.empty()) {
+		int arr[4] = { -11, -1, 11, 1 };
+		for (map<char**, WASD>::iterator it = m_m.begin(); m_m.end() != it; it++) {
+			E != it->second && tempcp == *it->first && (m_wasd = it->second);
+		}
+		//int* iparr[2] = { &m_pxy.first, &m_pxy.second };
+		switch (tempcp += (arr[m_wasd]), m_wasd) {
+		case W:
+			m_pxy.second--;
+			break;
+		case A:
+			m_pxy.first--;
+			break;
+		case S:
+			m_pxy.second++;
+			break;
+		case D:
+			m_pxy.first++;
+			break;
+		default:
+			break;
+		}
+	}
+	else {
+		'*' != *(tempcp + 11 * NNEG(m_pxy.first, s_m_pxy.first)) && (m_pxy.first += NNEG(m_pxy.first, s_m_pxy.first));
+		'*' != *(tempcp + NNEG(m_pxy.second, s_m_pxy.second)) && (m_pxy.second += NNEG(m_pxy.second, s_m_pxy.second));
+		'*' != *(tempcp + 11 * NNEG(m_pxy.first, s_m_pxy.first)) && (tempcp += 11 * NNEG(m_pxy.first, s_m_pxy.first));//根据怪物的xy坐标和玩家的xy坐标来移动
+		'*' != *(tempcp + NNEG(m_pxy.second, s_m_pxy.second)) && (tempcp += NNEG(m_pxy.second, s_m_pxy.second));
+	}
+	m_cpp = &tempcp;
+}//遇向则转，看路前行（1），或追玩者（2）
+void MO::set_s_pxy(int ix, int iy) {
+	s_m_pxy = { ix, iy };
+}
+char MO::getm() {
+	return 'O';
+}
+//M&.cpp
+#include <iostream>
+using namespace std;
+#include "m&.h"
+Mand::Mand() {
+	this->set();
+}
+//vector<trir>* = NULL, char** = NULL, char** = NULL, pair<int, int>* = NULL, int = 0, int = 0, int = 3, bool = 0, bool = 0
+void Mand::set(vector<trir>* v, char** cpp, int iheal, map<char**, WASD>*, char**, char(*)[11][11], int, int, bool b, bool) {
+	m_v = v;
+	m_cpp = cpp;
+	m_iheal = iheal;
+	mblr = b;
+}
+void Mand::mosterdo() {
+	'*' != **m_cpp && (**m_cpp = ' ');
+	if (!mblr && '*' == (*m_cpp)[-1]) {
+		mblr = 1;
+	}
+	else if (mblr && '*' == (*m_cpp)[1]) {
+		mblr = 0;
+	}//撞墙换方向
+	tempcp = *m_cpp;
+	m_cpp = NULL;
+	'*' != tempcp[-(1 - 2 * mblr)] && (tempcp -= (1 - 2 * mblr));//左右移
+	'*' != tempcp[11] && (tempcp += 11);//下落
+	m_cpp = &tempcp;
+	//后面Mshow使见
+}//撞墙换方向，会自然下落
+char Mand::getm() {
+	return '&';
+}
+//M^.cpp
+#include <iostream>
+using namespace std;
+#include "m^.h"
+MUD::MUD() {
+	this->set();
+}
+void MUD::set(vector<trir>* v, char** cpp, int iheal, map<char**, WASD>*, char**, char(*)[11][11], int, int, bool b, bool ba) {
+	m_v = v;//vector<trir>* = NULL, char** = NULL, char** = NULL, pair<int, int>* = NULL, int = 0, int = 0, int = 3, bool = 0, bool = 0
+	m_cpp = cpp;
+	m_iheal = iheal;
+	mblr = b;
+	mbud = ba;
+}
+void MUD::mosterdo() {
+	'*' != **m_cpp && (**m_cpp = ' ');
+	if (!mblr && '*' == (*m_cpp)[-1]) {
+		mblr = 1;
+	}
+	else if(mblr && '*' == (*m_cpp)[1]){
+		mblr = 0;
+	}//撞墙换方向
+	tempcp = *m_cpp;
+	m_cpp = NULL;
+	'*' != tempcp[-(1 - 2 * mblr)] && (tempcp -= (1 - 2 * mblr));//左右移
+	if (mbud && '*' == tempcp[-11]) {
+		mbud = 0;
+	}
+	else if (!mbud && '*' == tempcp[11]) {
+		mbud = 1;
+	}//碰地会反转
+	'*' != tempcp[-(11 * (1 - 2 * mbud))] && (tempcp -= 11 * (1 - 2 * mbud));//上下落
+	m_cpp = &tempcp;
+	//后面Mshow函数使见
+}//撞墙换方向，碰地会反落
+char MUD::getm() {
+	if (mbud) {
+		return '^';
+	}
+	else {
+		return 'v';
+	}
+}
+//...
+*///“更多种怪物已不同步地同时移动”^
