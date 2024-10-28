@@ -29,3 +29,23 @@ int main(int argc, char *argv[])
     return a.exec();
 }
 *///“两个widget”^
+/*
+#include "widget.h"
+#include "ui_widget.h"
+#include <QPushButton>
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    QPushButton* vqp = new QPushButton();
+    vqp->setParent(this);
+    vqp->setText("按钮");
+    vqp->show();
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///“按钮”^
