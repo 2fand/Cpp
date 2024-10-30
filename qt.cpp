@@ -49,3 +49,23 @@ Widget::~Widget()
     delete ui;
 }
 *///“按钮”^
+/*
+//widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QCheckBox>
+#include <QDebug>
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    QCheckBox* cb = new QCheckBox("你好", this);
+    cb->show();
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///“多选框”^
