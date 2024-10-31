@@ -69,3 +69,23 @@ Widget::~Widget()
     delete ui;
 }
 *///“多选框”^
+/*
+//widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QRadioButton>
+#include <QDebug>
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    QRadioButton* cb = new QRadioButton("单选", this);
+    cb->show();
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///“单选点”^
