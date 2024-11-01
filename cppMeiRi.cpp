@@ -15379,6 +15379,17 @@ int main() {
 }
 *///“战前显示功能已做好”^
 /*
+//WASD.cpp
+#include <iostream>
+using namespace std;
+#include "WASD.h"
+WASD& operator++(WASD& w) {
+	WASD warr[5] = { W,A,S,D,E };
+	w < E && (w = warr[w + 1]);
+	return w;
+}
+*///“重载用于枚举WASD的前置++已优化”^
+/*
 //Player.cpp
 #include <iostream>
 #include "Player.h"
