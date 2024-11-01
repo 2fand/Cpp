@@ -89,3 +89,26 @@ Widget::~Widget()
     delete ui;
 }
 *///“单选点”^
+/*
+//widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QVector>
+#include <QDebug>
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    QVector<int>qv;
+    qv.push_back(1);
+    qv.push_back(10);
+    qDebug() << qv[1];
+
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///“QVector容器”^
