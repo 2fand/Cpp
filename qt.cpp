@@ -112,3 +112,24 @@ Widget::~Widget()
     delete ui;
 }
 *///“QVector容器”^
+/*
+//widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+#include <QPushButton>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+   // QPushButton* btnp = ui->btn;
+    ui->setupUi(this);
+    connect(ui->btn, &QPushButton::clicked, this, &QWidget::close);
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///“信号与槽”^
