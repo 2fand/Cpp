@@ -15991,3 +15991,17 @@ int main() {
 	return 0;
 }
 *///“解决过关之后异常加血的bug”^
+/*
+//isvp.h
+#pragma once
+#include <iostream>
+using namespace std;
+#include <vector>
+#include <string>
+#include "moster.h"
+struct isv {
+	string str;//判断
+	vector<moster*> vmp;
+	int id;
+};
+*///“isv结构体的成员变量已改变”^
