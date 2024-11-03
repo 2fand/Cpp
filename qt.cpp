@@ -133,3 +133,25 @@ Widget::~Widget()
     delete ui;
 }
 *///“信号与槽”^
+/*
+//widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+#include <QPushButton>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    connect(ui->btn, &QPushButton::clicked, [](){
+        qDebug() << "按钮";
+    });
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///“匿名函数”^
