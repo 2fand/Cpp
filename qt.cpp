@@ -155,3 +155,24 @@ Widget::~Widget()
     delete ui;
 }
 *///“匿名函数”^
+*///“匿名函数”^
+/*
+//widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+#include <QLabel>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    QLabel* lb = new QLabel("你好", this);
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///“文字标签”^
