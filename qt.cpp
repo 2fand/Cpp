@@ -176,3 +176,25 @@ Widget::~Widget()
     delete ui;
 }
 *///“文字标签”^
+/*
+//widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+#include <QSpinBox>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    QSpinBox* sba = new QSpinBox(this);
+    sba->setMaximum(1000000);
+    sba->setValue(114514);
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///“限输数字框”^
