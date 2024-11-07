@@ -270,3 +270,24 @@ Widget::~Widget()
     delete ui;
 }
 *///“自增1的数字框”^
+/*
+//widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <cstdlib>
+#include <ctime>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    srand((unsigned int)time(NULL));
+    setFixedSize(rand() % 1000 + 1, rand() % 1000 + 1);
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///“随机设置固定窗口”^
