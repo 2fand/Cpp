@@ -13,7 +13,6 @@ using namespace std;
 #include <cstring>
 #include <Windows.h>
 #include "draw.h"
-#define DEBUG
 void MShow(moster*& mp) {
 	('X' == mp->getm() || '*' != *mp->getcp()) && (*mp->getcp() = mp->getm());
 }
@@ -86,7 +85,7 @@ int main() {
 	vo.reserve(99999);
 	int i = 0;
 	int temparr[6] = { 4, 8, 12, 15, 17, 18 };
-	int ia = rand() % 10 + 1;// ºó£º+1 +1 +1 +1 +2 +2 +2 +2 +3 +3 +3 +3 +4 +4 +4 +5 +5 +6
+	int ia = rand() % 10 + 1;// åï¼š+1 +1 +1 +1 +2 +2 +2 +2 +3 +3 +3 +3 +4 +4 +4 +5 +5 +6
 	int tempir = rand() % 22;
 	for (i = 0; i < 6; i++) {
 		if (tempir < temparr[i]) {
@@ -98,7 +97,7 @@ int main() {
 	char* cp = &strmap[9][0];
 	vector<map<int, int>>vm;
 	map<char**, WASD>m[3];
-	map<char**, WASD>em;//×·×Ùmap
+	map<char**, WASD>em;//è¿½è¸ªmap
 	char* cparr[45] = { NULL };
 	char** cpp = cparr;
 	for (WASD w = W; E != w; ++w) {
@@ -138,20 +137,20 @@ int main() {
 	const int arr[4] = { 6,9,1,5 };
 	for (i = 0; i < 4; i++) {
 		*cpp = &strmap[arr[i]][i % 2 + 1];
-		m[2].insert({ cpp++, (WASD)(i / 2 * 2) });//×¢Òâ£ºi / 2 * 2 != i
+		m[2].insert({ cpp++, (WASD)(i / 2 * 2) });//æ³¨æ„ï¼ši / 2 * 2 != i
 	}
 	char strmapr[11][11];
-	isv ism;//ÓÃÀ´²¼ÖÃ¹ÖÎï
-	vector<isv> vism;//µØÀÎ²¼ÖÃÓë¹ÖÎï²¼ÖÃ£¬ÎŞÊ±¼´BOSSÕ½(+)(intÎª±àºÅ)
+	isv ism;//ç”¨æ¥å¸ƒç½®æ€ªç‰©
+	vector<isv> vism;//åœ°ç‰¢å¸ƒç½®ä¸æ€ªç‰©å¸ƒç½®ï¼Œæ— æ—¶å³BOSSæˆ˜(+)(intä¸ºç¼–å·)
 	char* strcp[47] = { &strmap[9][5], &strmap[9][7], &strmap[9][3], &strmap[1][5], &strmap[1][5], &strmap[6][1], &strmap[4][9], &strmap[6][8], &strmap[3][3], &strmap[4][3], &strmap[5][3], &strmap[6][3], &strmap[7][3], &strmap[8][3], &strmap[9][3], &strmap[4][5], &strmap[5][4], &strmap[5][5], &strmap[5][6], &strmap[6][5], &strmap[1][5], &strmap[1][5], &strmap[9][5], &strmap[9][5], &strmap[1][9], &strmap[1][1], &strmap[8][2], &strmap[2][8], &strmap[8][8], &strmap[2][2], &strmap[5][5], &strmap[1][1], &strmap[2][2], &strmap[3][3], &strmap[4][4], &strmap[8][5], &strmap[5][2], &strmap[2][4], &strmap[4][9], &strmap[1][8], &strmap[9][2], &strmap[1][1], &strmap[9][9], &strmap[3][4], &strmap[5][1], &strmap[5][9], &strmap[5][5]};
-	vector<moster*>mpv;//mpvÀïÒ»¹²ÒªÓĞµÄ¹ÖÎïÃÇ
+	vector<moster*>mpv;//mpvé‡Œä¸€å…±è¦æœ‰çš„æ€ªç‰©ä»¬
 	mpv.reserve(10000);
-	//Ëæ»úÉèÖÃµØÀÎ²¼ÖÃÓë¹ÖÎï²¼ÖÃ
+	//éšæœºè®¾ç½®åœ°ç‰¢å¸ƒç½®ä¸æ€ªç‰©å¸ƒç½®
 	for (i = 0; ch < 11; ch++) {
 		vism.push_back(ism);
 		vism[ch].id = ch;
 		int itemp = 0;
-		switch (ch) {//½¨ÒéÃ¿¸öcase¶¼·â×°³ÉÒ»¸öº¯Êı
+		switch (ch) {//å»ºè®®æ¯ä¸ªcaseéƒ½å°è£…æˆä¸€ä¸ªå‡½æ•°
 		case 0:
 			for (itemp = i + 8, vism[ch].str = "O&&^^OXX"; i < itemp; i++) {
 				switch (vism[ch].str[8 - (itemp - i)]) {
@@ -218,7 +217,7 @@ int main() {
 				else {
 					mpv.push_back(new MUD());
 					vism[ch].vmp.push_back(mpv[i]);
-					vism[ch].vmp.back()->set(p.sgetxyhs(), &strcp[6 - (itemp - i) + 20], 4, NULL, NULL, NULL, 0, 0, (6 - (itemp - i) - 2) & 1, (6 - (itemp - i) - 2) & 2);//qezc(¼üÅÌ)
+					vism[ch].vmp.back()->set(p.sgetxyhs(), &strcp[6 - (itemp - i) + 20], 4, NULL, NULL, NULL, 0, 0, (6 - (itemp - i) - 2) & 1, (6 - (itemp - i) - 2) & 2);//qezc(é”®ç›˜)
 				}
 			}
 			break;
@@ -267,19 +266,21 @@ int main() {
 			break;
 		case 9:
 		{
+			char* tempcparr[20] = { NULL };
 			for (itemp = i + ia; i < itemp; i++) {
 				pair<bool, bool>pbb = { rand() % 2, rand() % 2 };
 				pair<int, int>pxy = { rand() % 9 + 1, rand() % 9 + 1 };
 				while ((7 == pxy.first || 5 == pxy.first) && 4 == pxy.second) {
 					pxy = { rand() % 9 + 1, rand() % 9 + 1 };
 				}
-				char* tempcp = &strmap[pxy.first][pxy.second];
+				char** tempcpp = tempcparr;
+				*tempcpp = &strmap[pxy.first][pxy.second];
 				switch (rand() % 3) {
 				case 0:
 					mpv.push_back(new Mand());
 					vism[ch].str += '&';
 					vism[ch].vmp.push_back(mpv.back());
-					vism[ch].vmp.back()->set(p.sgetxyhs(), &tempcp, 3, NULL, NULL, NULL, 0, 0, pbb.first);
+					vism[ch].vmp.back()->set(p.sgetxyhs(), tempcpp++, 3, NULL, NULL, NULL, 0, 0, pbb.first);
 					break;
 				case 1:
 					mpv.push_back(new MUD());
@@ -290,19 +291,19 @@ int main() {
 						vism[ch].str += '^';
 					}
 					vism[ch].vmp.push_back(mpv.back());
-					vism[ch].vmp.back()->set(p.sgetxyhs(), &tempcp, 2, NULL, NULL, NULL, 0, 0, pbb.first, pbb.second);
+					vism[ch].vmp.back()->set(p.sgetxyhs(), tempcpp++, 2, NULL, NULL, NULL, 0, 0, pbb.first, pbb.second);
 					break;
 				case 2:
 					mpv.push_back(new MX());
 					vism[ch].str += 'X';
 					vism[ch].vmp.push_back(mpv.back());
-					vism[ch].vmp.back()->set(p.sgetxyhs(), &tempcp, 3, NULL, &cp, &strmap);
+					vism[ch].vmp.back()->set(p.sgetxyhs(), tempcpp++, 3, NULL, &cp, &strmap);
 					break;
 				case 3:
 					mpv.push_back(new MO());
 					vism[ch].str += 'O';
 					vism[ch].vmp.push_back(mpv.back());
-					vism[ch].vmp.back()->set(p.sgetxyhs(), &tempcp, 5, &em, NULL, NULL, pxy.first, pxy.second);
+					vism[ch].vmp.back()->set(p.sgetxyhs(), tempcpp++, 5, &em, NULL, NULL, pxy.first, pxy.second);
 					break;
 				default:
 					break;
@@ -314,27 +315,21 @@ int main() {
 			break;
 		}
 	}
-	random_shuffle(vism.begin(), vism.end());//Ê¹µØÀÎËæ»ú»¯
+	random_shuffle(vism.begin(), vism.end());//ä½¿åœ°ç‰¢éšæœºåŒ–
 	while (4 != vism.size()) {
-		vism.pop_back();//É¾³ı±¾´ÎÓÎÏ·²»ĞèÒªµÄµØÀÎ
+		vism.pop_back();//åˆ é™¤æœ¬æ¬¡æ¸¸æˆä¸éœ€è¦çš„åœ°ç‰¢
 	}
 	vism.push_back(ism);
 	vism.back().id = 10;
 	mpv.push_back(new Mplus());
 	vism.back().vmp.push_back(mpv.back());
 	vism.back().vmp.back()->set(p.sgetxyhs(), &strcp[45], 10);
-#ifdef DEBUG
-	p.sgetxyhs(HEAL) = 999;//ÉèÖÃÄ¬ÈÏÉúÃüÖµ
-#else 
-	p.sgetxyhs(HEAL) = 3;
-#endif
+	p.sgetxyhs(HEAL) = 8;
 	int ishoot = 0;
 	int bosswait = 0;
 	bool b = 0;
-	//system("pause");
-	//system("cls");
 	char str[9] = "color 0";
-	//¿ªÊ¼½çÃæ
+	//å¼€å§‹ç•Œé¢
 	for (i = 0; i < 15; i++) {
 		system("cls");
 		start(i);
@@ -351,21 +346,21 @@ int main() {
 	Sleep(500);
 	cout << endl << endl << endl;
 	cout << "           \033[33m@---------------------------@" << endl;
-	cout << "           |     \033[32;1m1. ¿ªÊ¼    \033[0;31;1m0. ÍË³ö    \033[0;33m|" << endl;
+	cout << "           |     \033[32;1m1. å¼€å§‹    \033[0;31;1m0. é€€å‡º    \033[0;33m|" << endl;
 	cout << "           @---------------------------@\033[0m" << endl;
 	cout << endl << endl << endl;
 	while (ch < '0' || ch > '1') {
 		cin >> ch;
-		ch < '0' || ch > '1' && cout << "\033[31;1mÊäÈë´íÎó£¬ÇëÖØĞÂÊäÈë\033[0m" << endl << endl;
+		ch < '0' || ch > '1' && cout << "\033[31;1mè¾“å…¥é”™è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥\033[0m" << endl << endl;
 	}
 	if ('0' == ch) {
-		cout << endl << "»¶Ó­ÏÂ´ÎÓÎÍæ" << endl;
+		cout << endl << "æ¬¢è¿ä¸‹æ¬¡æ¸¸ç©" << endl;
 		return 0;
 	}
 	system("cls");
 	while (p.sgetxyhs(HEAL) && (bb || 'P' != strmap[9][10])) {
 		MO mo;
-		//Èç¹ûÍæ¼ÒÌ¤½øĞÂµÄµØÀÎ(¾ßÌåÎ»ÖÃ£º&strmap[9][1])(!b)£¬bÉèÎªÕæ£¬²¢ÖØÖÃ¹ÖÎïÉú³ÉºÍµØÀÎÉú³É(vismÎŞÊ±BOSSÕ½(+))
+		//å¦‚æœç©å®¶è¸è¿›æ–°çš„åœ°ç‰¢(å…·ä½“ä½ç½®ï¼š&strmap[9][1])(!b)ï¼Œbè®¾ä¸ºçœŸï¼Œå¹¶é‡ç½®æ€ªç‰©ç”Ÿæˆå’Œåœ°ç‰¢ç”Ÿæˆ(vismæ— æ—¶BOSSæˆ˜(+))
 		if (!b && (&strmap[9][1] == cp || &strmap[8][1] == cp)) {
 			b = 1;
 			strmap[9][0] = '*';
@@ -491,7 +486,7 @@ int main() {
 		p.sgetxyhs(X) = (cp - &strmap[0][0]) / 11;
 		p.sgetxyhs(Y) = (cp - &strmap[0][0]) % 11;
 		mo.set_s_pxy(p.sgetxyhs(X), p.sgetxyhs(Y));
-		p.shootmove(&strmap, 0);//×Óµ¯É¾
+		p.shootmove(&strmap, 0);//å­å¼¹åˆ 
 		for (vector<draw>::iterator it = vmd[5 - vism.size()].begin(); &strmap[9][0] == cp && vmd[5 - vism.size()].back().iwalk + 1; it++) {
 			for (char* drawcp = &strmap[it->ix][it->iy]; it->iwalk + 1; drawcp += (1 + 10 * it->brd), it->iwalk--) {
 				*drawcp = '#';
@@ -502,8 +497,8 @@ int main() {
 		cin >> ch;
 		rewind(stdin);
 		'*' != *cp && (*cp = ' ');
-		//Íæµ¯¹ÖÒÀ´Î¶¯
-		//Íæ¶¯
+		//ç©å¼¹æ€ªä¾æ¬¡åŠ¨
+		//ç©åŠ¨
 		switch (ch) {
 		case 'a':
 			p.left_move(&cp);
@@ -521,14 +516,14 @@ int main() {
 		}
 		p.upOrDown(&cp);
 		(' ' == *cp || '@' == *cp) || cout << (p.sgetxyhs(HEAL)--, "\a");
-		//ÓĞ¹ÖÎïÊ¹Äã¿ÛÑª
+		//æœ‰æ€ªç‰©ä½¿ä½ æ‰£è¡€
 		ishoot > 0 && ishoot--;
 		if (' ' != strmap[9][10]) {
-			sort(vism.front().vmp.begin(), vism.front().vmp.end(), cmpm());//¶Ô¹ÖÎïÑªÁ¿½øĞĞÉıĞòÅÅĞò
+			sort(vism.front().vmp.begin(), vism.front().vmp.end(), cmpm());//å¯¹æ€ªç‰©è¡€é‡è¿›è¡Œå‡åºæ’åº
 			while (!vism.front().vmp.empty() && vism.front().vmp.front()->getheal() < 1) {
 				if (-1 == vism.front().vmp.front()->getheal()) {
 					int ir = 0;
-					//°Ñ¹ÖÎï¡°o¡±×ª»»³ÉÆäËû¹ÖÎï
+					//æŠŠæ€ªç‰©â€œoâ€è½¬æ¢æˆå…¶ä»–æ€ªç‰©
 					switch (ir = (ba ? ba = !ba, 2 : rand() % 4)) {
 					case 0:
 						mpv.push_back(new Mand());
@@ -545,7 +540,7 @@ int main() {
 					default:
 						break;
 					}
-					vism.front()/* <- »á¸Ä */.vmp.push_back(mpv.back());
+					vism.front()/* <- ä¼šæ”¹ */.vmp.push_back(mpv.back());
 					char* cpa = NULL;
 					int mx = 0;
 					int my = 0;
@@ -561,16 +556,16 @@ int main() {
 					my = (cpa - &strmap[0][0]) % 11;
 					switch (ir) {
 					case 0:
-						vism.front().vmp.back()->set(p.sgetxyhs(), &cpa, 3, NULL, NULL, NULL, 0, 0, rand() % 2);//¹ÖÎï¡°&¡±
+						vism.front().vmp.back()->set(p.sgetxyhs(), &cpa, 3, NULL, NULL, NULL, 0, 0, rand() % 2);//æ€ªç‰©â€œ&â€
 						break;
 					case 1:
-						vism.front().vmp.back()->set(p.sgetxyhs(), &cpa, 2, NULL, NULL, NULL, 0, 0, rand() % 2, rand() % 2);//¹ÖÎï¡°^¡±
+						vism.front().vmp.back()->set(p.sgetxyhs(), &cpa, 2, NULL, NULL, NULL, 0, 0, rand() % 2, rand() % 2);//æ€ªç‰©â€œ^â€
 						break;
 					case 2:
-						vism.front().vmp.back()->set(p.sgetxyhs(), &cpa, 3, &em, NULL, NULL, mx, my);//¹ÖÎï¡°O¡±
+						vism.front().vmp.back()->set(p.sgetxyhs(), &cpa, 3, &em, NULL, NULL, mx, my);//æ€ªç‰©â€œOâ€
 						break;
 					case 3:
-						vism.front().vmp.back()->set(p.sgetxyhs(), &cpa, 5, NULL, &cp, &strmap);//¹ÖÎï¡°X¡±
+						vism.front().vmp.back()->set(p.sgetxyhs(), &cpa, 5, NULL, &cp, &strmap);//æ€ªç‰©â€œXâ€
 						break;
 					default:
 						break;
@@ -580,7 +575,7 @@ int main() {
 				if ('X' == vism.front().vmp.back()->getm()) {
 					((MX*)vism.front().vmp.back())->exset(strmapr);
 				}
-				//Èç¹û¸ÃµØÖ»ÓĞÒ»¸ö¹ÖÎï£¬ÄÇÃ´Éè¹ÖÎïËùÔÚµÄÎ»ÖÃÎª¿Õ¸ñ
+				//å¦‚æœè¯¥åœ°åªæœ‰ä¸€ä¸ªæ€ªç‰©ï¼Œé‚£ä¹ˆè®¾æ€ªç‰©æ‰€åœ¨çš„ä½ç½®ä¸ºç©ºæ ¼
 				vector<moster*>::iterator it = vism.front().vmp.begin() + 1;
 				for (; it != vism.front().vmp.end(); it++) {
 					if (vism.front().vmp.front()->getcp() == (*it)->getcp()) {
@@ -595,14 +590,14 @@ int main() {
 					vism.front().vmp.clear();
 					bb = 0;
 				} 
-				bb && (vism.front().vmp.erase(vism.front().vmp.begin()), 0);//É¾³ı¹ÖÎï
+				bb && (vism.front().vmp.erase(vism.front().vmp.begin()), 0);//åˆ é™¤æ€ªç‰©
 			}
 		}
-		p.shootmove(&strmap, 1);//×Óµ¯¶¯
-		if (b && '*' == strmap[9][10]) {//¹ÖÎï¶¯
-			vector<moster*>::iterator vfvp = vism.front/* <- »á¸Ä(back) */().vmp.begin();
-			while (/*ÍêÉÆºóÓĞÅĞ¶Ï*/!vism.front/* <- »á¸Ä(back) */().vmp.empty() && '+' != (*vfvp)->getm()) {
-				if (vism.front/* <- »á¸Ä(back) */().vmp.end() == ++vfvp) {
+		p.shootmove(&strmap, 1);//å­å¼¹åŠ¨
+		if (b && '*' == strmap[9][10]) {//æ€ªç‰©åŠ¨
+			vector<moster*>::iterator vfvp = vism.front/* <- ä¼šæ”¹(back) */().vmp.begin();
+			while (/*å®Œå–„åæœ‰åˆ¤æ–­*/!vism.front/* <- ä¼šæ”¹(back) */().vmp.empty() && '+' != (*vfvp)->getm()) {
+				if (vism.front/* <- ä¼šæ”¹(back) */().vmp.end() == ++vfvp) {
 					break;
 				}
 			}
@@ -612,7 +607,7 @@ int main() {
 				vism.front().vmp.push_back(vo.back());
 				vism.front().vmp.back()->set(p.sgetxyhs(), &setcp, 5);
 				bosswait = 15;
-			}//**»á±ä**
+			}//**ä¼šå˜**
 			for (vector<moster*>::iterator it = vism.front().vmp.begin(); vism.front().vmp.end() != it/* || ((*it)->getcp() = tempcp, 0)*/; it++) {
 				(*it)->hunt();
 				(*it)->mosterdo();
@@ -624,14 +619,14 @@ int main() {
 			for_each(vism.front().vmp.begin(), vism.front().vmp.end(), MShow);
 		}
 		(' ' == *cp || '@' == *cp) || cout << (p.sgetxyhs(HEAL)--, "\a"), (' ' == *cp || '@' == *cp) && (*cp = 'P');
-		//Ã»ÑªÊ¹¹ÖÎïËÀÍö
-		system("cls");//ÇåÆÁ
-		//Èç¹ûvismµÄµÚ0ÏîvmpÎª¿Õ£¬ÄÇÃ´¿ªÃÅ£¬²¢Í·É¾
+		//æ²¡è¡€ä½¿æ€ªç‰©æ­»äº¡
+		system("cls");//æ¸…å±
+		//å¦‚æœvismçš„ç¬¬0é¡¹vmpä¸ºç©ºï¼Œé‚£ä¹ˆå¼€é—¨ï¼Œå¹¶å¤´åˆ 
 		if (vism.front().vmp.empty() && '*' == strmap[9][10]) {
 			strmap[9][10] = ' ';
 			vism.erase(vism.begin());
 		}
-		//Èç¹û½øÃÅ£¬ÄÇÃ´ÖØÖÃµØÍ¼('*'  -->  ' ')£¬²¢°ÑbÉèÎª¼Ù
+		//å¦‚æœè¿›é—¨ï¼Œé‚£ä¹ˆé‡ç½®åœ°å›¾('*'  -->  ' ')ï¼Œå¹¶æŠŠbè®¾ä¸ºå‡
 		if (bb && 'P' == strmap[9][10]) {
 			strmap[9][0] = ' ';
 			b = 0;
@@ -640,22 +635,22 @@ int main() {
 				Sleep(100);
 				system("cls");
 			}
-			//ÏÂÒ»µØÀÎ³õÊ¼»¯
-			////( <- ·Ö½ç )
+			//ä¸‹ä¸€åœ°ç‰¢åˆå§‹åŒ–
+			////( <- åˆ†ç•Œ )
 			strmap[9][10] = '*';
 			strmap[9][0] = 'P';
 			////
 			p.printmap(&strmap, ba, 11);
 			Sleep(100);
 			system("cls");
-			1 != vism.size() && (!(rand() % 4) && (3 > p.sgetxyhs(HEAL) && p.sgetxyhs(HEAL)++, ba = 0) || (!(rand() % 2)) && (3 > p.sgetxyhs(HEAL) && p.sgetxyhs(HEAL)++, ba = 0));//»Ö¸´ÑªÁ¿
-			//²¢°ÑcpÉèÎª&strmap[9][0]
+			1 != vism.size() && (!(rand() % 4) && (8 > p.sgetxyhs(HEAL) && p.sgetxyhs(HEAL)++, ba = 0) || (!(rand() % 2)) && (8 > p.sgetxyhs(HEAL) && p.sgetxyhs(HEAL)++, ba = 0));//æ¢å¤è¡€é‡
+			//å¹¶æŠŠcpè®¾ä¸º&strmap[9][0]
 			cp = &strmap[9][0];
 		}
 	}
 	bb && (str[7] = 'C') || (str[7] = 'A');
 	system(str);
-	cout << (bb ? "ºÜÒÅº¶£¬ÄãÊäÁË" : "¹§Ï²Äã£¬ÄãÓ®ÁË") << endl;
+	cout << (bb ? "å¾ˆé—æ†¾ï¼Œä½ è¾“äº†" : "æ­å–œä½ ï¼Œä½ èµ¢äº†") << endl;
 	for_each(mpv.begin(), mpv.end(), del);
 	for_each(vo.begin(), vo.end(), delvo);
 	return 0;
