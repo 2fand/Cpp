@@ -11,7 +11,7 @@ Player::Player(){
 void Player::printmap(const char strmap[11][11], const bool bwait) {
 	int i = 0;
 	int ia = 0;
-	cout << "\033[" << (!bwait || 2 < iheal ? "32;1m" : 2 == iheal ? "33m" : "31;1m") << "P * " << iheal << "\033[0m" << endl << endl << endl;
+	cout << "\033[" << (!bwait || 5 < iheal ? "32;1m" : 2 < iheal ? "33m" : "31;1m") << "P * " << iheal << "\033[0m" << endl << endl << endl;
 	for (cout << "-----------@" << endl; i < 11; i++) {
 		for (ia = 0; ia < 11; ia++) {
 			cout << "\033[" << ('G' == strmap[i][ia] ? "32;1m" : 'v' == strmap[i][ia] ? "36m" : '&' == strmap[i][ia] || '^' == strmap[i][ia] || 'o' == strmap[i][ia] || 'O' == strmap[i][ia] || 'X' == strmap[i][ia] ? "31;1m" : '+' == strmap[i][ia] || '#' == strmap[i][ia] ? "33m" : '@' == strmap[i][ia] ? "33m" : "0m") << strmap[i][ia] << "\033[0m";
@@ -87,7 +87,7 @@ void Player::shootmove(const char(*strmap)[11][11], bool bmode) {
 		for (vector<trir>::iterator it = v.begin(); v.end() != it; it++) {
 			(' ' == *it->cp || '@' == *it->cp) && (*it->cp = ' ');
 			if ('*' == *it->cp || it->bk || (!it->iy && (!it->b)) || (21 == it->iy && it->b)) {
-				it->iy = -1;//×Óµ¯µÄÏú»Ù
+				it->iy = -1;//å­å¼¹çš„é”€æ¯
 			}
 			if (0 <= it->iy) {
 				it->cp -= (1 - it->b * 2);
