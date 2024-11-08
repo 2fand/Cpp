@@ -291,3 +291,54 @@ Widget::~Widget()
     delete ui;
 }
 *///“随机设置固定窗口”^
+/*
+//widget.h
+#ifndef WIDGET_H
+#define WIDGET_H
+
+#include <QWidget>
+#include <QPainter>
+#include <QPixmap>
+
+QT_BEGIN_NAMESPACE
+namespace Ui {
+class Widget;
+}
+QT_END_NAMESPACE
+
+class Widget : public QWidget
+{
+    Q_OBJECT
+
+public:
+    Widget(QWidget *parent = nullptr);
+    ~Widget();
+    void paintEvent(QPaintEvent *);
+
+private:
+    Ui::Widget *ui;
+};
+#endif // WIDGET_H
+//widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+}
+
+void Widget::paintEvent(QPaintEvent *){
+    QPainter pt(this);
+    QPixmap pm(":/pixmap.png");
+    pt.drawEllipse(0, 0, 100, 100);
+    pt.drawPixmap(25, 25, pm);
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///“绘图事件”^
