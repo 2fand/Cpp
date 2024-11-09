@@ -342,3 +342,30 @@ Widget::~Widget()
     delete ui;
 }
 *///“绘图事件”^
+/*
+//widget.cpp#include "widget.h"
+#include "ui_widget.h"
+#include <QPushButton>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    static int s_w = 31;
+    static int s_h = 0;
+    static int s_count = 1;
+    connect(ui->btn, &QPushButton::clicked, [=](){
+        QPushButton* btna = new QPushButton(QString::number(s_count++), this);
+        s_w > this->width() && (s_w = 0, s_h += 23);
+        btna->setGeometry(s_w, s_h, 31, 23);
+        btna->show();
+        s_w += 31;
+    });
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///“按钮数字自加1”^
