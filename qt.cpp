@@ -369,3 +369,29 @@ Widget::~Widget()
     delete ui;
 }
 *///“按钮数字自加1”^
+/*
+//mainwindow.cpp
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include <QAction>
+
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+    QMenuBar* mb = menuBar();
+    setMenuBar(mb);
+    mb->addMenu("你好");
+    QMenu* mu = mb->addMenu("再见");
+    QAction* an = mu->addAction("再见");
+    connect(an, &QAction::triggered, [=](){
+        this->close();
+    });
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+*///“菜单栏的创建”^
