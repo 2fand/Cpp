@@ -2,32 +2,33 @@
 #include "Player.h"
 #include "cmp.h"
 #include <algorithm>
+#include <Windows.h>
 using namespace std;
 Player::Player(){
 	ijh = 0;
 	blr = 1;
 	hlwait = 1;
 }
-void Player::printmap(const char strmap[11][11], const bool bwait) {
+void Player::printmap(const char strmap[11][11], const bool bwait, const int iunmd) {
 	int i = 0;
 	int ia = 0;
 	cout << "\033[" << (!bwait || 5 < iheal ? "32;1m" : 2 < iheal ? "33m" : "31;1m") << "P * " << iheal << "\033[0m" << endl << endl << endl;
 	for (cout << "-----------@" << endl; i < 11; i++) {
 		for (ia = 0; ia < 11; ia++) {
-			cout << "\033[" << ('G' == strmap[i][ia] ? "32;1m" : 'v' == strmap[i][ia] ? "36m" : '&' == strmap[i][ia] || '^' == strmap[i][ia] || 'o' == strmap[i][ia] || 'O' == strmap[i][ia] || 'X' == strmap[i][ia] ? "31;1m" : '+' == strmap[i][ia] || '#' == strmap[i][ia] ? "33m" : '@' == strmap[i][ia] ? "33m" : "0m") << strmap[i][ia] << "\033[0m";
+			cout << "\033[" << ('G' == strmap[i][ia] ? "32;1m" : 'v' == strmap[i][ia] ? "36m" : '&' == strmap[i][ia] || '^' == strmap[i][ia] || 'o' == strmap[i][ia] || 'O' == strmap[i][ia] || 'X' == strmap[i][ia] ? "31;1m" : '+' == strmap[i][ia] || '#' == strmap[i][ia] ? "33m" : '@' == strmap[i][ia] ? "33m" : 'P' == strmap[i][ia] && iunmd ? "30;1m" : "0m") << strmap[i][ia] << "\033[0m";
 		}
 		cout << "|" << endl;
 	}
 	cout << "-----------@" << endl;
 }
-void Player::printmap(char(*strmap)[11][11], const bool bwait, const int ir) {
+void Player::printmap(char(*strmap)[11][11], const bool bwait, const int ir, const int iunmd) {
 	int i = 0;
 	int ia = 0;
-	cout << "\033[" << (!bwait || 2 < iheal ? "32;1m" : 2 == iheal ? "33m" : "31;1m") << "P * " << iheal << "\033[0m" << endl << endl << endl;
+	cout << "\033[" << (!bwait || 5 < iheal ? "32;1m" : 2 < iheal ? "33m" : "31;1m") << "P * " << iheal << "\033[0m" << endl << endl << endl;
 	for (cout << "-----------@" << endl; i < 11; i++) {
 		for (ia = ir; 11 > ia - ir; ia++) {
-			cout << (*strmap)[i][ia % 11];
 			21 > ia && ia >= 12 && i && 10 != i && ((*strmap)[i][ia % 11] = ' ');
+			cout << "\033[" << ('P' == (*strmap)[i][ia % 11] && iunmd ? "40;1m" : "0m") << (*strmap)[i][ia % 11] << "\033[0m";
 		}
 		cout << "|" << endl;
 	}
