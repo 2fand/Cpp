@@ -98,7 +98,7 @@ void win(int ichoose) {
 	case 1:
 		cout << "      * *          *********      *   * *        *           *   * *      * *  * * *  **     * *      " << endl;
 	case 0:
-		cout << "       *           *       *      *    *                     *    *         * *   *    *      *       " << endl;
+		cout << "       *           *       *      *    *                     *    *      *  * *   *    *      *       " << endl;
 	default:
 		break;
 	}
@@ -120,7 +120,9 @@ int main() {
 	};
 	bool ba = 1;
 	bool bb = 1;
+	bool bc = 1;
 	char ch = 0;
+	int iunmd = 0;
 	vector<M_o*>vo;
 	vector<draw>vmd[5] = { {{5,2,6,1}}, {{3,2,4,0}, {7,2,3,1}, {3,5,4,0}, {3,5,3,1}, {3,8,4,0}}, {{3,2,4,0},{3,5,4,0},{3,8,4,0},{7,2,6,1}}, {{3,2,3,1},{3,5,4,0},{7,2,6,1}}, {{5,3,4,1},{3,5,4,0}} };
 	multimap<int, int>mwasd[4] = { {{9,1},{9,3},{3,3},{5,3},{7,3},{9,3},{8,4},{8,8},{6,8},{4,8}}, {{2,3},{9,9},{3,8},{5,8},{7,8},{9,2}}, {{2,2},{2,7},{1,9}}, {{1,1},{2,4},{4,3},{6,3},{8,3},{8,7}} };
@@ -184,8 +186,11 @@ int main() {
 	char strmapr[11][11];
 	isv ism;//用来布置怪物
 	vector<isv> vism;//地牢布置与怪物布置，无时即BOSS战(+)(int为编号)
+	vism.reserve(300);
 	char* strcp[47] = { &strmap[9][5], &strmap[9][7], &strmap[9][3], &strmap[1][5], &strmap[1][5], &strmap[6][1], &strmap[4][9], &strmap[6][8], &strmap[3][3], &strmap[4][3], &strmap[5][3], &strmap[6][3], &strmap[7][3], &strmap[8][3], &strmap[9][3], &strmap[4][5], &strmap[5][4], &strmap[5][5], &strmap[5][6], &strmap[6][5], &strmap[1][5], &strmap[1][5], &strmap[9][5], &strmap[9][5], &strmap[1][9], &strmap[1][1], &strmap[8][2], &strmap[2][8], &strmap[8][8], &strmap[2][2], &strmap[5][5], &strmap[1][1], &strmap[2][2], &strmap[3][3], &strmap[4][4], &strmap[8][5], &strmap[5][2], &strmap[2][4], &strmap[4][9], &strmap[1][8], &strmap[9][2], &strmap[1][1], &strmap[9][9], &strmap[3][4], &strmap[5][1], &strmap[5][9], &strmap[5][5]};
 	vector<moster*>mpv;//mpv里一共要有的怪物们
+	char tempstr[9] = "color 0";
+	char tempstra[10][2] = { "C", "E", "A", "9", "D", "9", "A", "E", "C" };
 	mpv.reserve(10000);
 	//随机设置地牢布置与怪物布置
 	for (i = 0; ch < 11; ch++) {
@@ -312,19 +317,20 @@ int main() {
 			for (itemp = i + ia; i < itemp; i++) {
 				pair<bool, bool>pbb = { rand() % 2, rand() % 2 };
 				pair<int, int>pxy = { rand() % 9 + 1, rand() % 9 + 1 };
-				while ((7 == pxy.first || 5 == pxy.first) && 4 == pxy.second) {
+				while ((7 == pxy.first || 5 == pxy.first) && 4 == pxy.second || 7 <= pxy.first && 3 >= pxy.second) {
 					pxy = { rand() % 9 + 1, rand() % 9 + 1 };
 				}
-				char** tempcpp = tempcparr;
-				*tempcpp = &strmap[pxy.first][pxy.second];
-				switch (rand() % 3) {
+				tempcparr[itemp - i] = &strmap[pxy.first][pxy.second];
+				switch (rand() % 7) {
 				case 0:
+				case 1:
 					mpv.push_back(new Mand());
 					vism[ch].str += '&';
 					vism[ch].vmp.push_back(mpv.back());
-					vism[ch].vmp.back()->set(p.sgetxyhs(), tempcpp++, 3, NULL, NULL, NULL, 0, 0, pbb.first);
+					vism[ch].vmp.back()->set(p.sgetxyhs(), tempcparr + itemp - i, 3, NULL, NULL, NULL, 0, 0, pbb.first);
 					break;
-				case 1:
+				case 2:
+				case 3:
 					mpv.push_back(new MUD());
 					if (pbb.second) {
 						vism[ch].str += 'v';
@@ -333,19 +339,20 @@ int main() {
 						vism[ch].str += '^';
 					}
 					vism[ch].vmp.push_back(mpv.back());
-					vism[ch].vmp.back()->set(p.sgetxyhs(), tempcpp++, 2, NULL, NULL, NULL, 0, 0, pbb.first, pbb.second);
+					vism[ch].vmp.back()->set(p.sgetxyhs(), tempcparr + itemp - i, 2, NULL, NULL, NULL, 0, 0, pbb.first, pbb.second);
 					break;
-				case 2:
+				case 4:
+				case 5:
 					mpv.push_back(new MX());
 					vism[ch].str += 'X';
 					vism[ch].vmp.push_back(mpv.back());
-					vism[ch].vmp.back()->set(p.sgetxyhs(), tempcpp++, 3, NULL, &cp, &strmap);
+					vism[ch].vmp.back()->set(p.sgetxyhs(), tempcparr + itemp - i, 3, NULL, &cp, &strmap);
 					break;
-				case 3:
+				case 6:
 					mpv.push_back(new MO());
 					vism[ch].str += 'O';
 					vism[ch].vmp.push_back(mpv.back());
-					vism[ch].vmp.back()->set(p.sgetxyhs(), tempcpp++, 5, &em, NULL, NULL, pxy.first, pxy.second);
+					vism[ch].vmp.back()->set(p.sgetxyhs(), tempcparr + itemp - i, 5, &em, NULL, NULL, pxy.first, pxy.second);
 					break;
 				default:
 					break;
@@ -365,8 +372,7 @@ int main() {
 	vism.back().id = 10;
 	mpv.push_back(new Mplus());
 	vism.back().vmp.push_back(mpv.back());
-	vism.back().vmp.back()->set(p.sgetxyhs(), &strcp[45], 10);
-	p.sgetxyhs(HEAL) = 8;
+	vism.back().vmp.back()->set(p.sgetxyhs(), &strcp[46], 10);
 	int ishoot = 0;
 	int bosswait = 0;
 	bool b = 0;
@@ -379,30 +385,30 @@ int main() {
 		Sleep(10);
 	}
 	Sleep(10);
-	for (i = 0; i < 10; i++) {
-		char tempstr[9] = "color 0";
-		char tempstra[10][2] = {"C", "E", "A", "9", "D", "9", "A", "E", "C", "7"};
+	for (i = 0; i < 9; i++) {
 		strcat(tempstr, tempstra[i]);
 		system(tempstr);
+		tempstr[7] = 0;
 		Sleep(100);
 	}
+	system("color 07");
 	Sleep(500);
 	cout << endl << endl << endl;
-	cout << "           \033[33m@---------------------------------------------@" << endl;
-	cout << "           |                                             |" << endl;
-	cout << "           |     \033[0m1. 游戏规则           \033[32;1m2. 开始游戏(简单)\033[0;33m |" << endl;
-	cout << "           |                                             |" << endl;
-	cout << "           |     3. 开始游戏(普通)     \033[31;1m4. 开始游戏(困难)\033[0;33m |" << endl;
-	cout << "           |                                             |" << endl;
-	cout << "           |     \033[31m5. 开始游戏(极限)\033[1m     0. 退出\033[0;33m           |" << endl;
-	cout << "           |                                             |" << endl;
-	cout << "           @---------------------------------------------@\033[0m" << endl;
+	cout << " \033[33m@---------------------------------------------@" << endl;
+	cout << " |                                             |" << endl;
+	cout << " |   \033[0m1. 游戏规则           \033[32;1m2. 开始游戏(简单)\033[0;33m   |" << endl;
+	cout << " |                                             |" << endl;
+	cout << " |   3. 开始游戏(普通)     \033[31;1m4. 开始游戏(困难)\033[0;33m   |" << endl;
+	cout << " |                                             |" << endl;
+	cout << " |   \033[31m5. 开始游戏(极限)\033[1m     0. 退出\033[0;33m             |" << endl;
+	cout << " |                                             |" << endl;
+	cout << " @---------------------------------------------@\033[0m" << endl;
 	cout << endl << endl << endl;
 	while ('1' == ch || '0' > ch || ch > '5') {
 		cin >> ch;
 		if ('1' == ch) {
 			cout << "游戏规则：" << endl;
-			cout << "    “P”是你，“*”是墙，a键左移，d键右移，w键跳，s及其其他键让时间流逝，上面显示你的\033[32;1m生\033[0;33m命\033[31;1m值\033[0m，如果你生命值\033[31m归0\033[0m，那么你就\033[31;1m失败\033[0m，在遇到\033[31;1m怪物\033[0m的时候，你要按下z键用枪射出\033[33m子弹射\033[31;1m死\033[0m各种各样的\033[31;1m怪物\033[0m，\033[31;1m怪物\033[0m是怎么样的你自己看，如果你碰到了\033[31;1m怪物\033[0m，那么你就会被\033[31;1m怪物伤到\033[0m，\033[31;1m血量减1\033[0m，而打败\033[31;1m小BOSS\033[0m“\033[33m+\033[0m”并从\033[31;1m小BOSS\033[0m的房间中\033[32;1m走出去\033[0m即可\033[32;1m胜利\033[0m。而这个游戏有四种可游玩的模式：一种是\033[32;1m简单模式\033[0m，一种是\033[33m普通模式\033[0m，一种是\033[31;1m困难模式\033[0m，一种是\033[31m极限模式\033[0m，其中，\033[32;1m简单模式\033[0m会让你开始时有\033[32;1m8滴血\033[0m，\033[33m普通模式\033[0m会让你开始时有\033[33m5滴血\033[0m，\033[31;1m困难模式\033[0m会让你开始时有\033[31;1m3滴血\033[0m，而\033[31m极限模式\033[0m会让你开始时\033[31;4m只有1滴血\033[0m；同样，\033[4m我们也会根据你选择的\033[31;1m难度\033[0;4m来选择不同的告知你\033[32;1m胜利方式\033[0m：\033[4m如果你选择了\033[31;1m难玩的难度\033[0;4m，那么告知你\033[32;1m胜利方式\033[0;4m也更\033[32;1m新奇\033[0;4m；反之如果你选择了\033[32;1m易玩的难度\033[0;4m，那么告知你\033[32;1m胜利方式\033[0;4m也\033[31;1m更不新奇\033[0m。这就是这个打小怪游戏的规则，你听明白了吗?" << endl << endl;
+			cout << "    “P”是你，“*”是墙，a键左移，d键右移，w键跳，s及其其他键让时间流逝，上面显示你的\033[32;1m生\033[0;33m命\033[31;1m值\033[0m，如果你生命值\033[31m归0\033[0m，那么你就\033[31;1m失败\033[0m，在遇到\033[31;1m怪物\033[0m的时候，你要按下z键用枪射出\033[33m子弹射\033[31;1m死\033[0m各种各样的\033[31;1m怪物\033[0m，\033[31;1m怪物\033[0m是怎么样的你自己看，如果你碰到了\033[31;1m怪物\033[0m，那么你就会被\033[31;1m怪物伤到\033[0m，\033[31;1m血量减1\033[0m，而打败\033[31;1m小BOSS\033[0m“\033[33m+\033[0m”并从\033[31;1m小BOSS\033[0m的房间中\033[32;1m走出去\033[0m即可\033[32;1m胜利\033[0m。而这个游戏有四种可游玩的模式：一种是\033[32;1m简单模式\033[0m，一种是\033[33m普通模式\033[0m，一种是\033[31;1m困难模式\033[0m，一种是\033[31m极限模式\033[0m，其中，\033[32;1m简单模式\033[0m会让你开始时有\033[32;1m8滴血\033[0m，\033[33m普通模式\033[0m会让你开始时有\033[33m5滴血\033[0m，\033[31;1m困难模式\033[0m会让你开始时有\033[31;1m3滴血\033[0m，而\033[31m极限模式\033[0m会让你开始时\033[31;4m只有1滴血\033[0m；同样，\033[4m我们也会根据你选择的\033[31;1m难度\033[0;4m来选择不同的告知你\033[32;1m胜利方式\033[0m：\033[4m如果你选择了\033[31;1m难玩的难度\033[0;4m，那么告知你\033[32;1m胜利方式\033[0;4m也更\033[32;1m新奇\033[0;4m；反之如果你选择了\033[32;1m易玩的难度\033[0;4m，那么告知你\033[32;1m胜利方式\033[0;4m也\033[31;1m更不新奇\033[0m，并且不同的\033[31;1m难度\033[0m也有不同的\033[32;1m战前回血概率\033[0m与\033[31;1m小BOSS\033[32m战前回血概率\033[0m，\033[4m越\033[31;1m难\033[0;4m这个概率就越\033[31;1m小\033[0m。这就是这个打小怪游戏的规则，你听明白了吗?" << endl << endl;
 		}
 		else if ('0' > ch || ch > '5') {
 			cout << "\033[31;1m输入错误，请重新输入\033[0m" << endl << endl;
@@ -414,6 +420,8 @@ int main() {
 		return 0;
 	}
 	d = (difficulty)(ch - '2');
+	int temparra[4] = { 8, 5, 3, 1 };
+	p.sgetxyhs(HEAL) = temparra[d];
 	system("cls");
 	while (p.sgetxyhs(HEAL) && (bb || 'P' != strmap[9][10])) {
 		MO mo;
@@ -463,10 +471,12 @@ int main() {
 						strmap[i][ch] = '*';
 					}
 				}
-				strmap[8][5] = '*';
-				strmap[6][3] = '*';
-				strmap[6][7] = '*';
-				strmap[4][5] = '*';
+				{
+					int arr[12] = { 8, 5, 6, 3, 6, 7, 4, 5, 8, 9, 4, 1 };
+					for (i = 0; i < 12; i += 2) {
+						strmap[arr[i]][arr[i + 1]] = '*';
+					}
+				}
 				break;
 			case 6:
 			{
@@ -544,12 +554,14 @@ int main() {
 		p.sgetxyhs(Y) = (cp - &strmap[0][0]) % 11;
 		mo.set_s_pxy(p.sgetxyhs(X), p.sgetxyhs(Y));
 		p.shootmove(&strmap, 0);//子弹删
-		for (vector<draw>::iterator it = vmd[5 - vism.size()].begin(); &strmap[9][0] == cp && vmd[5 - vism.size()].back().iwalk + 1; it++) {
-			for (char* drawcp = &strmap[it->ix][it->iy]; it->iwalk + 1; drawcp += (1 + 10 * it->brd), it->iwalk--) {
-				*drawcp = '#';
+		if (vism.size()) {
+			for (vector<draw>::iterator it = vmd[5 - vism.size()].begin(); &strmap[9][0] == cp && vmd[5 - vism.size()].back().iwalk + 1; it++) {
+				for (char* drawcp = &strmap[it->ix][it->iy]; it->iwalk + 1; drawcp += (1 + 10 * it->brd), it->iwalk--) {
+					*drawcp = '#';
+				}
 			}
 		}
-		p.printmap(strmap, ba);
+		p.printmap(strmap, ba, iunmd);
 		ba = 1;
 		cin >> ch;
 		rewind(stdin);
@@ -572,7 +584,7 @@ int main() {
 			break;
 		}
 		p.upOrDown(&cp);
-		(' ' == *cp || '@' == *cp) || cout << (p.sgetxyhs(HEAL)--, "\a");
+		(iunmd || ' ' == *cp || '@' == *cp) || cout << (p.sgetxyhs(HEAL)--, iunmd = 2, "\a");
 		//有怪物使你扣血
 		ishoot > 0 && ishoot--;
 		if (' ' != strmap[9][10]) {
@@ -581,7 +593,7 @@ int main() {
 				if (-1 == vism.front().vmp.front()->getheal()) {
 					int ir = 0;
 					//把怪物“o”转换成其他怪物
-					switch (ir = (ba ? ba = !ba, 2 : rand() % 4)) {
+					switch (bc ? (bc = 0, 2) : rand() % 4) {
 					case 0:
 						mpv.push_back(new Mand());
 						break;
@@ -601,7 +613,7 @@ int main() {
 					char* cpa = NULL;
 					int mx = 0;
 					int my = 0;
-					const int arr[8] = { -12,-11,-10,-1,1,10,11,12 };
+					const int arr[8] = { -12, -11, -10, -1, 1, 10, 11, 12 };
 					while (!cpa || ' ' != *cpa) {
 						int ira = rand() % (cpa = vism.front().vmp.front()->getcp(), 8);
 						int imx = (vism.front().vmp.front()->getcp() - &strmap[0][0]) / 11;
@@ -675,20 +687,25 @@ int main() {
 			}
 			for_each(vism.front().vmp.begin(), vism.front().vmp.end(), MShow);
 		}
-		(' ' == *cp || '@' == *cp) || cout << (p.sgetxyhs(HEAL)--, "\a"), (' ' == *cp || '@' == *cp) && (*cp = 'P');
+		(iunmd || ' ' == *cp || '@' == *cp) || cout << (p.sgetxyhs(HEAL)--, iunmd = 2, "\a");
+		'*' != *cp && (*cp = 'P');
 		//没血使怪物死亡
 		system("cls");//清屏
-		//如果vism的第0项vmp为空，那么开门，并头删
-		if (vism.front().vmp.empty() && '*' == strmap[9][10]) {
+		//如果vism的第0项vmp或者vism为空为空，那么开门，并头删
+		if ((vism.empty() || vism.front().vmp.empty()) && '*' == strmap[9][10]) {
 			strmap[9][10] = ' ';
 			vism.erase(vism.begin());
 		}
 		//如果进门，那么重置地图('*'  -->  ' ')，并把b设为假
 		if (bb && 'P' == strmap[9][10]) {
-			strmap[9][0] = ' ';
 			b = 0;
+			for (vector<trir>::iterator it = p.sgetxyhs()->begin(); p.sgetxyhs()->end() != it; it++) {
+				'*' != *it->cp && (*it->cp = ' ');
+			}
+			p.sgetxyhs()->clear();
 			for (i = 0; i < 10; i++) {
-				p.printmap(&strmap, ba, i);
+				p.printmap(&strmap, ba, i, iunmd);
+				!i && (strmap[9][0] = ' ');
 				Sleep(100);
 				system("cls");
 			}
@@ -697,17 +714,51 @@ int main() {
 			strmap[9][10] = '*';
 			strmap[9][0] = 'P';
 			////
-			p.printmap(&strmap, ba, 11);
+			p.printmap(&strmap, ba, 11, iunmd);
 			Sleep(100);
 			system("cls");
-			1 != vism.size() && (!(rand() % 4) && (8 > p.sgetxyhs(HEAL) && p.sgetxyhs(HEAL)++, ba = 0) || (!(rand() % 2)) && (8 > p.sgetxyhs(HEAL) && p.sgetxyhs(HEAL)++, ba = 0));//恢复血量
+			bool temparrb[8] = { 1, 1, !(rand() % 2), 1, !(rand() % 4), !(rand() % 2), 0, 0};
+			1 != vism.size() && (temparrb[d * 2] && (temparra[d] > p.sgetxyhs(HEAL) && p.sgetxyhs(HEAL)++, ba = 0)) || (temparrb[d * 2 + 1] && (temparra[d] > p.sgetxyhs(HEAL) && p.sgetxyhs(HEAL)++, ba = 0));//恢复血量
 			//并把cp设为&strmap[9][0]
 			cp = &strmap[9][0];
 		}
+		iunmd && iunmd--;
 	}
-	bb && (str[7] = 'C') || (str[7] = 'A');
+	char tempstrb[6] = "C2AA7";
+	str[7] = tempstrb[(!bb) * (d + 1)];
 	system(str);
-	cout << (bb ? "很遗憾，你输了" : "恭喜你，你赢了") << endl;
+	switch ((!bb) * (d + 1)) {
+	case 0:
+		cout << "很遗憾，你输了" << endl;
+		break;
+	case 1:
+	case 2:
+		cout << "恭喜你，你赢了" << endl;
+		break;
+	case 3:
+		cout << "@------------------@" << endl;
+		cout << "|                  |" << endl;
+		cout << "|  恭喜你，你赢了  |" << endl;
+		cout << "|                  |" << endl;
+		cout << "@------------------@" << endl;
+		break;
+	case 4:
+		for (i = 0; i < 15; i++) {
+			system("cls");
+			win(i);
+			Sleep(10);
+		}
+		for (i = 0; i < 27; i++) {
+			strcat(tempstr, tempstra[i % 9]);
+			system(tempstr);
+			tempstr[7] = 0;
+			Sleep(100);
+		}
+		system("color 0A");
+		break;
+	default:
+		break;
+	}
 	for_each(mpv.begin(), mpv.end(), del);
 	for_each(vo.begin(), vo.end(), delvo);
 	return 0;
