@@ -186,7 +186,7 @@ int main() {
 	char strmapr[11][11];
 	isv ism;//用来布置怪物
 	vector<isv> vism;//地牢布置与怪物布置，无时即BOSS战(+)(int为编号)
-	vism.reserve(300);
+	vism.reserve(1000);
 	char* strcp[47] = { &strmap[9][5], &strmap[9][7], &strmap[9][3], &strmap[1][5], &strmap[1][5], &strmap[6][1], &strmap[4][9], &strmap[6][8], &strmap[3][3], &strmap[4][3], &strmap[5][3], &strmap[6][3], &strmap[7][3], &strmap[8][3], &strmap[9][3], &strmap[4][5], &strmap[5][4], &strmap[5][5], &strmap[5][6], &strmap[6][5], &strmap[1][5], &strmap[1][5], &strmap[9][5], &strmap[9][5], &strmap[1][9], &strmap[1][1], &strmap[8][2], &strmap[2][8], &strmap[8][8], &strmap[2][2], &strmap[5][5], &strmap[1][1], &strmap[2][2], &strmap[3][3], &strmap[4][4], &strmap[8][5], &strmap[5][2], &strmap[2][4], &strmap[4][9], &strmap[1][8], &strmap[9][2], &strmap[1][1], &strmap[9][9], &strmap[3][4], &strmap[5][1], &strmap[5][9], &strmap[5][5]};
 	vector<moster*>mpv;//mpv里一共要有的怪物们
 	char tempstr[9] = "color 0";
@@ -195,6 +195,7 @@ int main() {
 	//随机设置地牢布置与怪物布置
 	for (i = 0; ch < 11; ch++) {
 		vism.push_back(ism);
+		vism.back().vmp.reserve(100);
 		vism[ch].id = ch;
 		int itemp = 0;
 		switch (ch) {//建议每个case都封装成一个函数
@@ -691,7 +692,7 @@ int main() {
 		'*' != *cp && (*cp = 'P');
 		//没血使怪物死亡
 		system("cls");//清屏
-		//如果vism的第0项vmp或者vism为空为空，那么开门，并头删
+		//如果vism的第0项vmp或者vism为空，那么开门，并头删
 		if ((vism.empty() || vism.front().vmp.empty()) && '*' == strmap[9][10]) {
 			strmap[9][10] = ' ';
 			vism.erase(vism.begin());
@@ -718,7 +719,12 @@ int main() {
 			Sleep(100);
 			system("cls");
 			bool temparrb[8] = { 1, 1, !(rand() % 2), 1, !(rand() % 4), !(rand() % 2), 0, 0};
-			1 != vism.size() && (temparrb[d * 2] && (temparra[d] > p.sgetxyhs(HEAL) && p.sgetxyhs(HEAL)++, ba = 0)) || (temparrb[d * 2 + 1] && (temparra[d] > p.sgetxyhs(HEAL) && p.sgetxyhs(HEAL)++, ba = 0));//恢复血量
+			if (1 != vism.size()) {//恢复血量
+				temparrb[d * 2] && temparra[d] > p.sgetxyhs(HEAL) && (p.sgetxyhs(HEAL)++, ba = 0);
+		    }
+		    else {
+				temparrb[d * 2 + 1] && temparra[d] > p.sgetxyhs(HEAL) && (p.sgetxyhs(HEAL)++, ba = 0);
+			}
 			//并把cp设为&strmap[9][0]
 			cp = &strmap[9][0];
 		}
