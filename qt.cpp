@@ -395,3 +395,27 @@ MainWindow::~MainWindow()
     delete ui;
 }
 *///“菜单栏的创建”^
+/*
+//widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QPixMap>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    QPixmap pm(":/pixmap.png");
+
+    ui->label->setPixmap(pm);
+
+
+}
+
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///“文字标签转图片”^
