@@ -13,14 +13,14 @@ using namespace std;
 #include <cstring>
 #include <Windows.h>
 #include "draw.h"
-enum difficulty {
+enum difficulty {//难度
 	EASY,
 	NORMAL,
 	HARD,
 	LIMIT
 };
 void MShow(moster*& mp) {
-	('X' == mp->getm() || '*' != *mp->getcp()) && (*mp->getcp() = mp->getm());
+	('X' == mp->getm() || '*' != *mp->getcp()) && (*mp->getcp() = mp->getm());//左边条件防出bug
 }
 void del(moster*& mp) {
 	delete mp;
@@ -29,9 +29,9 @@ void delvo(M_o*& mp) {
 	delete mp;
 }
 void setMempty(moster*& mp) {
-	'*' != *mp->getcp() && (*mp->getcp() = ' ');
+	'*' != *mp->getcp() && (*mp->getcp() = ' ');//左边条件也防出bug
 }
-void start(int ichoose) {
+void start(int ichoose) {//开始时打印大字函数
 	switch (ichoose) {
 	case 14:
 		cout << "      *                  *          *           " << endl;
@@ -67,7 +67,7 @@ void start(int ichoose) {
 		break;
 	}
 } 
-void win(int ichoose) {
+void win(int ichoose) {//胜利后打印函数
 	switch (ichoose) {
 	case 14:
 		cout << "      *   *            *           *  *                       *  *              *                     " << endl;
@@ -105,7 +105,7 @@ void win(int ichoose) {
 }
 int main() {
 	srand((unsigned int)time(NULL));
-	char strmap[11][11] = {
+	char strmap[11][11] = {//地牢图
 		'*','*','*','*','*','*','*','*','*','*','*',
 		'*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
 		'*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',
@@ -123,9 +123,9 @@ int main() {
 	bool bc = 1;
 	char ch = 0;
 	int iunmd = 0;
-	vector<M_o*>vo;
-	vector<draw>vmd[5] = { {{5,2,6,1}}, {{3,2,4,0}, {7,2,3,1}, {3,5,4,0}, {3,5,3,1}, {3,8,4,0}}, {{3,2,4,0},{3,5,4,0},{3,8,4,0},{7,2,6,1}}, {{3,2,3,1},{3,5,4,0},{7,2,6,1}}, {{5,3,4,1},{3,5,4,0}} };
-	multimap<int, int>mwasd[4] = { {{9,1},{9,3},{3,3},{5,3},{7,3},{9,3},{8,4},{8,8},{6,8},{4,8}}, {{2,3},{9,9},{3,8},{5,8},{7,8},{9,2}}, {{2,2},{2,7},{1,9}}, {{1,1},{2,4},{4,3},{6,3},{8,3},{8,7}} };
+	vector<M_o*>vo;//小BOSS战时需要
+	vector<draw>vmd[5] = { {{5,2,6,1}}, {{3,2,4,0}, {7,2,3,1}, {3,5,4,0}, {3,5,3,1}, {3,8,4,0}}, {{3,2,4,0},{3,5,4,0},{3,8,4,0},{7,2,6,1}}, {{3,2,3,1},{3,5,4,0},{7,2,6,1}}, {{5,3,4,1},{3,5,4,0}} };//<-画“#”时所需要的数组
+	multimap<int, int>mwasd[4] = { {{9,1},{9,3},{3,3},{5,3},{7,3},{9,3},{8,4},{8,8},{6,8},{4,8}}, {{2,3},{9,9},{3,8},{5,8},{7,8},{9,2}}, {{2,2},{2,7},{1,9}}, {{1,1},{2,4},{4,3},{6,3},{8,3},{8,7}} };//<-画“#”时所需要的数组
 	vo.reserve(99999);
 	int i = 0;
 	int temparr[6] = { 4, 8, 12, 15, 17, 18 };
@@ -144,7 +144,7 @@ int main() {
 	map<char**, WASD>em;//追踪map
 	char* cparr[45] = { NULL };
 	char** cpp = cparr;
-	for (WASD w = W; E != w; ++w) {
+	for (WASD w = W; E != w; ++w) {//第5地牢的怪物移动路线
 		switch (w) {
 		case W:
 			for (i = 1; i < 5; i++) {
@@ -186,19 +186,19 @@ int main() {
 	char strmapr[11][11];
 	isv ism;//用来布置怪物
 	vector<isv> vism;//地牢布置与怪物布置，无时即BOSS战(+)(int为编号)
-	vism.reserve(1000);
-	char* strcp[47] = { &strmap[9][5], &strmap[9][7], &strmap[9][3], &strmap[1][5], &strmap[1][5], &strmap[6][1], &strmap[4][9], &strmap[6][8], &strmap[3][3], &strmap[4][3], &strmap[5][3], &strmap[6][3], &strmap[7][3], &strmap[8][3], &strmap[9][3], &strmap[4][5], &strmap[5][4], &strmap[5][5], &strmap[5][6], &strmap[6][5], &strmap[1][5], &strmap[1][5], &strmap[9][5], &strmap[9][5], &strmap[1][9], &strmap[1][1], &strmap[8][2], &strmap[2][8], &strmap[8][8], &strmap[2][2], &strmap[5][5], &strmap[1][1], &strmap[2][2], &strmap[3][3], &strmap[4][4], &strmap[8][5], &strmap[5][2], &strmap[2][4], &strmap[4][9], &strmap[1][8], &strmap[9][2], &strmap[1][1], &strmap[9][9], &strmap[3][4], &strmap[5][1], &strmap[5][9], &strmap[5][5]};
+	vism.reserve(1000);//防bug出
+	char* strcp[47] = { &strmap[9][5], &strmap[9][7], &strmap[9][3], &strmap[1][5], &strmap[1][5], &strmap[6][1], &strmap[4][9], &strmap[6][8], &strmap[3][3], &strmap[4][3], &strmap[5][3], &strmap[6][3], &strmap[7][3], &strmap[8][3], &strmap[9][3], &strmap[4][5], &strmap[5][4], &strmap[5][5], &strmap[5][6], &strmap[6][5], &strmap[1][5], &strmap[1][5], &strmap[9][5], &strmap[9][5], &strmap[1][9], &strmap[1][1], &strmap[8][2], &strmap[2][8], &strmap[8][8], &strmap[2][2], &strmap[5][5], &strmap[1][1], &strmap[2][2], &strmap[3][3], &strmap[4][4], &strmap[8][5], &strmap[5][2], &strmap[2][4], &strmap[4][9], &strmap[1][8], &strmap[9][2], &strmap[1][1], &strmap[9][9], &strmap[3][4], &strmap[5][1], &strmap[5][9], &strmap[5][5]};//生成时要的怪物坐标
 	vector<moster*>mpv;//mpv里一共要有的怪物们
-	char tempstr[9] = "color 0";
-	char tempstra[10][2] = { "C", "E", "A", "9", "D", "9", "A", "E", "C" };
-	mpv.reserve(10000);
+	char tempstr[9] = "color 0";//为告知你胜利的文字颜色
+	char tempstra[10][2] = { "C", "E", "A", "9", "D", "9", "A", "E", "C" };//大文字动态彩色变化数组(system("color 0" + tempstra[x(0<=x<=9)])
+	mpv.reserve(10000);//也防bug出
 	//随机设置地牢布置与怪物布置
 	for (i = 0; ch < 11; ch++) {
 		vism.push_back(ism);
-		vism.back().vmp.reserve(100);
+		vism.back().vmp.reserve(100);//还防bug出
 		vism[ch].id = ch;
 		int itemp = 0;
-		switch (ch) {//建议每个case都封装成一个函数
+		switch (ch) {//编号id对应的地牢怪物生成
 		case 0:
 			for (itemp = i + 8, vism[ch].str = "O&&^^OXX"; i < itemp; i++) {
 				switch (vism[ch].str[8 - (itemp - i)]) {
@@ -369,7 +369,7 @@ int main() {
 	while (4 != vism.size()) {
 		vism.pop_back();//删除本次游戏不需要的地牢
 	}
-	vism.push_back(ism);
+	vism.push_back(ism);//小BOSS的创建
 	vism.back().id = 10;
 	mpv.push_back(new Mplus());
 	vism.back().vmp.push_back(mpv.back());
@@ -378,15 +378,15 @@ int main() {
 	int bosswait = 0;
 	bool b = 0;
 	char str[9] = "color 0";
-	difficulty d = EASY;
+	difficulty d = EASY;//初始值(EASY)
 	//开始界面
-	for (i = 0; i < 15; i++) {
+	for (i = 0; i < 15; i++) {//大文字缓缓出现
 		system("cls");
 		start(i);
 		Sleep(10);
 	}
 	Sleep(10);
-	for (i = 0; i < 9; i++) {
+	for (i = 0; i < 9; i++) {//使大文字变成动态的彩色
 		strcat(tempstr, tempstra[i]);
 		system(tempstr);
 		tempstr[7] = 0;
@@ -394,7 +394,7 @@ int main() {
 	}
 	system("color 07");
 	Sleep(500);
-	cout << endl << endl << endl;
+	cout << endl << endl << endl;//游戏的开始界面
 	cout << " \033[33m@---------------------------------------------@" << endl;
 	cout << " |                                             |" << endl;
 	cout << " |   \033[0m1. 游戏规则           \033[32;1m2. 开始游戏(简单)\033[0;33m   |" << endl;
@@ -405,24 +405,24 @@ int main() {
 	cout << " |                                             |" << endl;
 	cout << " @---------------------------------------------@\033[0m" << endl;
 	cout << endl << endl << endl;
-	while ('1' == ch || '0' > ch || ch > '5') {
+	while ('1' == ch || '0' > ch || ch > '5') {//输入错误或者输入“1”(游戏规则时)重新输入
 		cin >> ch;
-		if ('1' == ch) {
+		if ('1' == ch) {//1.游戏规则(打印游戏规则)
 			cout << "游戏规则：" << endl;
 			cout << "    “P”是你，“*”是墙，a键左移，d键右移，w键跳，s及其其他键让时间流逝，上面显示你的\033[32;1m生\033[0;33m命\033[31;1m值\033[0m，如果你生命值\033[31m归0\033[0m，那么你就\033[31;1m失败\033[0m，在遇到\033[31;1m怪物\033[0m的时候，你要按下z键用枪射出\033[33m子弹射\033[31;1m死\033[0m各种各样的\033[31;1m怪物\033[0m，\033[31;1m怪物\033[0m是怎么样的你自己看，如果你碰到了\033[31;1m怪物\033[0m，那么你就会被\033[31;1m怪物伤到\033[0m，\033[31;1m血量减1\033[0m，而打败\033[31;1m小BOSS\033[0m“\033[33m+\033[0m”并从\033[31;1m小BOSS\033[0m的房间中\033[32;1m走出去\033[0m即可\033[32;1m胜利\033[0m。而这个游戏有四种可游玩的模式：一种是\033[32;1m简单模式\033[0m，一种是\033[33m普通模式\033[0m，一种是\033[31;1m困难模式\033[0m，一种是\033[31m极限模式\033[0m，其中，\033[32;1m简单模式\033[0m会让你开始时有\033[32;1m8滴血\033[0m，\033[33m普通模式\033[0m会让你开始时有\033[33m5滴血\033[0m，\033[31;1m困难模式\033[0m会让你开始时有\033[31;1m3滴血\033[0m，而\033[31m极限模式\033[0m会让你开始时\033[31;4m只有1滴血\033[0m；同样，\033[4m我们也会根据你选择的\033[31;1m难度\033[0;4m来选择不同的告知你\033[32;1m胜利方式\033[0m：\033[4m如果你选择了\033[31;1m难玩的难度\033[0;4m，那么告知你\033[32;1m胜利方式\033[0;4m也更\033[32;1m新奇\033[0;4m；反之如果你选择了\033[32;1m易玩的难度\033[0;4m，那么告知你\033[32;1m胜利方式\033[0;4m也\033[31;1m更不新奇\033[0m，并且不同的\033[31;1m难度\033[0m也有不同的\033[32;1m战前回血概率\033[0m与\033[31;1m小BOSS\033[32m战前回血概率\033[0m，\033[4m越\033[31;1m难\033[0;4m这个概率就越\033[31;1m小\033[0m。这就是这个打小怪游戏的规则，你听明白了吗?" << endl << endl;
 		}
-		else if ('0' > ch || ch > '5') {
+		else if ('0' > ch || ch > '5') {//输入错误
 			cout << "\033[31;1m输入错误，请重新输入\033[0m" << endl << endl;
 		}
 		rewind(stdin);
 	}
-	if ('0' == ch) {
+	if ('0' == ch) {//退出
 		cout << endl << "欢迎下次游玩" << endl;
 		return 0;
 	}
-	d = (difficulty)(ch - '2');
+	d = (difficulty)(ch - '2');//难度选择('2'~'5') - '2' = (0~3)
 	int temparra[4] = { 8, 5, 3, 1 };
-	p.sgetxyhs(HEAL) = temparra[d];
+	p.sgetxyhs(HEAL) = temparra[d];//根据玩家选的难度来设置玩家的生命
 	system("cls");
 	while (p.sgetxyhs(HEAL) && (bb || 'P' != strmap[9][10])) {
 		MO mo;
@@ -435,7 +435,7 @@ int main() {
 					'#' == strmap[i][ch] && (strmap[i][ch] = ' ');
 				}
 			}
-			switch (vism.front().id) {
+			switch (vism.front().id) {//地牢的生成
 			case 0:
 				for (ch = 3; ch < 8; ch++) {
 					for (i = 3; i < 8; i++) {
@@ -555,14 +555,14 @@ int main() {
 		p.sgetxyhs(Y) = (cp - &strmap[0][0]) % 11;
 		mo.set_s_pxy(p.sgetxyhs(X), p.sgetxyhs(Y));
 		p.shootmove(&strmap, 0);//子弹删
-		if (vism.size()) {
+		if (vism.size()) {//开始前画“#”以用来告知人们地牢的变化
 			for (vector<draw>::iterator it = vmd[5 - vism.size()].begin(); &strmap[9][0] == cp && vmd[5 - vism.size()].back().iwalk + 1; it++) {
 				for (char* drawcp = &strmap[it->ix][it->iy]; it->iwalk + 1; drawcp += (1 + 10 * it->brd), it->iwalk--) {
 					*drawcp = '#';
 				}
 			}
 		}
-		p.printmap(strmap, ba, iunmd);
+		p.printmap(strmap, ba, iunmd);//显示游戏的游玩界面
 		ba = 1;
 		cin >> ch;
 		rewind(stdin);
@@ -610,7 +610,7 @@ int main() {
 					default:
 						break;
 					}
-					vism.front()/* <- 会改 */.vmp.push_back(mpv.back());
+					vism.front().vmp.push_back(mpv.back());
 					char* cpa = NULL;
 					int mx = 0;
 					int my = 0;
@@ -730,10 +730,10 @@ int main() {
 		}
 		iunmd && iunmd--;
 	}
-	char tempstrb[6] = "C2AA7";
+	char tempstrb[6] = "C2AA7";//胜利
 	str[7] = tempstrb[(!bb) * (d + 1)];
 	system(str);
-	switch ((!bb) * (d + 1)) {
+	switch ((!bb) * (d + 1)) {//告知你胜利的方式
 	case 0:
 		cout << "很遗憾，你输了" << endl;
 		break;
@@ -765,7 +765,7 @@ int main() {
 	default:
 		break;
 	}
-	for_each(mpv.begin(), mpv.end(), del);
-	for_each(vo.begin(), vo.end(), delvo);
+	for_each(mpv.begin(), mpv.end(), del);//释放mpv和vo里new出来的怪物对象
+	for_each(vo.begin(), vo.end(), delvo);//释放mpv和vo里new出来的怪物对象
 	return 0;
 }
