@@ -419,3 +419,28 @@ Widget::~Widget()
     delete ui;
 }
 *///“文字标签转图片”^
+/*
+//widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QPixMap>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    QPixmap pm(":/pixmap.png");
+
+    pm.fill(Qt::blue);
+    ui->label->setPixmap(pm);
+
+
+}
+
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///“蓝图”^
