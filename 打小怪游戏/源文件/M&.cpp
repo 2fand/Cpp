@@ -18,14 +18,14 @@ void Mand::mosterdo() {
 	}
 	else if (mblr && '*' == (*m_cpp)[1]) {
 		mblr = 0;
-	}//×²Ç½»»·½Ïò
+	}//æ’å¢™æ¢æ–¹å‘
 	tempcp = *m_cpp;
 	m_cpp = NULL;
-	'*' != tempcp[-(1 - 2 * mblr)] && (tempcp -= (1 - 2 * mblr));//×óÓÒÒÆ
-	'*' != tempcp[11] && (tempcp += 11);//ÏÂÂä
+	'*' != tempcp[-(1 - 2 * mblr)] && (tempcp -= (1 - 2 * mblr));//å·¦å³ç§»
+	'*' != tempcp[11] && (tempcp += 11);//ä¸‹è½
 	m_cpp = &tempcp;
-	//ºóÃæMshowÊ¹¼û
-}//×²Ç½»»·½Ïò£¬»á×ÔÈ»ÏÂÂä
+	//åé¢mainå‡½æ•°ä¸­ç”¨Mshowå‡½æ•°ä½¿è§
+}//æ’å¢™æ¢æ–¹å‘ï¼Œä¼šè‡ªç„¶ä¸‹è½
 char Mand::getm() {
 	return '&';
 }
