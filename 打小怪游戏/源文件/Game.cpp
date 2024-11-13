@@ -594,7 +594,7 @@ int main() {
 				if (-1 == vism.front().vmp.front()->getheal()) {
 					int ir = 0;
 					//把怪物“o”转换成其他怪物
-					switch (bc ? (bc = 0, 2) : rand() % 4) {
+					switch (bc ? 2 : rand() % 4) {
 					case 0:
 						mpv.push_back(new Mand());
 						break;
@@ -624,7 +624,7 @@ int main() {
 					}
 					mx = (cpa - &strmap[0][0]) / 11;
 					my = (cpa - &strmap[0][0]) % 11;
-					switch (ir) {
+					switch (bc ? (bc = 0, 2) : ir) {
 					case 0:
 						vism.front().vmp.back()->set(p.sgetxyhs(), &cpa, 3, NULL, NULL, NULL, 0, 0, rand() % 2);//怪物“&”
 						break;
