@@ -444,3 +444,31 @@ Widget::~Widget()
     delete ui;
 }
 *///“蓝图”^
+/*
+//widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QPixMap>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    QPixmap pm(100, 100);
+    QPixmap pma(123, 345);
+
+    pma.fill(Qt::red);
+    pm.fill(Qt::blue);
+    ui->label->setPixmap(pm);
+    ui->labela->setPixmap(pma);
+
+
+}
+
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///“空白图片上色”^
