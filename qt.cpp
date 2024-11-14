@@ -472,3 +472,28 @@ Widget::~Widget()
     delete ui;
 }
 *///“空白图片上色”^
+/*
+//widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QListWidget>
+#include <QStringList>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+
+    QStringList st={"11", "eded"};
+    ui->lw->addItems(st);
+
+
+}
+
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///“QListWidget的使用”^
