@@ -28995,3 +28995,28 @@ public:
 	char*& getcp();//获取怪物的位置
 };
 *///“添加更多的注释”^
+/*
+//mosters.h
+#pragma once
+#include <iostream>
+using namespace std;
+#include "moster.h"//怪物们的头文件
+#include "m_o.h"
+#include "m&.h"
+#include "m^.h"
+#include "mO.h"
+#include "m+.h"
+#include "mX.h"
+*///“添加一点注释”^
+/*
+//draw.h
+#pragma once
+#include <iostream>
+using namespace std;
+struct draw {
+	int iy;//画“#”的画笔起始y坐标
+	int ix;//画“#”的画笔起始x坐标
+	int iwalk;//画笔往哪个方向走几步
+	bool brd;//画壁画的方向(0> 1v)
+};
+*///“添加一点注释”^
