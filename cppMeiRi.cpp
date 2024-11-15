@@ -29020,3 +29020,379 @@ struct draw {
 	bool brd;//画壁画的方向(0> 1v)
 };
 *///“添加一点注释”^
+/*
+//Player.cpp
+#include <iostream>
+#include "Player.h"
+#include "cmp.h"
+#include <algorithm>
+#include <Windows.h>
+using namespace std;
+//构造函数
+Player::Player(){
+	ijh = 0;
+	blr = 1;
+}
+//打印地牢函数
+void Player::printmap(const char strmap[11][11], const bool bwait, const int iunmd) {
+	int i = 0;
+	int ia = 0;
+	cout << "\033[" << (!bwait || 5 < iheal ? "32;1m" : 2 < iheal ? "33m" : "31;1m") << "P * " << iheal << "\033[0m" << endl << endl << endl;//打印玩家的血量
+	for (cout << "-----------@" << endl; i < 11; i++) {
+		for (ia = 0; ia < 11; ia++) {
+			cout << "\033[" << ('G' == strmap[i][ia] ? "32;1m" : 'v' == strmap[i][ia] ? "36m" : '&' == strmap[i][ia] || '^' == strmap[i][ia] || 'o' == strmap[i][ia] || 'O' == strmap[i][ia] || 'X' == strmap[i][ia] ? "31;1m" : '+' == strmap[i][ia] || '#' == strmap[i][ia] ? "33m" : '@' == strmap[i][ia] ? "33m" : 'P' == strmap[i][ia] && iunmd ? "30;1m" : "0m") << strmap[i][ia] << "\033[0m";///打印地图
+		}
+		cout << "|" << endl;//竖的外边框
+	}
+	cout << "-----------@" << endl;//底下的的外边框
+}
+//打印地牢函数(右偏版本)
+void Player::printmap(char(*strmap)[11][11], const bool bwait, const int ir, const int iunmd) {
+	int i = 0;
+	int ia = 0;
+	cout << "\033[" << (!bwait || 5 < iheal ? "32;1m" : 2 < iheal ? "33m" : "31;1m") << "P * " << iheal << "\033[0m" << endl << endl << endl;//打印血量
+	for (cout << "-----------@" << endl; i < 11; i++) {
+		for (ia = ir; 11 > ia - ir; ia++) {
+			21 > ia && ia >= 12 && i && 10 != i && ((*strmap)[i][ia % 11] = ' ');//清空左边的墙(除边框)
+			cout << "\033[" << ('P' == (*strmap)[i][ia % 11] && iunmd ? "40;1m" : "0m") << (*strmap)[i][ia % 11] << "\033[0m";//打印右偏之后的地图
+		}
+		cout << "|" << endl;//竖的外边框
+	}
+	cout << "-----------@" << endl;//底下的的外边框
+}//跳跃函数
+void Player::jump(char** cpp) {
+	10 == ix || '*' == (*cpp)[11] && (ijh = JUMPHIGH);
+}
+//左移函数
+void Player::left_move(char** cpp) {
+	(iy && '*' != *(*cpp - 1) && ((*cpp)--));
+	blr = false;
+}
+//右移函数
+void Player::right_move(char** cpp) {
+	10 != iy && '*' != *(*cpp + 1) && ((*cpp)++);
+	blr = true;
+}
+//用于设置或获得玩家的x坐标，y坐标或血量
+int& Player::sgetxyhs(XYHS xyhsmode) {
+	switch (xyhsmode) {
+	case X:
+		return ix;
+		break;
+	case Y:
+		return iy;
+		break;
+	case HEAL:
+		return iheal;
+		break;
+	default:
+		break;
+	}
+}
+//设置或获得玩家射出的子弹
+vector<trir>* Player::sgetxyhs() {
+	return &v;
+}
+//使玩家上升或下坠
+void Player::upOrDown(char** cpp) {
+	if (ijh > 0 && ix && '*' != (*cpp)[-11]) {//跳跃后
+		ijh--, *cpp -= 11;
+	}
+	else if ('*' != (*cpp)[11] && (!ix || '*' == (*cpp)[-11])) {//撞墙或跳好后
+		ijh = 0, *cpp += 11;
+	}
+	else if ('*' != (*cpp)[11] && 10 != ix) {//落下时
+		*cpp += 11;
+	}
+	if (ijh > 0 && '*' == (*cpp)[11]) {//防磕头后还能跳
+		ijh = 0;
+	}
+}
+//射击函数
+void Player::shoot(int& i, char** cpp) {
+	if ((!i) && (iy && (!blr) || 10 != iy && blr)) {//检测冷却时间已过并且是否在地牢的边界射过
+		v.push_back({ *cpp, iy, blr, 0 });
+		i = 3;
+	}
+}
+//子弹的移动函数
+void Player::shootmove(const char(*strmap)[11][11], bool bmode) {
+	if (bmode) {
+		for (vector<trir>::iterator it = v.begin(); v.end() != it; it++) {
+			(' ' == *it->cp || '@' == *it->cp) && (*it->cp = ' ');///编译显示之前子弹的移动
+			if ('*' == *it->cp || it->bk || (!it->iy && (!it->b)) || (21 == it->iy && it->b)) {
+				it->iy = -1;//子弹的销毁
+			}
+			if (0 <= it->iy) {
+				it->cp -= (1 - it->b * 2);//子弹的移动
+				it->iy -= (1 - it->b * 2);//子弹y坐标的移动
+				(' ' == *it->cp || '@' == *it->cp) && (*it->cp = '@');//显示
+			}
+		}
+	}
+	else {
+		sort(v.begin(), v.end(), cmp());//按子弹的y坐标进行升序排列
+		while ((!v.empty()) && 0 > v.begin()->iy) {
+			v.erase(v.begin());//销毁子弹
+		}
+	}
+}
+//M&.cpp
+#include <iostream>
+using namespace std;
+#include "m&.h"
+Mand::Mand() {
+	this->set();
+}
+//vector<trir>* = NULL, char** = NULL, char** = NULL, pair<int, int>* = NULL, int = 0, int = 0, int = 3, bool = 0, bool = 0
+void Mand::set(vector<trir>* v, char** cpp, int iheal, map<char**, WASD>*, char**, char(*)[11][11], int, int, bool b, bool) {
+	m_v = v;
+	m_cpp = cpp;
+	m_iheal = iheal;
+	mblr = b;
+}
+void Mand::mosterdo() {
+	'*' != **m_cpp && (**m_cpp = ' ');//便于移动之后的显示
+	if (!mblr && '*' == (*m_cpp)[-1]) {//如果怪物M&往左移动，并且左边有墙
+		mblr = 1;//怪物M&就往右移动
+	}
+	else if (mblr && '*' == (*m_cpp)[1]) {//如果怪物M^往右移动，并且左边有墙
+		mblr = 0;//怪物M&就往左动
+	}//撞墙换方向
+	tempcp = *m_cpp;//防指针的链式带动
+	m_cpp = NULL;
+	'*' != tempcp[-(1 - 2 * mblr)] && (tempcp -= (1 - 2 * mblr));//左右移
+	'*' != tempcp[11] && (tempcp += 11);//下落
+	m_cpp = &tempcp;
+	//后面main函数中用Mshow函数使见
+}//撞墙换方向，会自然下落
+char Mand::getm() {
+	return '&';
+}
+//M^.cpp
+#include <iostream>
+using namespace std;
+#include "m^.h"
+//构造函数
+MUD::MUD() {
+	set();
+}
+//M^的设置函数
+void MUD::set(vector<trir>* v, char** cpp, int iheal, map<char**, WASD>*, char**, char(*)[11][11], int, int, bool b, bool ba) {
+	m_v = v;//vector<trir>* = NULL, char** = NULL, char** = NULL, pair<int, int>* = NULL, int = 0, int = 0, int = 3, bool = 0, bool = 0
+	m_cpp = cpp;
+	m_iheal = iheal;
+	mblr = b;
+	mbud = ba;
+}
+void MUD::mosterdo() {
+	'*' != **m_cpp && (**m_cpp = ' ');//便于移动之后的显示
+	if (!mblr && '*' == (*m_cpp)[-1]) {//如果怪物M^往左移动，并且左边有墙
+		mblr = 1;//怪物M^就往右移动
+	}
+	else if(mblr && '*' == (*m_cpp)[1]){//如果怪物M^往右移动，并且右边有墙
+		mblr = 0;//怪物M^就往左移动
+	}//撞墙换方向
+	tempcp = *m_cpp;//防指针的链式带动
+	m_cpp = NULL;
+	'*' != tempcp[-(1 - 2 * mblr)] && (tempcp -= (1 - 2 * mblr));//左右移
+	if (mbud && '*' == tempcp[11]) {//如果怪物M^往下移动，并且下边有墙
+		mbud = 0;//怪物M^就往上落
+	}
+	else if (!mbud && '*' == tempcp[-11]) {//如果怪物M^往上落，并且上边有墙
+		mbud = 1;//怪物M^就往下落
+	}//碰地会反转
+	'*' != tempcp[-(11 * (1 - 2 * mbud))] && (tempcp -= 11 * (1 - 2 * mbud));//上下落
+	m_cpp = &tempcp;
+	//后面main函数中Mshow函数使见
+}//撞墙换方向，碰地会反落
+char MUD::getm() {
+	if (mbud) {
+		return 'v';
+	}
+	else {
+		return '^';
+	}
+}
+//MO.cpp
+#include <iostream>
+using namespace std;
+#include "MO.h"
+#define NNEG(A, B) ((A) < (B) ? 1 : (A) > (B) ? -1 : 0)//判断宏
+#define MOWAIT 1//怪物等待的回合数
+pair<int, int> MO::s_m_pxy = {0, 0};//玩家坐标的初始化
+//构造函数
+MO::MO() {
+	set();
+}
+//MO的设置函数
+void MO::set(vector<trir>* v, char** cpp, int iheal, map<char**, WASD>*m, char**, char(*)[11][11], int ix, int iy, bool, bool) {
+	m_v = v;//vector<trir>* = NULL, char** = NULL, pair<int, int>* = NULL, int = 0, int = 0, int = 3, bool = 0, bool = 0
+	m_cpp = cpp;
+	m_iheal = iheal;
+	m_pxy.first = ix;
+	m_pxy.second = iy;
+	imove = 0;
+	if (m) { 
+		m_m = *m;
+	}
+}
+void MO::mosterdo() {
+	'*' != **m_cpp && (**m_cpp = ' ');//便于移动之后的显示
+	tempcp = *m_cpp;//防指针的链式带动
+	m_cpp = NULL;
+	if (!m_m.empty()) {//沿路模式
+		int arr[4] = { -11, -1, 11, 1 };//怪物MO可能会移动的四个方位
+		for (map<char**, WASD>::iterator it = m_m.begin(); m_m.end() != it; it++) {//改变怪物MO的方向
+			E != it->second && tempcp == *it->first && (m_wasd = it->second);
+		}
+		switch (tempcp += (arr[m_wasd]), m_wasd) {//怪物的移动与xy坐标的变化
+		case W:
+			m_pxy.second--;
+			break;
+		case A:
+			m_pxy.first--;
+			break;
+		case S:
+			m_pxy.second++;
+			break;
+		case D:
+			m_pxy.first++;
+			break;
+		default:
+			break;
+		}
+	}
+	else {//追踪模式
+		MOWAIT == imove % (MOWAIT + 1)/*如果MO等待了MOWAIT回合*/ && ('*' != *(tempcp + 11 * NNEG(m_pxy.first, s_m_pxy.first))/*并且垂直移动的方向上没有墙*/ && (tempcp += 11 * NNEG(m_pxy.first, s_m_pxy.first)/*那么怪物MO就往玩家垂直地移动*/, m_pxy.first += NNEG(m_pxy.first, s_m_pxy.first)/*怪物的x坐标也随之变化*/));//根据怪物的xy坐标和玩家的xy坐标来移动
+		MOWAIT == imove++ % (MOWAIT + 1) && ('*' != *(tempcp + NNEG(m_pxy.second, s_m_pxy.second)/*并且水平移动的方向上没有墙*/) && (tempcp += NNEG(m_pxy.second, s_m_pxy.second)/*那么怪物MO就往玩家水平地移动*/, m_pxy.second += NNEG(m_pxy.second, s_m_pxy.second)/*怪物的y坐标也随之变化*/));
+	}
+	m_cpp = &tempcp;
+}//遇向则转，看路前行（1），或追玩者（2）
+//设置玩家的坐标
+void MO::set_s_pxy(int ix, int iy) {
+	s_m_pxy = { ix, iy };
+}
+char MO::getm() {
+	return 'O';
+}
+//M_o.cpp
+#include <iostream>
+#include <ctime>
+#include "M_o.h"
+using namespace std;
+void M_o::near() {
+	int arr[8] = { -12, -11, -10, -1, 1, 10, 11, 12 };//根据向量来检测是否旁边有墙
+	int i = 0;
+	for (; i < 8; i++) {
+		if ('*' == (*m_cpp)[arr[i]]) {
+			m_iheal = -1;//去死，并生其他怪物
+			break;
+		}
+	}
+}
+void M_o::mosterdo() {
+	int arr[8] = { -12, -11, -10, -1, 1, 10, 11, 12 };//可能的移动方向
+	int ir = 0;//随机数
+	'*' != **m_cpp && (**m_cpp = ' ');//便于移动之后的显示
+	tempcp = (near(), *m_cpp);//临时一级指针，无可用二级指针
+	m_cpp = NULL;//防指针的链式移动
+	'*' != tempcp[arr[ir = rand() % 8]] && (tempcp -= arr[ir]);//曾有bug点：一级指针会“带动”二级指针
+	m_cpp = &tempcp;//移动
+}//随便移动，有墙不动
+char M_o::getm() {
+	return 'o';
+}
+//M+.cpp
+#include <iostream>
+using namespace std;
+#include "m+.h"
+#include "M_o.h"
+#include "Player.h"
+void Mplus::mosterdo() {
+	**m_cpp = '+';//后面根据**m_cpp的内容来执行summon方法
+}
+char Mplus::getm() {
+	return '+';
+}
+//MX.cpp
+#include <iostream>
+using namespace std;
+#include <cstring>
+#include "mX.h"
+//怪物MX的设置函数
+void MX::set(vector<trir>* v, char** cpp, int iheal, map<char**, WASD>*, char** pcpp, char(*strmap)[11][11], int, int, bool, bool) {
+	m_v = v;//vector<trir>* = NULL, char** = NULL, char** = NULL, pair<int, int>* = NULL, char(*)[11][11] = NULL,int = 0, int = 0, int = 3, bool = 0, bool = 0
+	m_cpp = cpp;
+	m_pcpp = pcpp;
+	strmap && (m_strmap = strmap);
+	m_iheal = iheal;
+	setb = 1;
+}
+//怪物MX的额外设置函数
+void MX::exset(char strmapr[11][11]) {
+	memcpy(m_strmapr, strmapr, sizeof m_strmapr);
+}
+//构造函数
+MX::MX() {
+	set();
+}
+void MX::mosterdo() {
+	vector<trir>::iterator it = m_v->begin();
+	if (setb) {
+		pxy = { (*m_cpp - &(*m_strmap)[0][0]) / 11, (*m_cpp - &(*m_strmap)[0][0]) % 11 };//设置怪物MX的坐标
+		m_cc = m_strmapr[pxy.first][setb = 0, pxy.second];//设置盖住的块
+	}
+	for (; m_v->end() != it; it++) {
+		if (*m_cpp == it->cp || *m_cpp == it->cp - (1 - it->b * 2)) {//如果怪物受伤了就停止这个循环
+			break;
+		}
+	}
+	if (m_iheal && (*m_cpp == *m_pcpp || m_v->end() != it)) {//如果刚才的这个循环停止了，并且还有生命且不在玩家的位置上
+		tempcp = *m_cpp;//防指针的链式移动
+		char* tempcpb = tempcp;
+		bool tempb = 1;//防误覆盖空位
+		m_cpp = NULL;
+		do {
+			tempb && m_v->end() != it && (*tempcp = ' ');//便于移动之后的显示
+			tempcp = &(*m_strmap)[pxy.first = rand() % 9 + 1][pxy.second = rand() % 9 + 1];//怪物MX的移动
+
+		} while ((tempcp == &(*m_strmap)[9][1] || '@' == (*m_strmap)[pxy.first][pxy.second] || '@' == (*m_strmap)[pxy.first][pxy.second - 1] || '@' == (*m_strmap)[pxy.first][pxy.second + 1] || tempcp == *m_pcpp || '*' == tempcp[-1] || '*' == tempcp[1] || 'X' == (tempcp)[-1] || 'X' == (tempcp)[1]) && (tempb = 0, 1));//如果满足上述的条件，就把误覆盖空位的“开关”启动
+		m_cpp = &tempcp;
+		*tempcpb = m_cc;
+		('@' != m_strmapr[pxy.first][pxy.second] || 'X' != m_strmapr[pxy.first][pxy.second] && 'P' != m_strmapr[pxy.first][pxy.second]) && (m_cc = m_strmapr[pxy.first][pxy.second]);//记录盖住的块，不记录“@”子弹，“P”玩家和“X”怪物MX自己
+	}
+	//main函数使见
+}//被玩家碰到传，受伤传(两旁有砖不传)，并见
+char MX::getm() {
+	return 'X';
+}
+char MX::getm(bool) {
+	return m_cc;
+}
+//cmpm.cpp
+#include <iostream>
+#include "cmpM.h"
+#include "moster.h"
+using namespace std;
+bool cmpm::operator()(moster* mp, moster* mpa) {
+	return mp->getheal() < mpa->getheal();//比较两个怪物的生命值
+}
+//Cmp.cpp
+#include <iostream>
+#include "Cmp.h"
+#include "Player.h"
+using namespace std;
+bool cmp::operator()(trir t, trir ta) {
+	return t.iy < ta.iy;//比较两个子弹的y坐标
+}
+//WASD.cpp
+#include <iostream>
+using namespace std;
+#include "WASD.h"
+WASD& operator++(WASD& w) {
+	WASD warr[5] = { W,A,S,D,E };//把WASD枚举类型的每一种东西都转化成数字
+	w < E && (w = warr[w + 1]);//warr[w + 1](WASD) == w + 1(int)
+	return w;
+}
+*///“游戏已正式做完，注释已全部添加”^
