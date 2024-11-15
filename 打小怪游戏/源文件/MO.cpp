@@ -1,12 +1,14 @@
 #include <iostream>
 using namespace std;
 #include "MO.h"
-#define NNEG(A, B) ((A) < (B) ? 1 : (A) > (B) ? -1 : 0)
-#define M_oWAIT 1
-pair<int, int> MO::s_m_pxy = {0, 0};
+#define NNEG(A, B) ((A) < (B) ? 1 : (A) > (B) ? -1 : 0)//判断宏
+#define MOWAIT 1//怪物等待的回合数
+pair<int, int> MO::s_m_pxy = {0, 0};//玩家坐标的初始化
+//构造函数
 MO::MO() {
-	this->set();
+	set();
 }
+//MO的设置函数
 void MO::set(vector<trir>* v, char** cpp, int iheal, map<char**, WASD>*m, char**, char(*)[11][11], int ix, int iy, bool, bool) {
 	m_v = v;//vector<trir>* = NULL, char** = NULL, pair<int, int>* = NULL, int = 0, int = 0, int = 3, bool = 0, bool = 0
 	m_cpp = cpp;
@@ -19,16 +21,15 @@ void MO::set(vector<trir>* v, char** cpp, int iheal, map<char**, WASD>*m, char**
 	}
 }
 void MO::mosterdo() {
-	'*' != **m_cpp && (**m_cpp = ' ');
-	tempcp = *m_cpp;
+	'*' != **m_cpp && (**m_cpp = ' ');//便于移动之后的显示
+	tempcp = *m_cpp;//防指针的链式带动
 	m_cpp = NULL;
-	if (!m_m.empty()) {
-		int arr[4] = { -11, -1, 11, 1 };
-		for (map<char**, WASD>::iterator it = m_m.begin(); m_m.end() != it; it++) {
+	if (!m_m.empty()) {//沿路模式
+		int arr[4] = { -11, -1, 11, 1 };//怪物MO可能会移动的四个方位
+		for (map<char**, WASD>::iterator it = m_m.begin(); m_m.end() != it; it++) {//改变怪物MO的方向
 			E != it->second && tempcp == *it->first && (m_wasd = it->second);
 		}
-		//int* iparr[2] = { &m_pxy.first, &m_pxy.second };
-		switch (tempcp += (arr[m_wasd]), m_wasd) {
+		switch (tempcp += (arr[m_wasd]), m_wasd) {//怪物的移动与xy坐标的变化
 		case W:
 			m_pxy.second--;
 			break;
@@ -45,12 +46,13 @@ void MO::mosterdo() {
 			break;
 		}
 	}
-	else {
-		M_oWAIT == imove % (M_oWAIT + 1) && ('*' != *(tempcp + 11 * NNEG(m_pxy.first, s_m_pxy.first)) && (tempcp += 11 * NNEG(m_pxy.first, s_m_pxy.first), m_pxy.first += NNEG(m_pxy.first, s_m_pxy.first)));//���ݹ����xy�������ҵ�xy�������ƶ�
-		M_oWAIT == imove++ % (M_oWAIT + 1) && ('*' != *(tempcp + NNEG(m_pxy.second, s_m_pxy.second)) && (tempcp += NNEG(m_pxy.second, s_m_pxy.second), m_pxy.second += NNEG(m_pxy.second, s_m_pxy.second)));
+	else {//追踪模式
+		MOWAIT == imove % (MOWAIT + 1)/*如果MO等待了MOWAIT回合*/ && ('*' != *(tempcp + 11 * NNEG(m_pxy.first, s_m_pxy.first))/*并且垂直移动的方向上没有墙*/ && (tempcp += 11 * NNEG(m_pxy.first, s_m_pxy.first)/*那么怪物MO就往玩家垂直地移动*/, m_pxy.first += NNEG(m_pxy.first, s_m_pxy.first)/*怪物的x坐标也随之变化*/));//根据怪物的xy坐标和玩家的xy坐标来移动
+		MOWAIT == imove++ % (MOWAIT + 1) && ('*' != *(tempcp + NNEG(m_pxy.second, s_m_pxy.second)/*并且水平移动的方向上没有墙*/) && (tempcp += NNEG(m_pxy.second, s_m_pxy.second)/*那么怪物MO就往玩家水平地移动*/, m_pxy.second += NNEG(m_pxy.second, s_m_pxy.second)/*怪物的y坐标也随之变化*/));
 	}
 	m_cpp = &tempcp;
-}//������ת����·ǰ�У�1������׷���ߣ�2��
+}//遇向则转，看路前行（1），或追玩者（2）
+//设置玩家的坐标
 void MO::set_s_pxy(int ix, int iy) {
 	s_m_pxy = { ix, iy };
 }
