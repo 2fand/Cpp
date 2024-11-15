@@ -497,3 +497,25 @@ Widget::~Widget()
     delete ui;
 }
 *///“QListWidget的使用”^
+/*
+//mianwindow.cpp
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include <QStackedWidget>
+#include <QToolButton>
+#include <QLabel>
+#include <QFont>
+#include <QPixmap>
+
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+*///“导入一些头文件”^
