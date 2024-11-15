@@ -12,14 +12,14 @@ void Mand::set(vector<trir>* v, char** cpp, int iheal, map<char**, WASD>*, char*
 	mblr = b;
 }
 void Mand::mosterdo() {
-	'*' != **m_cpp && (**m_cpp = ' ');
-	if (!mblr && '*' == (*m_cpp)[-1]) {
-		mblr = 1;
+	'*' != **m_cpp && (**m_cpp = ' ');//便于移动之后的显示
+	if (!mblr && '*' == (*m_cpp)[-1]) {//如果怪物M&往左移动，并且左边有墙
+		mblr = 1;//怪物M&就往右移动
 	}
-	else if (mblr && '*' == (*m_cpp)[1]) {
-		mblr = 0;
+	else if (mblr && '*' == (*m_cpp)[1]) {//如果怪物M^往右移动，并且左边有墙
+		mblr = 0;//怪物M&就往左动
 	}//撞墙换方向
-	tempcp = *m_cpp;
+	tempcp = *m_cpp;//防指针的链式带动
 	m_cpp = NULL;
 	'*' != tempcp[-(1 - 2 * mblr)] && (tempcp -= (1 - 2 * mblr));//左右移
 	'*' != tempcp[11] && (tempcp += 11);//下落
