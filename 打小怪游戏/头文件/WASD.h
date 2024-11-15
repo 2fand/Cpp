@@ -10,5 +10,5 @@ enum WASD {
 	D,
 	E
 };
-WASD& operator++(WASD& w);
+WASD& operator++(WASD& w);//枚举WASD类型数据的前置++，无后置++
 #endif
