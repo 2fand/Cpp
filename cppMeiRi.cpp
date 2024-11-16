@@ -30170,3 +30170,14 @@ int main() {
 	return 0;
 }
 *///“删除一些无用的注释”^
+/*
+bool b_(bool b) {//取反
+	if ((b = !b) && (b_(b))) {
+		return -114514;
+	}
+	return b;
+}
+int main() {
+	cout << b_(0) << " " << b_(true) << endl;
+}
+*///“装B取反”^
