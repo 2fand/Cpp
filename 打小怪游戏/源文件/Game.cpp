@@ -665,9 +665,9 @@ int main() {
 		}
 		p.shootmove(&strmap, 1);//子弹动
 		if (b && '*' == strmap[9][10]) {//怪物动
-			vector<moster*>::iterator vfvp = vism.front/* <- 会改(back) */().vmp.begin();
-			while (/*完善后有判断*/!vism.front/* <- 会改(back) */().vmp.empty() && '+' != (*vfvp)->getm()) {
-				if (vism.front/* <- 会改(back) */().vmp.end() == ++vfvp) {
+			vector<moster*>::iterator vfvp = vism.front().vmp.begin();
+			while (!vism.front().vmp.empty() && '+' != (*vfvp)->getm()) {
+				if (vism.front().vmp.end() == ++vfvp) {
 					break;
 				}
 			}
