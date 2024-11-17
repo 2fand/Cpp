@@ -326,32 +326,23 @@ int main() {
 				case 0:
 				case 1:
 					mpv.push_back(new Mand());
-					vism[ch].str += '&';
 					vism[ch].vmp.push_back(mpv.back());
 					vism[ch].vmp.back()->set(p.sgetxyhs(), tempcparr + itemp - i, 3, NULL, NULL, NULL, 0, 0, pbb.first);
 					break;
 				case 2:
 				case 3:
 					mpv.push_back(new MUD());
-					if (pbb.second) {
-						vism[ch].str += 'v';
-					}
-					else {
-						vism[ch].str += '^';
-					}
 					vism[ch].vmp.push_back(mpv.back());
 					vism[ch].vmp.back()->set(p.sgetxyhs(), tempcparr + itemp - i, 2, NULL, NULL, NULL, 0, 0, pbb.first, pbb.second);
 					break;
 				case 4:
 				case 5:
 					mpv.push_back(new MX());
-					vism[ch].str += 'X';
 					vism[ch].vmp.push_back(mpv.back());
 					vism[ch].vmp.back()->set(p.sgetxyhs(), tempcparr + itemp - i, 3, NULL, &cp, &strmap);
 					break;
 				case 6:
 					mpv.push_back(new MO());
-					vism[ch].str += 'O';
 					vism[ch].vmp.push_back(mpv.back());
 					vism[ch].vmp.back()->set(p.sgetxyhs(), tempcparr + itemp - i, 5, &em, NULL, NULL, pxy.first, pxy.second);
 					break;
