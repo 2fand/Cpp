@@ -553,3 +553,43 @@ MainWindow::~MainWindow()
     delete ui;
 }
 *///“完成页面的布局”^
+/*
+//widget.cpp
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include <QStackedWidget>
+#include <QToolButton>
+#include <QLabel>
+#include <QFont>
+#include <QPixmap>
+#include <QDebug>
+
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+    this->setFixedSize(this->size());
+    QPixmap pmt(":/title.png");
+    QPixmap pms(":/start.png");
+    pmt = pmt.scaledToHeight(125);
+    pms = pms.scaledToHeight(150);
+    ui->startl->setPixmap(pmt);
+    ui->tb->setStyleSheet("QToolButton{border:0px;}");
+    ui->tb->setIcon(pms);
+    ui->tb->move(this->height() / 2, ui->tb->y());
+    ui->ms->setTitle("开始");
+    ui->as->setText("开始");
+    connect(ui->tb, &QToolButton::clicked, [=](){
+        qDebug() << "开始";
+    });
+    connect(ui->as, &QAction::triggered, [=](){
+        qDebug() << "开始a";
+    });
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+*///“检测开始功能是否正常运行”^
