@@ -30946,3 +30946,17 @@ int main() {
 	return 0;
 }
 *///“删掉无用代码”^
+/*
+//以前来自MO.cpp，现在无
+#include <iostream>
+//其他头文件
+using namespace std;
+//对象的成员函数
+void M_o::mosterdo() {//发生bug的成员函数
+	int arr[8] = { -12, -11, -10, -1, 1, 10, 11, 12 };
+	int ir = 0;
+	'*' != **m_cpp && (**m_cpp = ' ');
+	'*' != (*m_cpp)[arr[ir = rand() % 8]] && (*m_cpp -= arr[ir]);//看起来没问题，但此乃bug点(重点)：一级指针会“带动”二级指针
+}//随便移动，有墙不动
+//对象的成员函数
+*///“指针的链式带动”^
