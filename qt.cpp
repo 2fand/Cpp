@@ -30,6 +30,7 @@ int main(int argc, char *argv[])
 }
 *///“两个widget”^
 /*
+//widget.cpp
 #include "widget.h"
 #include "ui_widget.h"
 #include <QPushButton>
@@ -49,6 +50,25 @@ Widget::~Widget()
     delete ui;
 }
 *///“按钮”^
+/*
+//widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QPushButton>
+#include <QDebug>
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    qDebug() << "QDebug";
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///“QDebug”^
 /*
 //widget.cpp
 #include "widget.h"
@@ -154,7 +174,6 @@ Widget::~Widget()
 {
     delete ui;
 }
-*///“匿名函数”^
 *///“匿名函数”^
 /*
 //widget.cpp
@@ -498,7 +517,7 @@ Widget::~Widget()
 }
 *///“QListWidget的使用”^
 /*
-//mianwindow.cpp
+//mainwindow.cpp
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QStackedWidget>
@@ -520,7 +539,7 @@ MainWindow::~MainWindow()
 }
 *///“导入一些头文件”^
 /*
-//widget.cpp
+//mainwindow.cpp
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QStackedWidget>
@@ -554,7 +573,7 @@ MainWindow::~MainWindow()
 }
 *///“完成页面的布局”^
 /*
-//widget.cpp
+//mainwindow.cpp
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QStackedWidget>
@@ -593,3 +612,45 @@ MainWindow::~MainWindow()
     delete ui;
 }
 *///“检测开始功能是否正常运行”^
+/*
+//mainwindow.h
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include <QStackedWidget>
+#include <QToolButton>
+#include <QLabel>
+#include <QFont>
+#include <QPixmap>
+#include <QDebug>
+
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+    this->setFixedSize(this->size());
+    QPixmap pmt(":/title.png");
+    QPixmap pms(":/start.png");
+    //QLabel lb(this);
+    pmt = pmt.scaledToHeight(125);
+    pms = pms.scaledToHeight(150);
+    ui->startl->setPixmap(pmt);
+    ui->tb->setStyleSheet("QToolButton{border:0px;}");
+    ui->tb->setIcon(pms);
+    ui->tb->move(this->height() / 2, ui->tb->y());
+    ui->ms->setTitle("开始");
+    ui->as->setText("开始");
+    connect(ui->tb, &QToolButton::clicked, [=](){
+        ui->stackedwidget->setCurrentIndex(1);
+    });
+    connect(ui->as, &QAction::triggered, [=](){
+        ui->stackedwidget->setCurrentIndex(1);
+    });
+    
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+*///“切换页面功能已成功实现”^
