@@ -30970,3 +30970,9 @@ int main() {
 	return 0;
 }
 *///“climits头文件的使用”^
+/*
+int main() {
+	cout << INT_MIN << endl;
+	return 0;
+}
+*///“INT_MIN”^
