@@ -4,6 +4,7 @@
 #include <Windows.h>
 #include <cstdlib>
 #include <ctime>
+#include <climits>
 using namespace std;// <-- 必备
 #define PANADD(A,B) ((A) < (B) ? 1 : -1) // <------ “C++两点成一线”中的宏
 #define NAME(A) #A // <------ “#”中的宏
@@ -30960,3 +30961,12 @@ void M_o::mosterdo() {//发生bug的成员函数
 }//随便移动，有墙不动
 //对象的成员函数
 *///“指针的链式带动”^
+/*
+#include <iostream>
+#include <climits>
+using namespace std;
+int main() {
+	cout << INT_MAX << endl;
+	return 0;
+}
+*///“climits头文件的使用”^
