@@ -30976,3 +30976,9 @@ int main() {
 	return 0;
 }
 *///“INT_MIN”^
+/*
+int main() {
+	cout << CHAR_MAX << endl;
+	return 0;
+}
+*///“CHAR_MAX”^
