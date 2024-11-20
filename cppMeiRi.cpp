@@ -30988,3 +30988,19 @@ int main() {
 	return 0;
 }
 *///“CHAR_MIN”^
+/*
+int main() {
+	deque<int> d;
+	d.push_back(4);
+	cout << d.front() << endl;
+	d.pop_front();
+	d.push_back(4);
+	d.push_front(3);
+	d.push_back(-2);
+	for (deque<int>::iterator it = d.begin(); d.end() != it; it++) {
+		cout << *it << " ";
+	}
+	cout << endl;
+	return 0;
+}
+*///“deque双端数组”^
