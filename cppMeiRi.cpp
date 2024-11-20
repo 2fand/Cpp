@@ -5,6 +5,8 @@
 #include <cstdlib>
 #include <ctime>
 #include <climits>
+#include <deque>
+#include <stack>
 using namespace std;// <-- 必备
 #define PANADD(A,B) ((A) < (B) ? 1 : -1) // <------ “C++两点成一线”中的宏
 #define NAME(A) #A // <------ “#”中的宏
@@ -31004,3 +31006,19 @@ int main() {
 	return 0;
 }
 *///“deque双端数组”^
+/*
+int main() {
+	stack<int>s;
+	int i = 0;
+	for (; i < 5; i++) {//放入
+		s.push(i);
+		cout << i << " ";
+	}
+	for (cout << endl; i; i--) {//移出
+		cout << s.top() << " ";
+		s.pop();
+	}
+	cout << endl;
+	return 0;
+}
+*///“stack栈容器的反转元素顺序功能”^
