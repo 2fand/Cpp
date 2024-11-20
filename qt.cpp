@@ -697,3 +697,54 @@ MainWindow::~MainWindow()
     delete ui;
 }
 *///“已创建一个标签用来控制玩家移动”^
+/*
+//mainwindow.cpp
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include <QStackedWidget>
+#include <QToolButton>
+#include <QLabel>
+#include <QFont>
+#include <QPixmap>
+#include <QDebug>
+
+void start(Ui::MainWindow*& ui){
+    ui->stackedwidget->setCurrentIndex(1);
+    QLabel* lb = new QLabel("Player", ui->page_2);
+    lb->show();
+    for (int i = 1; i <= 121; i++){
+        lb = new QLabel("*", ui->page_2);
+        lb->move(i % 11 * 50, i / 11 * 50);
+        lb->show();
+    }
+}
+
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+    this->setFixedSize(this->size());
+    QPixmap pmt(":/title.png");
+    QPixmap pms(":/start.png");
+    pmt = pmt.scaledToHeight(125);
+    pms = pms.scaledToHeight(150);
+    ui->startl->setPixmap(pmt);
+    ui->tb->setStyleSheet("QToolButton{border:0px;}");
+    ui->tb->setIcon(pms);
+    ui->tb->move(this->height() / 2, ui->tb->y());
+    ui->ms->setTitle("开始");
+    ui->as->setText("开始");
+    connect(ui->tb, &QToolButton::clicked, [=](){
+        start(ui);
+    });
+    connect(ui->as, &QAction::triggered, [=](){
+        start(ui);
+    });
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+*///“标签阵列已做好”^
