@@ -748,3 +748,97 @@ MainWindow::~MainWindow()
     delete ui;
 }
 *///“标签阵列已做好”^
+/*
+//mainwindow.cpp
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include <QStackedWidget>
+#include <QToolButton>
+#include <QLabel>
+#include <QFont>
+#include <QPixmap>
+#include <QDebug>
+
+enum WASD{
+    W,
+    A,
+    S,
+    D
+};
+
+void start(Ui::MainWindow*& ui){
+    ui->stackedwidget->setCurrentIndex(1);
+    QLabel* lb = new QLabel(ui->page_2);
+    QPixmap pm(":/Playerd.png");
+    pm = pm.scaled(48, 48);
+    lb->setPixmap(pm);
+    lb->show();
+    char strmaze[20][20] = {
+        'P',' ',' ','*',' ',' ','*',' ','*',' ',' ',' ',' ','*',' ',' ',' ',' ',' ','*',
+        ' ',' ',' ',' ',' ','*',' ','*',' ',' ',' ',' ','*',' ',' ',' ',' ',' ',' ','*',
+        ' ',' ',' ','*',' ','*',' ',' ',' ',' ',' ','*',' ',' ',' ','*',' ',' ','*','*',
+        ' ','*','*',' ',' ',' ','*','*',' ','*',' ',' ',' ',' ','*',' ',' ',' ',' ',' ',
+        ' ',' ','*',' ',' ',' ','*','*',' ','*',' ','*',' ','*',' ',' ',' ','*',' ',' ',
+        ' ',' ','*',' ','*',' ',' ','*',' ',' ','*',' ','*',' ',' ',' ',' ','*',' ','*',
+        ' ','*','*',' ',' ','*',' ','*',' ',' ',' ',' ',' ','*',' ',' ','*',' ',' ',' ',
+        ' ',' ','*','*',' ',' ','*','*','*','*','*',' ',' ',' ','*',' ',' ',' ','*',' ',
+        '*',' ','*',' ','*',' ',' ',' ',' ',' ',' ','*','*',' ',' ','*','*','*',' ',' ',
+        ' ',' ','*',' ',' ','*',' ','*','*','*',' ',' ',' ',' ','*',' ',' ',' ',' ',' ',
+        ' ','*','*',' ',' ',' ',' ','*',' ',' ','*','*','*',' ','*',' ',' ','*','*','*',
+        ' ',' ','*',' ',' ','*',' ','*',' ','*',' ',' ','*',' ','*',' ',' ',' ','*',' ',
+        '*',' ','*',' ','*',' ','*','*','*',' ',' ','*',' ',' ','*',' ',' ',' ','*',' ',
+        ' ','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',' ',' ','*','*',' ','*',' ',
+        ' ','*',' ','*','*','*',' ',' ','*',' ',' ','*',' ',' ',' ','*',' ',' ',' ',' ',
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ','*',' ',' ','*',' ',' ','*',' ','*',' ',' ',
+        ' ',' ','*',' ','*',' ','*','*','*',' ',' ','*',' ',' ',' ','*',' ','*','*',' ',
+        ' ',' ','*','*','*',' ',' ','*',' ',' ',' ',' ','*',' ',' ','*',' ','*','*','*',
+        ' ',' ','*',' ','*',' ','*','*','*',' ',' ','*',' ',' ',' ','*',' ',' ','*',' ',
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ','*',' ',' ','*',' ',' ','*','*',' ',' ','G',
+    };
+    char* cp = &strmaze[0][0];
+    for (int i = 1; i < 400; i++){
+        lb = new QLabel(ui->page_2);
+        lb->move(i % 20 * 48, i / 20 * 48);
+        if ('*' == strmaze[i / 20][i % 20]){
+            pm.load(":/wall.png");
+        }
+        else if('G' == strmaze[i / 20][i % 20]){
+            pm.load(":/Goal.png");
+        }
+        else {
+            pm.fill(Qt::white);
+        }
+        pm = pm.scaled(48, 48);
+        lb->setPixmap(pm);
+        lb->show();
+    }
+}
+
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+    this->setFixedSize(this->size());
+    QPixmap pmt(":/title.png");
+    QPixmap pms(":/start.png");
+    pmt = pmt.scaledToHeight(300);
+    ui->startl->setPixmap(pmt);
+    ui->tb->setStyleSheet("QToolButton{border:0px;}");
+    ui->tb->setIcon(pms);
+    ui->tb->move(this->height() / 2, ui->tb->y());
+    ui->ms->setTitle("开始");
+    ui->as->setText("开始");
+    connect(ui->tb, &QToolButton::clicked, [=](){
+        start(ui);
+    });
+    connect(ui->as, &QAction::triggered, [=](){
+        start(ui);
+    });
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+*///“迷宫已具象化”^
