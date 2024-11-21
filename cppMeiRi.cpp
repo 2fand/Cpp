@@ -7,6 +7,7 @@
 #include <climits>
 #include <deque>
 #include <stack>
+#include <set>
 using namespace std;// <-- 必备
 #define PANADD(A,B) ((A) < (B) ? 1 : -1) // <------ “C++两点成一线”中的宏
 #define NAME(A) #A // <------ “#”中的宏
@@ -31022,3 +31023,18 @@ int main() {
 	return 0;
 }
 *///“stack栈容器的反转元素顺序功能”^
+/*
+int main() {
+	set<int>s;
+	int i = -10;
+	for (; i < 10; i++) {
+		s.insert(i);
+	}
+	for (set<int>::const_iterator cit = s.cbegin(); s.cend() != cit; cit++) {
+		!*cit && cout << endl;
+		cout << *cit << " ";
+	}
+	cout << endl;
+	return 0;
+}
+*///“set容器的正负分组”^
