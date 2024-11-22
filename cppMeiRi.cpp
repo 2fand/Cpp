@@ -31038,3 +31038,13 @@ int main() {
 	return 0;
 }
 *///“set容器的正负分组”^
+/*
+int main() {
+	vector<int>v = { 1, 1, 4, 5, 1, 4 };
+	sort(v.begin(), v.end());
+	for_each(v.begin(), v.end(), [=](int i) {
+		cout << i;
+	});
+	return 0;
+}
+*///“sort排序函数和for_each遍历函数”^
