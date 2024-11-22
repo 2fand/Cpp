@@ -8,6 +8,8 @@
 #include <deque>
 #include <stack>
 #include <set>
+#include <vector>
+#include <algorithm>
 using namespace std;// <-- 必备
 #define PANADD(A,B) ((A) < (B) ? 1 : -1) // <------ “C++两点成一线”中的宏
 #define NAME(A) #A // <------ “#”中的宏
@@ -31048,3 +31050,11 @@ int main() {
 	return 0;
 }
 *///“sort排序函数和for_each遍历函数”^
+/*
+int main() {
+	[=]() {
+		cout << "Hello, Lambda!" << endl;
+	}();
+	return 0;
+}
+*///“后面有用于函数的调用的括号的匿名函数体”^
