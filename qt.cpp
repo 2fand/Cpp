@@ -842,3 +842,123 @@ MainWindow::~MainWindow()
     delete ui;
 }
 *///“迷宫已具象化”^
+/*
+//mainwindow.cpp
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include <QStackedWidget>
+#include <QToolButton>
+#include <QFont>
+#include <QPixmap>
+#include <QDebug>
+#include <QStringList>
+
+void showmap(Ui::MainWindow*& ui, QLabel*& lb, const WASD w, const char strmaze[20][20]){
+    QStringList sl = {":/Playerw.png", ":/Playera.png", ":/Players.png", ":/Playerd.png"};
+    QPixmap pm;
+    for (int i = 0; i < 400; i++){
+        lb = new QLabel(ui->page_2);
+        lb->move(i % 20 * 48, i / 20 * 48);
+        switch(strmaze[i / 20][i % 20]){
+        case '*':
+            pm.load(":/wall.png");
+            break;
+        case 'G':
+            pm.load(":/Goal.png");
+            break;
+        case 'P':
+            pm.load(sl[w]);
+            break;
+        default:
+            pm.fill(Qt::white);
+            break;
+        }
+        pm = pm.scaled(48, 48);
+        lb->setPixmap(pm);
+        lb->show();
+    }
+}
+
+void MainWindow::start(Ui::MainWindow*& ui){
+    ui->stackedwidget->setCurrentIndex(1);
+    QLabel* lb = new QLabel(ui->page_2);
+    WASD w = D;
+    char strmaze[20][20] = {
+        'P',' ',' ','*',' ',' ','*',' ','*',' ',' ',' ',' ','*',' ',' ',' ',' ',' ','*',
+        ' ',' ',' ',' ',' ','*',' ','*',' ',' ',' ',' ','*',' ',' ',' ',' ',' ',' ','*',
+        ' ',' ',' ','*',' ','*',' ',' ',' ',' ',' ','*',' ',' ',' ','*',' ',' ','*','*',
+        ' ','*','*',' ',' ',' ','*','*',' ','*',' ',' ',' ',' ','*',' ',' ',' ',' ',' ',
+        ' ',' ','*',' ',' ',' ','*','*',' ','*',' ','*',' ','*',' ',' ',' ','*',' ',' ',
+        ' ',' ','*',' ','*',' ',' ','*',' ',' ','*',' ','*',' ',' ',' ',' ','*',' ','*',
+        ' ','*','*',' ',' ','*',' ','*',' ',' ',' ',' ',' ','*',' ',' ','*',' ',' ',' ',
+        ' ',' ','*','*',' ',' ','*','*','*','*','*',' ',' ',' ','*',' ',' ',' ','*',' ',
+        '*',' ','*',' ','*',' ',' ',' ',' ',' ',' ','*','*',' ',' ','*','*','*',' ',' ',
+        ' ',' ','*',' ',' ','*',' ','*','*','*',' ',' ',' ',' ','*',' ',' ',' ',' ',' ',
+        ' ','*','*',' ',' ',' ',' ','*',' ',' ','*','*','*',' ','*',' ',' ','*','*','*',
+        ' ',' ','*',' ',' ','*',' ','*',' ','*',' ',' ','*',' ','*',' ',' ',' ','*',' ',
+        '*',' ','*',' ','*',' ','*','*','*',' ',' ','*',' ',' ','*',' ',' ',' ','*',' ',
+        ' ','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',' ',' ','*','*',' ','*',' ',
+        ' ','*',' ','*','*','*',' ',' ','*',' ',' ','*',' ',' ',' ','*',' ',' ',' ',' ',
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ','*',' ',' ','*',' ',' ','*',' ','*',' ',' ',
+        ' ',' ','*',' ','*',' ','*','*','*',' ',' ','*',' ',' ',' ','*',' ','*','*',' ',
+        ' ',' ','*','*','*',' ',' ','*',' ',' ',' ',' ','*',' ',' ','*',' ','*','*','*',
+        ' ',' ','*',' ','*',' ','*','*','*',' ',' ','*',' ',' ',' ','*',' ',' ','*',' ',
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ','*',' ',' ','*',' ',' ','*','*',' ',' ','G',
+    };
+    this->cp = &strmaze[0][0];
+    this->b = true;
+    while ('G' == strmaze[19][19]){
+        this->p = {(cp - &strmaze[0][0]) / 20, (cp - &strmaze[0][0]) % 20};
+        showmap(ui, lb, w, strmaze);
+    }
+}
+
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+    this->setFixedSize(970, 1000);
+    QPixmap pmt(":/title.png");
+    QPixmap pms(":/start.png");
+    pmt = pmt.scaledToHeight(300);
+    ui->startl->setPixmap(pmt);
+    ui->tb->setStyleSheet("QToolButton{border:0px;}");
+    ui->tb->setIcon(pms);
+    ui->tb->move(this->height() / 2, ui->tb->y());
+    ui->ms->setTitle("开始");
+    ui->as->setText("开始");
+    connect(ui->tb, &QToolButton::clicked, [=](){
+        start(ui);
+    });
+    connect(ui->as, &QAction::triggered, [=](){
+        start(ui);
+    });
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+void MainWindow::keyPressEvent(QKeyEvent* event){
+    if (this->b){
+        switch(event->key()){
+            case Qt::Key_W:
+                this->p.first && '*' != this->cp[-11] && (this->cp -= 11);
+                break;
+            case Qt::Key_A:
+                this->p.second && '*' != this->cp[-1] && (this->cp--);
+                break;
+            case Qt::Key_S:
+                19 != this->p.first && '*' != this->cp[11] && (this->cp += 11);
+                break;
+            case Qt::Key_D:
+                19 != this->p.second && '*' != this->cp[1] && (this->cp++);
+                break;
+            default:
+                break;
+        }
+    }
+}
+*///“Qt按键事件未能完成等待用户按下某一个键的操作”^
