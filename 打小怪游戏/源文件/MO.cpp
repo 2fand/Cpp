@@ -10,7 +10,7 @@ MO::MO() {
 }
 //MO的设置函数
 void MO::set(vector<trir>* v, char** cpp, int iheal, map<char**, WASD>*m, char**, char(*)[11][11], int ix, int iy, bool, bool) {
-	m_v = v;//vector<trir>* = NULL, char** = NULL, pair<int, int>* = NULL, int = 0, int = 0, int = 3, bool = 0, bool = 0
+	m_v = v;
 	m_cpp = cpp;
 	m_iheal = iheal;
 	m_pxy.first = ix;
