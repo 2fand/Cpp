@@ -4,7 +4,6 @@ using namespace std;
 Mand::Mand() {
 	this->set();
 }
-//vector<trir>* = NULL, char** = NULL, char** = NULL, pair<int, int>* = NULL, int = 0, int = 0, int = 3, bool = 0, bool = 0
 void Mand::set(vector<trir>* v, char** cpp, int iheal, map<char**, WASD>*, char**, char(*)[11][11], int, int, bool b, bool) {
 	m_v = v;
 	m_cpp = cpp;
