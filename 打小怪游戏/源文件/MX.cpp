@@ -4,7 +4,7 @@ using namespace std;
 #include "mX.h"
 //怪物MX的设置函数
 void MX::set(vector<trir>* v, char** cpp, int iheal, map<char**, WASD>*, char** pcpp, char(*strmap)[11][11], int, int, bool, bool) {
-	m_v = v;//vector<trir>* = NULL, char** = NULL, char** = NULL, pair<int, int>* = NULL, char(*)[11][11] = NULL,int = 0, int = 0, int = 3, bool = 0, bool = 0
+	m_v = v;
 	m_cpp = cpp;
 	m_pcpp = pcpp;
 	strmap && (m_strmap = strmap);
