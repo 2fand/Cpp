@@ -31058,3 +31058,15 @@ int main() {
 	return 0;
 }
 *///“后面有用于函数的调用的括号的匿名函数体”^
+/*
+//M+.cpp
+#include <iostream>
+using namespace std;
+#include "m+.h"
+void Mplus::mosterdo() {
+	**m_cpp = '+';//后面根据**m_cpp的内容来执行summon方法
+}
+char Mplus::getm() {
+	return '+';
+}
+*///“减少导入的头文件”^
