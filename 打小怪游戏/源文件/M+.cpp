@@ -1,10 +1,8 @@
 #include <iostream>
 using namespace std;
-#include "m+.h"
-#include "M_o.h"
-#include "Player.h"
+#include "M+.h"
 void Mplus::mosterdo() {
-	**m_cpp = '+';//后面根据**m_cpp的内容来执行summon方法
+	**m_cpp = '+';//鍚庨潰鏍规嵁**m_cpp鐨勫唴瀹规潵鎵цsummon鏂规硶
 }
 char Mplus::getm() {
 	return '+';
