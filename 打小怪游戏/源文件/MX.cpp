@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 #include <cstring>
-#include "mX.h"
+#include "MX.h"
 //怪物MX的设置函数
 void MX::set(vector<trir>* v, char** cpp, int iheal, map<char**, WASD>*, char** pcpp, char(*strmap)[11][11], int, int, bool, bool) {
 	m_v = v;
