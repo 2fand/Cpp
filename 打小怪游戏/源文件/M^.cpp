@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-#include "m^.h"
+#include "M^.h"
 //构造函数
 MUD::MUD() {
 	set();
