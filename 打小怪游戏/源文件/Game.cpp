@@ -186,7 +186,7 @@ int main() {
 	char strmapr[11][11];
 	isv ism;//用来布置怪物
 	vector<isv> vism;//地牢布置与怪物布置，无时即BOSS战(+)(int为编号)
-	vism.reserve(1000);//防bug出
+	vism.reserve(5000);//防bug出
 	char* strcp[47] = { &strmap[9][5], &strmap[9][7], &strmap[9][3], &strmap[1][5], &strmap[1][5], &strmap[6][1], &strmap[4][9], &strmap[6][8], &strmap[3][3], &strmap[4][3], &strmap[5][3], &strmap[6][3], &strmap[7][3], &strmap[8][3], &strmap[9][3], &strmap[4][5], &strmap[5][4], &strmap[5][5], &strmap[5][6], &strmap[6][5], &strmap[1][5], &strmap[1][5], &strmap[9][5], &strmap[9][5], &strmap[1][9], &strmap[1][1], &strmap[8][2], &strmap[2][8], &strmap[8][8], &strmap[2][2], &strmap[5][5], &strmap[1][1], &strmap[2][2], &strmap[3][3], &strmap[4][4], &strmap[8][5], &strmap[5][2], &strmap[2][4], &strmap[4][9], &strmap[1][8], &strmap[9][2], &strmap[1][1], &strmap[9][9], &strmap[3][4], &strmap[5][1], &strmap[5][9], &strmap[5][5]};//生成时要的怪物坐标
 	vector<moster*>mpv;//mpv里一共要有的怪物们
 	char tempstr[9] = "color 0";//为告知你胜利的文字颜色
@@ -195,7 +195,7 @@ int main() {
 	//随机设置地牢布置与怪物布置
 	for (i = 0; ch < 11; ch++) {
 		vism.push_back(ism);
-		vism.back().vmp.reserve(100);//还防bug出
+		vism.back().vmp.reserve(500);//还防bug出
 		vism[ch].id = ch;
 		int itemp = 0;
 		switch (ch) {//编号id对应的地牢怪物生成
