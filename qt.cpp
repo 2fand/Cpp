@@ -1110,3 +1110,156 @@ MainWindow::~MainWindow()
 //     }
 // }
 *///“键盘键入功能已启用”^
+/*
+//mainwindow.cpp
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include <QStackedWidget>
+#include <QToolButton>
+#include <QFont>
+#include <QPixmap>
+#include <QDebug>
+#include <QStringList>
+#include <QShortcut>
+#include <QVector>
+
+void showmap(Ui::MainWindow*& ui, QLabel*& lb, const WASD w, const char strmaze[20][20]){
+    QStringList sl = {":/Playerw.png", ":/Playera.png", ":/Players.png", ":/Playerd.png"};
+    QPixmap pm(48, 48);
+    for (int i = 0; i < 400; i++){
+        lb = new QLabel(ui->page_2);
+        lb->move(i % 20 * 48, i / 20 * 48);
+        switch(strmaze[i / 20][i % 20]){
+        case '*':
+            pm.load(":/wall.png");
+            break;
+        case 'G':
+            pm.load(":/Goal.png");
+            break;
+        case 'P':
+            pm.load(sl[w]);
+            break;
+        default:
+            pm.fill(Qt::white);
+            break;
+        }
+        pm = pm.scaled(48, 48);
+        lb->setPixmap(pm);
+        lb->show();
+    }
+}
+
+void MainWindow::start(Ui::MainWindow*& ui){
+    ui->stackedwidget->setCurrentIndex(1);
+    QLabel* lb = new QLabel(ui->page_2);
+    char strmaze[20][20] = {
+        'P',' ',' ','*',' ',' ','*',' ','*',' ',' ',' ',' ','*',' ',' ',' ',' ',' ','*',
+        ' ',' ',' ',' ',' ','*',' ','*',' ',' ',' ',' ','*',' ',' ',' ',' ',' ',' ','*',
+        ' ',' ',' ','*',' ','*',' ',' ',' ',' ',' ','*',' ',' ',' ','*',' ',' ','*','*',
+        ' ','*','*',' ',' ',' ','*','*',' ','*',' ',' ',' ',' ','*',' ',' ',' ',' ',' ',
+        ' ',' ','*',' ',' ',' ','*','*',' ','*',' ','*',' ','*',' ',' ',' ','*',' ',' ',
+        ' ',' ','*',' ','*',' ',' ','*',' ',' ','*',' ','*',' ',' ',' ',' ','*',' ','*',
+        ' ','*','*',' ',' ','*',' ','*',' ',' ',' ',' ',' ','*',' ',' ','*',' ',' ',' ',
+        ' ',' ','*','*',' ',' ','*','*','*','*','*',' ',' ',' ','*',' ',' ',' ','*',' ',
+        '*',' ','*',' ','*',' ',' ',' ',' ',' ',' ','*','*',' ',' ','*','*','*',' ',' ',
+        ' ',' ','*',' ',' ','*',' ','*','*','*',' ',' ',' ',' ','*',' ',' ',' ',' ',' ',
+        ' ','*','*',' ',' ',' ',' ','*',' ',' ','*','*','*',' ','*',' ',' ','*','*','*',
+        ' ',' ','*',' ',' ','*',' ','*',' ','*',' ',' ','*',' ','*',' ',' ',' ','*',' ',
+        '*',' ','*',' ','*',' ','*','*','*',' ',' ','*',' ',' ','*',' ',' ',' ','*',' ',
+        ' ','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',' ',' ','*','*',' ','*',' ',
+        ' ','*',' ','*','*','*',' ',' ','*',' ',' ','*',' ',' ',' ','*',' ',' ',' ',' ',
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ','*',' ',' ','*',' ',' ','*',' ','*',' ',' ',
+        ' ',' ','*',' ','*',' ','*','*','*',' ',' ','*',' ',' ',' ','*',' ','*','*',' ',
+        ' ',' ','*','*','*',' ',' ','*',' ',' ',' ',' ','*',' ',' ','*',' ','*','*','*',
+        ' ',' ','*',' ','*',' ','*','*','*',' ',' ','*',' ',' ',' ','*',' ',' ','*',' ',
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ','*',' ',' ','*',' ',' ','*','*',' ',' ','G',
+    };
+    this->cp = &strmaze[0][0];
+    char ch = 0;
+    this->w = D;
+    QPair<int, int>p;
+    b = 1;
+    QShortcut *shortcut[4] = {new QShortcut(QKeySequence("W"), this), new QShortcut(QKeySequence("A"), this), new QShortcut(QKeySequence("S"), this), new QShortcut(QKeySequence("D"), this)};
+    connect(shortcut[0], &QShortcut::activated, this, [=](){
+        this->w = W;
+        this->p.first && '*' != *(this->cp - 20) && (this->cp -= 20);
+        emit mazerun();
+    });
+    connect(shortcut[1], &QShortcut::activated, this, [=](){
+        this->w = A;
+        this->p.second && '*' != *(this->cp - 1) && this->cp--;
+        emit mazerun();
+    });
+    connect(shortcut[2], &QShortcut::activated, this, [=](){
+        this->w = S;
+        19 != this->p.first && '*' != *(this->cp + 20) && (this->cp += 20);
+        emit mazerun();
+    });
+    connect(shortcut[3], &QShortcut::activated, this, [=](){
+        this->w = D;
+        19 != this->p.second && '*' != *(this->cp + 1) && this->cp++;
+        emit mazerun();
+    });
+    connect(this, &MainWindow::mazerun, [=, &lb, &strmaze](){
+        *cp = 'P';
+        this->p = {(this->cp - &strmaze[0][0]) / 20, (this->cp - &strmaze[0][0]) % 20};
+        showmap(this->ui, lb, w, strmaze);
+        *cp = ' ';
+    });
+    p = {(this->cp - &strmaze[0][0]) / 20, (this->cp - &strmaze[0][0]) % 20};
+    showmap(ui, lb, w, strmaze);
+    *cp = ' ';
+    while (QKeyEvent::KeyPress) {
+        QApplication::processEvents();
+    }
+}
+
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+    this->setFixedSize(970, 1000);
+    QPixmap pmt(":/title.png");
+    QPixmap pms(":/start.png");
+    pmt = pmt.scaledToHeight(300);
+    ui->startl->setPixmap(pmt);
+    ui->tb->setStyleSheet("QToolButton{border:0px;}");
+    ui->tb->setIcon(pms);
+    ui->tb->move(this->height() / 2, ui->tb->y());
+    ui->ms->setTitle("开始");
+    ui->as->setText("开始");
+    connect(ui->tb, &QToolButton::clicked, [=](){
+        start(ui);
+    });
+    connect(ui->as, &QAction::triggered, [=](){
+        start(ui);
+    });
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+// void MainWindow::keyPressEvent(QKeyEvent* event){
+//     if (this->b){
+//         switch(event->key()){
+//         case Qt::Key_W:
+
+//             break;
+//         case Qt::Key_A:
+//             this->p.second && '*' != this->cp[-1] && (this->cp--);
+//             break;
+//         case Qt::Key_S:
+//             19 != this->p.first && '*' != this->cp[11] && (this->cp += 11);
+//             break;
+//         case Qt::Key_D:
+//             19 != this->p.second && '*' != this->cp[1] && (this->cp++);
+//             break;
+//         default:
+//             break;
+//         }
+//     }
+// }
+*///“小方块已能正常走动一点”^
