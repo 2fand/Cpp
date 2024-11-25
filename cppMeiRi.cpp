@@ -32043,3 +32043,21 @@ int main() {
 	return 0;
 }
 *///“vism与里面的vmp的预留大小已改变”^
+/*
+enum a {
+	b,
+	c
+};
+
+const int& fun(a aa) {
+	if (b == aa) {
+		return 45;
+	}
+}
+
+int main() {
+	a aa = b;
+	cout << fun(c);
+	return 0;
+}
+*///“会报错”^
