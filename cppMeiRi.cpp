@@ -32061,3 +32061,21 @@ int main() {
 	return 0;
 }
 *///“会报错”^
+*
+enum a {
+	b,
+	c
+};
+
+const int& fun(a aa) {
+	if (b == aa) {
+		return -0;
+	}
+}
+
+int main() {
+	a aa = b;
+	cout << fun(c);
+	return 0;
+}
+*///“更会报错”^
