@@ -10,6 +10,7 @@
 #include <set>
 #include <vector>
 #include <algorithm>
+#include <list>
 using namespace std;// <-- 必备
 #define PANADD(A,B) ((A) < (B) ? 1 : -1) // <------ “C++两点成一线”中的宏
 #define NAME(A) #A // <------ “#”中的宏
@@ -32079,3 +32080,15 @@ int main() {
 	return 0;
 }
 *///“更会报错”^
+/*
+int main() {
+	list<int>l;
+	l.push_back(1);
+	l.push_front(3);
+	for (list<int>::const_iterator it = l.cbegin(); l.cend() != it; it++) {
+		cout << *it << " ";
+	}
+	cout << endl;
+	return 0;
+}
+*///“list链表容器的初步使用”^
