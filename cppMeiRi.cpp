@@ -32092,3 +32092,17 @@ int main() {
 	return 0;
 }
 *///“list链表容器的初步使用”^
+/*
+int main() {
+	list<int>l;
+	l.push_front(1);
+	l.push_back(2);
+	l.push_front(3);
+	cout << l.front() << " " << l.back() << " ";
+	l.pop_front();
+	cout << l.front() << " ";
+	l.pop_back();
+	cout << l.back() << " " << endl;
+	return 0;
+}
+*///“list容器的pop_front删除前面元素方法和pop_back删除后面元素方法”^
