@@ -32106,3 +32106,15 @@ int main() {
 	return 0;
 }
 *///“list容器的pop_front删除前面元素方法和pop_back删除后面元素方法”^
+/*
+int main() {
+	list<int>l;
+	for (int i = 0; i < 10; i++) {
+		l.push_back(0);
+	}
+	cout << l.size() << " <- 此时list链表容器的容量" << endl;
+	l.clear();
+	cout << l.size() << " <- 删除所有元素后list链表容器的容量" << endl;
+	return 0;
+}
+*///“list容器clear方法的调用”^
