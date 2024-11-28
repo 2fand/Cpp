@@ -32204,3 +32204,68 @@ public:
 	}
 };
 *///“单向链表容器已创建”^
+/*
+//mylist.hpp
+#pragma once
+#include <iostream>
+template<class T>
+class mylist {
+private:
+	int ic;
+	class node {
+	public:
+		T t;
+		node* next;
+		node(T tc, node* nextc) {
+			t = tc;
+			next = nextc;
+		}
+		node() {
+			t = NULL;
+			next = NULL;
+		}
+	};
+	node head;
+public:
+	friend class node;
+	T& operator[](int i){
+		
+	}
+	T& at(int i){
+
+	}
+	int findindex(T t){
+	
+	}
+	int capacity(){
+		return ic;
+	}
+	void push_back(T t){
+
+	}
+	void insert(T t, int i){
+		
+	}	
+	void clear(){
+		ic = 0;
+	}
+	void del_back(){
+	
+	}
+	bool IsEmpty(){
+		return !ic;
+	}
+	mylist(){}
+	mylist(T* tarr) {
+		if (sizeof *tarr) {
+			ic = sizeof *tarr / sizeof (*tarr)[0];
+			//...
+		}
+	}
+	~mylist() {
+		while (head.next) {
+			del_back();
+		}
+	}
+};
+*///“部分成员函数已完成”^
