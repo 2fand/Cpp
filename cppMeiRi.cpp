@@ -32118,3 +32118,89 @@ int main() {
 	return 0;
 }
 *///“list容器clear方法的调用”^
+/*
+//mylist.hpp
+#pragma once
+#include <iostream>
+template<class T>
+struct node {
+	T t;
+	node next;
+};
+template<class T>
+class mylist {
+private:
+	int capacity;
+public:
+	T& operator[](int i){
+	
+	}
+	T& at(int i){
+	
+	}
+	int findindex(T t){
+	
+	}
+	int capacity(){
+	
+	}
+	void push_back(T t){
+	
+	}
+	void insert(T t, int i){
+	
+	}	
+	void clear(){
+	
+	}
+	void del_back(){
+	
+	}
+	bool IsEmpty(){
+	
+	}
+};
+*///“单向链表容器已创建”^
+/*
+//mylist.hpp
+#pragma once
+#include <iostream>
+template<class T>
+struct node {
+	T t;
+	node next;
+};
+template<class T>
+class mylist {
+private:
+	int capacity;
+public:
+	T& operator[](int i){
+	
+	}
+	T& at(int i){
+	
+	}
+	int findindex(T t){
+	
+	}
+	int capacity(){
+	
+	}
+	void push_back(T t){
+	
+	}
+	void insert(T t, int i){
+	
+	}	
+	void clear(){
+	
+	}
+	void del_back(){
+	
+	}
+	bool IsEmpty(){
+	
+	}
+};
+*///“单向链表容器已创建”^
