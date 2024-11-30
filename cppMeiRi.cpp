@@ -32387,3 +32387,132 @@ public:
 	}
 };
 *///“mylist单向链表的所有基本的成员方法已完成”^
+/*
+//mylist.hpp
+#pragma once
+#include <iostream>
+template<class T>
+class mylist {
+private:
+	int ic;
+	class node {
+	public:
+		T t;
+		node* next;
+		set(T tf, node* nextf) {
+			this->t = tf;
+			this->next = nextf;
+		}
+	};
+	node* head;
+public:
+	mylist() {}
+	int indexfind(T t) {
+		node* findnode = head;
+		int index = 0;
+		while (head->next) {
+			findnode = findnode->next;
+			if (findnode->t) {
+				return index;
+			}
+			index++;
+		}
+		return -1;
+	}
+	int capacity() const {
+		return ic;
+	}
+	void push_back(T t) {
+		node* findnode = head;
+		node* newnode = new node;
+		newnode->set(t, NULL);
+		while (findnode->next) {
+			findnode = findnode->next;
+		}
+		findnode->next = newnode;
+	}
+	void operator=(const mylist ml) {
+		this->ic = ml.ic;
+		int ia = 0;
+		clear();
+		node* findnode = head->next;
+		for (int i = 0; i < this->ic; i++) {
+			i && (findnode = findnode->next);
+			push_back(findnode->t);
+		}
+	}
+	mylist(const mylist ml) {
+		*this = ml;
+	}
+	mylist(const T* const tarr) {
+		if (sizeof * tarr) {
+			ic = sizeof * tarr / sizeof(*tarr)[0];
+			T* tp = tarr;
+			for (int i = 0; i < ic; i++) {
+				push_back(*tp++);
+			}
+		}
+	}
+	void insert(T t, int i) {
+		if (ic > i && i >= 0) {
+			node* findnode = head->next;
+			node* newnode = new node;
+			newnode->set(t, NULL);
+			for (; i; i--) {
+				findnode = findnode->next;
+			}
+			findnode->next = newnode;
+		}
+	}
+	void del_back() {
+		if (ic) {
+			node* prenode = head;
+			while (prenode->next->next) {
+				prenode = prenode->next;
+			}
+			node* delnode = prenode->next;
+			prenode->next = NULL;
+			delete delnode;
+			ic--;
+		}
+	}
+	void clear() {
+		while (ic) {
+			del_back();
+		}
+	}
+	~mylist() {
+		clear();
+	}
+	void del_index(int index) {
+		if (ic - 1 == index) {
+			del_back();
+		}
+		else if (ic > index && index >= 0) {
+			node* prenode = head;
+			for (; index > 0; index--) {
+				prenode = prenode->next;
+			}
+			node* delnode = prenode->next;
+			node* nextnode = delnode->next;
+			prenode->next = nextnode;
+			delnode->next = NULL;
+			delete delnode;
+		}
+		ic--;
+	}
+	bool IsEmpty() const {
+		return !ic;
+	}
+	T& at(int i) const {
+		node* findnode = head->next;
+		for (; i; i--) {
+			findnode = findnode->next;
+		}
+		return findnode->t;
+	}
+	T& operator[](int i) const {
+		return at(i);
+	}
+};
+*///“mylist单向链表的拷贝方法已变成深拷贝”^
