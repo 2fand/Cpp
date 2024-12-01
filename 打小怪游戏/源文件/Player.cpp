@@ -9,7 +9,7 @@ Player::Player(){
 	ijh = 0;
 	blr = 1;
 }
-//打印地牢函数
+//打印地牢方法
 void Player::printmap(const char strmap[11][11], const bool bwait, const int iunmd) {
 	int i = 0;
 	int ia = 0;
@@ -20,9 +20,9 @@ void Player::printmap(const char strmap[11][11], const bool bwait, const int iun
 		}
 		cout << "|" << endl;//竖的外边框
 	}
-	cout << "-----------@" << endl;//底下的的外边框
+	cout << "-----------@" << endl;//底下的外边框
 }
-//打印地牢函数(右偏版本)
+//打印地牢方法(右偏版本)
 void Player::printmap(char(*strmap)[11][11], const bool bwait, const int ir, const int iunmd) {
 	int i = 0;
 	int ia = 0;
@@ -34,12 +34,12 @@ void Player::printmap(char(*strmap)[11][11], const bool bwait, const int ir, con
 		}
 		cout << "|" << endl;//竖的外边框
 	}
-	cout << "-----------@" << endl;//底下的的外边框
-}//跳跃函数
+	cout << "-----------@" << endl;//底下的外边框
+}//跳跃方法
 void Player::jump(char** cpp) {
 	10 == ix || '*' == (*cpp)[11] && (ijh = JUMPHIGH);
 }
-//左移函数
+//左移方法
 void Player::left_move(char** cpp) {
 	(iy && '*' != *(*cpp - 1) && ((*cpp)--));
 	blr = false;
@@ -84,14 +84,14 @@ void Player::upOrDown(char** cpp) {
 		ijh = 0;
 	}
 }
-//射击函数
+//射击方法
 void Player::shoot(int& i, char** cpp) {
 	if ((!i) && (iy && (!blr) || 10 != iy && blr)) {//检测冷却时间已过并且是否在地牢的边界射过
 		v.push_back({ *cpp, iy, blr, 0 });
 		i = 3;
 	}
 }
-//子弹的移动函数
+//子弹的移动方法
 void Player::shootmove(const char(*strmap)[11][11], bool bmode) {
 	if (bmode) {
 		for (vector<trir>::iterator it = v.begin(); v.end() != it; it++) {
