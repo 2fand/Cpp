@@ -2,7 +2,7 @@
 using namespace std;
 #include "MO.h"
 #define NNEG(A, B) ((A) < (B) ? 1 : (A) > (B) ? -1 : 0)//判断宏
-#define MOWAIT 1//怪物等待的回合数
+#define MOWAIT 1//怪物MO等待的回合数
 pair<int, int> MO::s_m_pxy = {0, 0};//玩家坐标的初始化
 //构造函数
 MO::MO() {
