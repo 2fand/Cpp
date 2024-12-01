@@ -681,14 +681,13 @@ int main() {
 		}
 		(iunmd || ' ' == *cp || '@' == *cp) || cout << (p.sgetxyhs(HEAL)--, iunmd = 2, "\a");
 		'*' != *cp && (*cp = 'P');
-		//没血使怪物死亡
 		system("cls");//清屏
 		//如果vism的第0项vmp或者vism为空，那么开门，并头删
 		if ((vism.empty() || vism.front().vmp.empty()) && '*' == strmap[9][10]) {
 			strmap[9][10] = ' ';
 			vism.erase(vism.begin());
 		}
-		//如果进门，那么重置地图('*'  -->  ' ')，并把b设为假
+		//如果进门，那么重置地牢('*'  -->  ' ')，并把b设为假
 		if (bb && 'P' == strmap[9][10]) {
 			b = 0;
 			for (vector<trir>::iterator it = p.sgetxyhs()->begin(); p.sgetxyhs()->end() != it; it++) {
