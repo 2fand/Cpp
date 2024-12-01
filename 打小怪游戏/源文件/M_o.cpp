@@ -7,7 +7,7 @@ void M_o::near() {
 	int i = 0;
 	for (; i < 8; i++) {
 		if ('*' == (*m_cpp)[arr[i]]) {
-			m_iheal = -1;//去死，并生其他怪物
+			m_iheal = -1;//去死，并生其他怪物(main函数)
 			break;
 		}
 	}
