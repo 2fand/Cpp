@@ -33399,3 +33399,151 @@ void Player::shootmove(const char(*strmap)[11][11], bool bmode) {
 	}
 }
 *///注释中多处“函数”已改为“方法”^
+/*
+//mylist.hpp
+#pragma once
+#include <iostream>
+template<class T>
+class mylist {
+private:
+	int ic;
+	class node {
+	public:
+		T t;
+		node* next;
+		set(T tf, node* nextf) {
+			this->t = tf;
+			this->next = nextf;
+		}
+	};
+	node* head;
+public:
+	mylist() {}
+	int indexfind(T t) {
+		node* findnode = head;
+		int index = 0;
+		while (head->next) {
+			findnode = findnode->next;
+			if (findnode->t) {
+				return index;
+			}
+			index++;
+		}
+		return -1;
+	}
+	int capacity() const {
+		return ic;
+	}
+	void push_back(T t) {
+		node* findnode = head;
+		node* newnode = new node;
+		newnode->set(t, NULL);
+		while (findnode->next) {
+			findnode = findnode->next;
+		}
+		findnode->next = newnode;
+	}
+	void operator=(const mylist ml) {
+		this->ic = ml.ic;
+		int ia = 0;
+		clear();
+		node* findnode = head->next;
+		for (int i = 0; i < this->ic; i++) {
+			i && (findnode = findnode->next);
+			push_back(findnode->t);
+		}
+	}
+	mylist(const mylist ml) {
+		*this = ml;
+	}
+	mylist(const T* const tarr) {
+		if (sizeof * tarr) {
+			ic = sizeof * tarr / sizeof(*tarr)[0];
+			T* tp = tarr;
+			for (int i = 0; i < ic; i++) {
+				push_back(*tp++);
+			}
+		}
+	}
+	void insert(T t, int i) {
+		if (ic > i && i >= 0) {
+			node* findnode = head->next;
+			node* newnode = new node;
+			newnode->set(t, NULL);
+			for (; i; i--) {
+				findnode = findnode->next;
+			}
+			findnode->next = newnode;
+		}
+	}
+	void del_back() {
+		if (ic) {
+			node* prenode = head;
+			while (prenode->next->next) {
+				prenode = prenode->next;
+			}
+			node* delnode = prenode->next;
+			prenode->next = NULL;
+			delete delnode;
+			ic--;
+		}
+	}
+	void clear() const {
+		while (ic) {
+			del_back();
+		}
+	}
+	~mylist() {
+		clear();
+	}
+	void del_index(int index) {
+		if (ic - 1 == index) {
+			del_back();
+		}
+		else if (ic > index && index >= 0) {
+			node* prenode = head;
+			for (; index > 0; index--) {
+				prenode = prenode->next;
+			}
+			node* delnode = prenode->next;
+			node* nextnode = delnode->next;
+			prenode->next = nextnode;
+			delnode->next = NULL;
+			delete delnode;
+		}
+		ic--;
+	}
+	bool IsEmpty() const {
+		return !ic;
+	}
+	T& at(int i) {
+		node* findnode = head->next;
+		for (; i; i--) {
+			findnode = findnode->next;
+		}
+		return findnode->t;
+	}
+	void myreverse() {
+		if (ic >= 2) {
+			node* lastnode = head->next;
+			node* findnode = head;
+			while (lastnode->next) {
+				lastnode = lastnode->next;
+			}
+			while (head->next->next) {
+				findnode = head;
+				while (findnode->next->next) {
+					findnode = findnode->next;
+				}
+				findnode->next->next = findnode;
+				findnode->next = NULL;
+			}
+			head->next = lastnode;
+
+		}// n 1 2 3
+	}
+	T& operator[](int i) const {
+		return at(i);
+	}
+};
+*///“reverse方法已完成”^
