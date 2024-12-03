@@ -33705,3 +33705,166 @@ public:
 	}
 };
 *///“mylist单向链表head节点指向位置不可访问bug未修复”^
+/*
+//mylist.hpp
+#pragma once
+#include <iostream>
+template<class T>
+class mylist {
+private:
+	int ic;
+	class node {
+	public:
+		T t;
+		node* next;
+		void set() {
+			this->t = NULL;
+			this->next = nullptr;
+		}
+		void set(T tf, node* nextf) {
+			this->t = tf;
+			this->next = nextf;
+		}
+	};
+	node* head;
+public:
+	mylist() {
+		head = new node;
+		head->set();
+	}
+	void push_back(T t) {
+		node* newnode = new node;
+		node** findnode = &head;
+		newnode->set(t, nullptr);
+		while (nullptr != (*findnode)->next) {
+			findnode = &(*findnode)->next;
+		}
+		(*findnode)->next = newnode;
+		ic++;
+	}
+	int indexfind(T t) {
+		node* findnode = head;
+		int index = 0;
+		while (nullptr != head->next) {
+			findnode = findnode->next;
+			if (findnode->t) {
+				return index;
+			}
+			index++;
+		}
+		return -1;
+	}
+	int capacity() const {
+		return ic;
+	}
+	void operator=(mylist& ml) {
+		this->ic = ml.ic;
+		int ia = 0;
+		clear();
+		node* findnode = head->next;
+		for (int i = 0; i < this->ic; i++) {
+			i && (findnode = findnode->next);
+			push_back(findnode->t);
+		}
+	}
+	mylist(mylist& ml) {
+		this->head->next = nullptr;
+		*this = ml;
+	}
+	mylist(const T* const tarr) {
+		//this->head->t = nullptr;
+		this->head->next = nullptr;
+		if (sizeof * tarr) {
+			ic = sizeof * tarr / sizeof(*tarr)[0];
+			T* tp = tarr;
+			for (int i = 0; i < ic; i++) {
+				push_back(*tp++);
+			}
+		}
+	}
+	void insert(T t, int i) {
+		if (ic > i && i >= 0) {
+			node* findnode = head->next;
+			node* newnode = new node;
+			newnode->set(t, nullptr);
+			for (; i; i--) {
+				findnode = findnode->next;
+			}
+			findnode->next = newnode;
+			ic++;
+		}
+	}
+	void del_back() {
+		if (ic) {
+			node* prenode = head;
+			while (nullptr != prenode->next->next) {
+				prenode = prenode->next;
+			}
+			node* delnode = prenode->next;
+			prenode->next = nullptr;
+			delete delnode;
+			ic--;
+		}
+	}
+	void clear() {
+		while (ic) {
+			del_back();
+		}
+	}
+	~mylist() {
+		clear();
+		//delete head;
+	}
+	void del_index(int index) {
+		if (ic) {
+			if (ic - 1 == index) {
+				del_back();
+			}
+			else if (ic > index && index >= 0) {
+				node* prenode = head;
+				for (; index > 0; index--) {
+					prenode = prenode->next;
+				}
+				node* delnode = prenode->next;
+				node* nextnode = delnode->next;
+				prenode->next = nextnode;
+				delnode->next = nullptr;
+				delete delnode;
+			}
+			ic--;
+		}
+	}
+	bool IsEmpty() const {
+		return !ic;
+	}
+	T& at(int i) {
+		node* findnode = head->next;
+		for (; i; i--) {
+			findnode = findnode->next;
+		}
+		return findnode->t;
+	}
+	void myreverse() {
+		if (ic >= 2) {
+			node* lastnode = head->next;
+			node* findnode = head;
+			while (nullptr != lastnode->next) {
+				lastnode = lastnode->next;
+			}
+			while (nullptr != head->next->next) {
+				findnode = head;
+				while (findnode->next->next) {
+					findnode = findnode->next;
+				}
+				findnode->next->next = findnode;
+				findnode->next = nullptr;
+			}
+			head->next = lastnode;
+
+		}// n 1 2 3
+	}
+	T& operator[](int i) {
+		return at(i);
+	}
+};
+*///“mylist单向链表里的节点node类的set重载无参方法已添加”^
