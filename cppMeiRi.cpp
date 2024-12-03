@@ -33868,3 +33868,19 @@ public:
 	}
 };
 *///“mylist单向链表里的节点node类的set重载无参方法已添加”^
+/*
+//meiri.cpp
+#include <iostream>
+#include <list>
+#include "mylist.hpp"
+using namespace std;
+
+int main() {
+	list<int>l;
+	mylist<int>ml;
+	cout << "ml单向链表容器的容量：" << ml.capacity() << " ml单向链表容器的是否为空：" << (ml.IsEmpty() ? "为空" : "不为空") << endl << endl << "添加一个新元素后：" << endl << endl;
+	ml.push_back(1);
+	cout << "ml单向链表容器的容量：" << ml.capacity() << " ml单向链表容器的是否为空：" << (ml.IsEmpty() ? "为空" : "不为空") << endl;
+	return 0;
+}
+*///“mylist单向链表里的capacity和IsEmpty常方法已测试完毕”^
