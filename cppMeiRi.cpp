@@ -34061,3 +34061,21 @@ public:
 	}
 };
 *///“del_back方法已重新构建”^
+/*
+//meiri.cpp
+#include <iostream>
+#include <list>
+#include "mylist.hpp"
+using namespace std;
+
+int main() {
+	mylist<int>ml;
+	ml.push_back(54);
+	ml.push_back(-54);
+	ml.push_back(5);
+	ml.push_back(540);
+	ml.del_back();
+	cout << "ml单向链表容器的容量：" << ml.capacity() << endl;
+	return 0;
+}
+*///新del_back方法已测试好^
