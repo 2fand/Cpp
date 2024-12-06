@@ -5579,3 +5579,22 @@ int main() {
 	return 0;
 }
 *///clear方法已测试好^
+/*
+//meiri.cpp
+#include <iostream>
+#include <list>
+#include "mylist.hpp"
+using namespace std;
+
+int main() {
+	mylist<int>ml;
+	ml.del_back();
+	ml.del_back();
+	ml.del_back();
+	ml.clear();
+	ml.clear();
+	ml.del_back();
+	cout << "程序已正常运行" << endl;
+	return 0;
+}
+*///mylist单向链表的del_back方法和clear方法的安全检测方式已正常运行^
