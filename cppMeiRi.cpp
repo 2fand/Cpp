@@ -6117,3 +6117,23 @@ public:
 	}
 };
 *///mylist单向链表的insert方法的实现方式已重新修改^
+/*
+//meiri.cpp
+#include <iostream>
+#include <list>
+#include "mylist.hpp"
+using namespace std;
+
+int main() {
+	mylist<int>ml;
+	ml.insert(-1, -1);
+	ml.insert(0, 0);
+	ml.push_back(6565);
+	ml.push_back(12345);
+	ml.push_back(-665);
+	ml.push_back(655);
+	ml.insert(114514, 2);
+	cout << "ml单向链表容器的容量：" << ml.capacity() << endl << endl << "ml单项链表容器的第2项：" << ml[2] << endl;;
+	return 0;
+}
+*///ml单向链表的insert方法已正常运行，ml单向链表insert方法的安全性检测已正常运行^
