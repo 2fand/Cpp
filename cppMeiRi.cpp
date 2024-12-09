@@ -6308,3 +6308,20 @@ public:
 	}
 };
 *///mylist单向链表的indexfind方法的内部实现已重写^
+/*
+//meiri.cpp
+#include <iostream>
+#include <list>
+#include "mylist.hpp"
+using namespace std;
+
+int main() {
+	mylist<int>ml;
+	ml.push_back(6565);
+	ml.push_back(12345);
+	ml.push_back(-665);
+	ml.push_back(655);
+	cout << "ml单向链表中12345的位置：" << ml.indexfind(12345) << endl << "ml单向链表中-12345的位置：" << ml.indexfind(-12345) << "(无)" << endl;
+	return 0;
+}
+*///mylist单向链表的indexfind方法已测试完毕^
