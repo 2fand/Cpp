@@ -6501,3 +6501,20 @@ public:
 	}
 };
 *///mylist单向链表的myreverse方法的内部实现已重新构造^
+/*
+//meiri.cpp
+#include <iostream>
+#include "mylist.hpp"
+using namespace std;
+
+int main() {
+	mylist<int>ml;
+	ml.push_back(6565);
+	ml.push_back(12345);
+	ml.push_back(-665);
+	ml.push_back(655);
+	ml.myreverse();
+	cout << ml[0] << " " << ml[1] << " " << ml[2] << " " << ml[3] << endl;
+	return 0;
+}
+*///mylist单向链表的myreverse方法已测试完毕^
