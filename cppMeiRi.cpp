@@ -7026,3 +7026,21 @@ public:
 	}
 };
 *///已新构建出mylist单向链表的printlist方法^
+/*
+//meiri.cpp
+#include <iostream>
+#include <list>
+#include "mylist.hpp"
+using namespace std;
+
+void printstr(char ch, bool status) {
+	cout << ch;
+	status || cout << endl;
+}
+
+int main() {
+	mylist<char>ml("Hello, world!", sizeof "Hello, world!");
+	ml.printlist(printstr);
+	return 0;
+}
+*///mylist单向链表的printstr方法已测试好^
