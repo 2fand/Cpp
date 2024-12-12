@@ -4903,4 +4903,4 @@ void MainWindow::paintEvent(QPaintEvent*){
         bwin = 0;
     }
 }
-*///已改动固定的窗口大小^
+*///已改动游戏固定的窗口大小^
