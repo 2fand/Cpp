@@ -7068,3 +7068,27 @@ int main() {
 	return 0;
 }
 *///单向链表的实际应用之一^
+/*
+//meiri.cpp
+#include <iostream>
+#include <list>
+#include "mylist.hpp"
+using namespace std;
+
+void printarr(int i, bool status) {
+	cout << i << " -> ";
+	if (!status) {
+		cout << "nullptr" << endl;
+	}
+}
+
+int main() {
+	mylist<int>ml;
+	int i = -1;
+	while (i++ < 10) {
+		ml.push_back(i);
+	}
+	ml.printlist(printarr);
+	return 0;
+}
+*///也是单向链表的实际应用之一^
