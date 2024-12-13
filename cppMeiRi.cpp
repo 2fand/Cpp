@@ -7044,3 +7044,27 @@ int main() {
 	return 0;
 }
 *///mylist单向链表的printstr方法已测试好^
+/*
+//meiri.cpp
+#include <iostream>
+#include <list>
+#include "mylist.hpp"
+using namespace std;
+
+void printarr(int i, bool status) {
+	cout << i;
+	if (status) {
+		cout << ", ";
+	}
+	else {
+		cout << endl;
+	}
+}
+
+int main() {
+	int arr[7] = { 1,3,5,5,8,8,9 };
+	mylist<int>ml(arr, 7);
+	ml.printlist(printarr);
+	return 0;
+}
+*///单向链表的实际应用之一^
