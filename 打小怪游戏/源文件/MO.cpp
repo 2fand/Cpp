@@ -16,7 +16,7 @@ void MO::set(vector<trir>* v, char** cpp, int iheal, map<char**, WASD>*m, char**
 	m_pxy.first = ix;
 	m_pxy.second = iy;
 	imove = 0;
-	if (m) { 
+	if (nullptr != m) { 
 		m_m = *m;
 	}
 }
