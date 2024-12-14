@@ -186,7 +186,7 @@ int main() {
 	char strmapr[11][11];
 	isv ism;//用来布置怪物
 	vector<isv> vism;//地牢布置与怪物布置，无时即BOSS战(+)(int为编号)
-	vism.reserve(5000);//防bug出
+	vism.reserve(11000);//防bug出
 	char* strcp[47] = { &strmap[9][5], &strmap[9][7], &strmap[9][3], &strmap[1][5], &strmap[1][5], &strmap[6][1], &strmap[4][9], &strmap[6][8], &strmap[3][3], &strmap[4][3], &strmap[5][3], &strmap[6][3], &strmap[7][3], &strmap[8][3], &strmap[9][3], &strmap[4][5], &strmap[5][4], &strmap[5][5], &strmap[5][6], &strmap[6][5], &strmap[1][5], &strmap[1][5], &strmap[9][5], &strmap[9][5], &strmap[1][9], &strmap[1][1], &strmap[8][2], &strmap[2][8], &strmap[8][8], &strmap[2][2], &strmap[5][5], &strmap[1][1], &strmap[2][2], &strmap[3][3], &strmap[4][4], &strmap[8][5], &strmap[5][2], &strmap[2][4], &strmap[4][9], &strmap[1][8], &strmap[9][2], &strmap[1][1], &strmap[9][9], &strmap[3][4], &strmap[5][1], &strmap[5][9], &strmap[5][5]};//生成时要的怪物坐标
 	vector<moster*>mpv;//mpv里一共要有的怪物们
 	char tempstr[9] = "color 0";//为告知你胜利的文字颜色
@@ -195,7 +195,7 @@ int main() {
 	//随机设置地牢布置与怪物布置
 	for (i = 0; ch < 11; ch++) {
 		vism.push_back(ism);
-		vism.back().vmp.reserve(500);//还防bug出
+		vism.back().vmp.reserve(1000);//还防bug出
 		vism[ch].id = ch;
 		int itemp = 0;
 		switch (ch) {//编号id对应的地牢怪物生成
@@ -363,6 +363,7 @@ int main() {
 	vism.push_back(ism);//小BOSS的创建
 	vism.back().id = 10;
 	mpv.push_back(new Mplus());
+	vism.back().vmp.reserve(1000);
 	vism.back().vmp.push_back(mpv.back());
 	vism.back().vmp.back()->set(p.sgetxyhs(), &strcp[46], 10);
 	int ishoot = 0;
@@ -579,13 +580,13 @@ int main() {
 		(iunmd || ' ' == *cp || '@' == *cp) || cout << (p.sgetxyhs(HEAL)--, iunmd = 2, "\a");
 		//有怪物使你扣血
 		ishoot > 0 && ishoot--;
-		if (' ' != strmap[9][10]) {
+		if (' ' != strmap[9][10]) {//怪物死
 			sort(vism.front().vmp.begin(), vism.front().vmp.end(), cmpm());//对怪物血量进行升序排序
 			while (!vism.front().vmp.empty() && vism.front().vmp.front()->getheal() < 1) {
 				if (-1 == vism.front().vmp.front()->getheal()) {
 					int ir = 0;
 					//把怪物“o”转换成其他怪物
-					switch (bc ? 2 : rand() % 4) {
+					switch (bc ? 2 : ir = rand() % 4) {
 					case 0:
 						mpv.push_back(new Mand());
 						break;
@@ -606,30 +607,37 @@ int main() {
 					int mx = 0;
 					int my = 0;
 					const int arr[8] = { -12, -11, -10, -1, 1, 10, 11, 12 };
-					while (!cpa || ' ' != *cpa) {
+					int isummon = 0;
+					while (255 != isummon && (!cpa || ' ' != *cpa || ('X' == mpv.back()->getm() && (cpa == &strmap[9][1] || '@' == *cpa || '@' == *(cpa - 1) || '@' == *(cpa + 1) || cpa == cp || '*' == *(cpa - 1) || '*' == *(cpa + 1) || 'X' == *(cpa - 1) || 'X' == *cpa || 'X' == *(cpa + 1))))) {
 						int ira = rand() % (cpa = vism.front().vmp.front()->getcp(), 8);
+						(isummon >> ira & 1) || (isummon += (1 << ira));
 						int imx = (vism.front().vmp.front()->getcp() - &strmap[0][0]) / 11;
 						int imy = (vism.front().vmp.front()->getcp() - &strmap[0][0]) % 11;
 						bool boolarr[8] = { (imx || imy), !!imx, (imx || 10 != imy), !!imy, 10 != imy, (10 != imx || imy), 10 != imx, (imx || 10 != imy) };
 						boolarr[ira] && (cpa += arr[ira]);
 					}
-					mx = (cpa - &strmap[0][0]) / 11;
-					my = (cpa - &strmap[0][0]) % 11;
-					switch (bc ? (bc = 0, 2) : ir) {
-					case 0:
-						vism.front().vmp.back()->set(p.sgetxyhs(), &cpa, 3, NULL, NULL, NULL, 0, 0, rand() % 2);//怪物“&”
-						break;
-					case 1:
-						vism.front().vmp.back()->set(p.sgetxyhs(), &cpa, 2, NULL, NULL, NULL, 0, 0, rand() % 2, rand() % 2);//怪物“^”
-						break;
-					case 2:
-						vism.front().vmp.back()->set(p.sgetxyhs(), &cpa, 3, &em, NULL, NULL, mx, my);//怪物“O”
-						break;
-					case 3:
-						vism.front().vmp.back()->set(p.sgetxyhs(), &cpa, 5, NULL, &cp, &strmap);//怪物“X”
-						break;
-					default:
-						break;
+					if (255 != isummon) {
+						mx = (cpa - &strmap[0][0]) / 11;
+						my = (cpa - &strmap[0][0]) % 11;
+						switch (bc ? (bc = 0, 2) : ir) {
+						case 0:
+							vism.front().vmp.back()->set(p.sgetxyhs(), &cpa, 3, NULL, NULL, NULL, 0, 0, rand() % 2);//怪物“&”
+							break;
+						case 1:
+							vism.front().vmp.back()->set(p.sgetxyhs(), &cpa, 2, NULL, NULL, NULL, 0, 0, rand() % 2, rand() % 2);//怪物“^”
+							break;
+						case 2:
+							vism.front().vmp.back()->set(p.sgetxyhs(), &cpa, 3, &em, NULL, NULL, mx, my);//怪物“O”
+							break;
+						case 3:
+							vism.front().vmp.back()->set(p.sgetxyhs(), &cpa, 5, NULL, &cp, &strmap);//怪物“X”
+							break;
+						default:
+							break;
+						}
+					}
+					else {
+						vism.front().vmp.pop_back();
 					}
 				}
 				'*' != *vism.front().vmp.back()->getcp() && (*vism.front().vmp.back()->getcp() = vism.front().vmp.back()->getm());
