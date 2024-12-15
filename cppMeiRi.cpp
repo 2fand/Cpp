@@ -8762,3 +8762,185 @@ int main() {
 	return 0;
 }
 *///无用注释已删除^
+/*
+//mylist.hpp
+#pragma once
+#include <iostream>
+#include <stack>
+using namespace std;
+template<class T>
+class mylist {
+private:
+	int ic;
+	class node {
+	public:
+		T t;
+		node* next;
+		void set() {
+			this->t = NULL;
+			this->next = nullptr;
+		}
+		void set(T tf, node* nextf) {
+			this->t = tf;
+			this->next = nextf;
+		}
+	};
+	node* head;
+public:
+	mylist() {
+		head = new node;
+		head->set();
+		this->ic = 0;
+	}
+	void push_back(T t) {
+		node* newnode = new node;
+		node** findnode = &head;
+		newnode->set(t, nullptr);
+		while (nullptr != (*findnode)->next) {
+			findnode = &(*findnode)->next;
+		}
+		(*findnode)->next = newnode;
+		ic++;
+	}
+	int indexfind(T t) {
+		node* findnode = head;
+		int index = 0;
+		while (nullptr != findnode->next) {
+			findnode = findnode->next;
+			if (t == findnode->t) {
+				return index;
+			}
+			index++;
+		}
+		return -1;
+	}
+	int capacity() const {
+		return ic;
+	}
+	void operator=(mylist& ml) {
+		int ia = 0;
+		node* findnode = ml.head;
+		for (int i = 0; i < ml.ic; i++) {
+			findnode = findnode->next;
+			this->push_back(findnode->t);
+		}
+	}
+	mylist(mylist& ml) {
+		*this = ml;
+	}
+	mylist(const T tarr[], int has) {
+		head = new node;
+		head->set();
+		if (sizeof *tarr) {
+			const T* tp = tarr;
+			for (int i = 0; i < has; i++) {
+				push_back(*tp++);
+			}
+		}
+	}
+	void insert(T t, int i) {
+		if (ic && ic > i && i >= 0) {
+			node** findnode = &head;
+			for (; i; i--) {
+				findnode = &(*findnode)->next;
+			}
+			node* newnode = new node;
+			newnode->set(t, (*findnode)->next);
+			(*findnode)->next = newnode;
+			ic++;
+		}
+	}
+	void del_back() {
+		if (ic) {
+			node** prenode = &head;
+			while (nullptr != (*prenode)->next->next) {
+				prenode = &((*prenode)->next);
+			}
+			node** delnode = &((*prenode)->next);
+			(*prenode)->next = nullptr;
+			delete *delnode;
+			ic--;
+		}
+	}
+	void clear() {
+		while (ic) {
+			del_back();
+		}
+	}
+	~mylist() {
+		clear();
+		delete head;
+	}
+	void del_index(int index) {
+		if (ic > index && index >= 0) {
+			node** prenode = &head;
+			for (; index > 0; index--) {
+				prenode = &(*prenode)->next;
+			}
+			node** delnode = &((*prenode)->next);
+			node* nextnode = (*delnode)->next;
+			delete* delnode;
+			(*prenode)->next = nextnode;
+			ic--;
+		}
+	}
+	bool IsEmpty() const {
+		return !ic;
+	}
+	T& at(int i) {
+		if (i >= 0 && i < ic) {
+			node* findnode = head->next;
+			for (; i; i--) {
+				findnode = findnode->next;
+			}
+			return findnode->t;
+		}
+		else {
+			return head->t;
+		}
+	}
+	void myreverse() {
+		if (nullptr != head) {
+			int newc = ic;
+			stack<node*>s;
+			node* snode = head;
+			while (nullptr != snode->next) {
+				s.push(snode->next);
+				snode = snode->next;
+			}
+			this->clear();
+			head->next = s.top();
+			s.pop();
+			node** addnode = &(head->next);
+			while (s.size()) {
+				(*addnode)->next = s.top();
+				addnode = &((*addnode)->next);
+				s.pop();
+			}
+			(*addnode)->next = nullptr;
+			ic = newc;
+		}
+	}
+	T& operator[](int i) {
+		if (i >= 0 && i < ic) {
+			node* findnode = head->next;
+			for (; i; i--) {
+				findnode = findnode->next;
+			}
+			return findnode->t;
+		}
+		else {
+			return head->t;
+		}
+	}
+	void printlist(void (*printfun)(T item, bool b)) {
+		if (ic) {
+			node* printnode = head;
+			while (nullptr != printnode->next) {
+				printnode = printnode->next;
+				printfun(printnode->t, nullptr != printnode->next);
+			}
+		}
+	}
+};
+*///已为单向链表的无参构造函数进行优化^
