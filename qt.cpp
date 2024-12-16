@@ -5567,3 +5567,22 @@ void MainWindow::paintEvent(QPaintEvent*){
     }
 }
 *///优化失败，不再进行更新^
+/*
+//mainwindow.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QPlainTextEdit>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    ui->plainTextEdit->setPlainText("你有一段文字待输入");
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///设置普通输入框的默认文字^
