@@ -9034,3 +9034,99 @@ public:
 	}
 };
 *///已新建mybintree.hpp文件^
+/*
+//mybintree.hpp
+#pragma once
+#include <iostream>
+#include <stack>
+using namespace std;
+template<class T>
+class mylist {
+private:
+	int ic;
+	class node {
+	public:
+		T t;
+		node* left;
+		node* right;
+		void set() {
+			this->t = NULL;
+			this->left = nullptr;
+			this->right = nullptr;
+		}
+		void set(T tf, node* leftf, node* rightf) {
+			this->t = tf;
+			this->left = leftf;
+			this->right = rightf;
+		}
+	};
+	node* head;
+public:
+	mylist() {
+		head = new node;
+		head->set();
+		this->ic = 0;
+	}
+	void push_back(T t) {
+		
+	}
+	int indexfind(T t) {
+		
+	}
+	int capacity() const {
+		return ic;
+	}
+	void operator=(mylist& ml) {
+		int ia = 0;
+		node* findnode = ml.head;
+		for (int i = 0; i < ml.ic; i++) {
+			findnode = findnode->next;
+			this->push_back(findnode->t);
+		}
+	}
+	mylist(mylist& ml) {
+		*this = ml;
+	}
+	mylist(const T tarr[], int has) {
+		head = new node;
+		head->set();
+		
+	}
+	void insert(T t) {
+		
+	}
+	void del_back() {
+		
+	}
+	void clear() {
+		while (ic) {
+			del_back();
+		}
+	}
+	~mylist() {
+		clear();
+		delete head;
+	}
+	void del_index(int index) {
+		
+	}
+	bool IsEmpty() const {
+		return !ic;
+	}
+	T at(int i) {
+		
+	}
+	T operator[](int i) {
+		
+	}
+	void printlist(void (*printfun)(T item, bool b)) {
+		
+	}
+	T max() {
+
+	}
+	T min() {
+
+	}
+};
+*///新建了两个方法^
