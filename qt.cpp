@@ -5586,3 +5586,22 @@ Widget::~Widget()
     delete ui;
 }
 *///设置普通输入框的默认文字^
+/*
+//mainwindow.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QPlainTextEdit>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    ui->plainTextEdit->setPlaceholderText("你有一段文字待输入");
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///设置提醒用户输入的文字^
