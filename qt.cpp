@@ -5624,3 +5624,23 @@ Widget::~Widget()
     delete ui;
 }
 *///“特宽光标”^
+/*
+//mainwindow.cpp
+#include "widget.h"
+#include "ui_widget.h"
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    connect(ui->plainTextEdit, &QPlainTextEdit::textChanged, this, [=](){
+        this->close();
+    });
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///不能用的输入框^
