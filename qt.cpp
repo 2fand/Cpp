@@ -5644,3 +5644,23 @@ Widget::~Widget()
     delete ui;
 }
 *///不能用的输入框^
+/*
+//mainwindow.cpp
+#include "widget.h"
+#include "ui_widget.h"
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    connect(ui->plainTextEdit, &QPlainTextEdit::copyAvailable, this, [=](){
+        this->close();
+    });
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///鼠标选中文字就关^
