@@ -5605,3 +5605,22 @@ Widget::~Widget()
     delete ui;
 }
 *///设置提醒用户输入的文字^
+/*
+//mainwindow.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QPlainTextEdit>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    ui->plainTextEdit->setCursorWidth(100);
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///“特宽光标”^
