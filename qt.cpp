@@ -5664,3 +5664,24 @@ Widget::~Widget()
     delete ui;
 }
 *///鼠标选中文字就关^
+/*
+//mainwindow.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    connect(ui->plainTextEdit, &QPlainTextEdit::undoAvailable, this, [=](){
+        qDebug() << "已执行一次信号";
+    });
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///改变输入框的可撤销状态就输入一段文字^
