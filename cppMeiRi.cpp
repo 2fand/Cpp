@@ -10088,3 +10088,161 @@ public:
 	}
 }
 *///已新建mybintree二叉树的del_front方法^
+/*
+//mybintree.hpp
+#pragma once
+#include <iostream>
+#include <queue>
+using namespace std;
+template<class T>
+class mylist {
+private:
+	int ic;
+	class node {
+	public:
+		T t;
+		node* left;
+		node* right;
+		void set() {
+			this->t = NULL;
+			this->left = nullptr;
+			this->right = nullptr;
+		}
+		void set(T tf, node* leftf = nullptr, node* rightf = nullptr) {
+			this->t = tf;
+			this->left = leftf;
+			this->right = rightf;
+		}
+	};
+	node* root;
+public:
+	mylist() {
+		root = new node;
+		root->set();
+		this->ic = 0;
+	}
+	void insert(T t, node** rootf = nullptr) {
+		if (ic) {
+			(*rootf)->t = t;
+		}
+		else if (nullptr != rootf){
+			if (t > (*rootf)->t) {
+				insert(t, &(*rootf)->right);
+			}
+			else {
+				insert(t, &(*rootf)->left);
+			}
+		}
+		else {
+			*rootf = new node;
+			(*rootf)->set(t);
+			ic++;
+		}
+	}
+	int itemfind(T t) {
+		
+	}
+	int capacity() const {
+		return ic;
+	}
+	void operator=(mylist& ml) {
+		int ia = 0;
+		node* findnode = ml.root;
+		for (int i = 0; i < ml.ic; i++) {
+			findnode = findnode->next;
+			this->insert(findnode->t);
+		}
+	}
+	mylist(mylist& ml) {
+		*this = ml;
+	}
+	mylist(const T tarr[], int has) {
+		root = new node;
+		root->set();
+		
+	}
+	void del_back() {
+		if (ic) {
+			if (nullptr == root->right) {
+				root->t = NULL;
+			}
+			else {
+				node** findnode = &root;
+				while (nullptr != (*findnode)->right->right) {
+					findnode = &(*findnode)->right;
+				}
+				node** delnode = &(*findnode)->right;
+				(*findnode)->right = nullptr;
+				delete* delnode;
+			}
+			ic--;
+		}
+	}
+	void clear() {
+		while (ic) {
+			del_back();
+		}
+	}
+	~mylist() {
+		clear();
+		delete root;
+	}
+	void del_front(int index) {
+		if (1 == ic) {
+			root->t = NULL;
+   			ic--;
+		}
+		else if (ic){
+			node** findnode = root->right;
+			if (nullptr == findnode) {
+				node** leftnode = root->left;
+				delete root;
+				root = *leftnode;
+			}
+			else if(nullptr == (*findnode)->left){
+				root->t = (*findnode)->t;
+				delete* findnode;
+				root->right = nullptr;
+			}
+			else {
+				while (nullptr != (*findnode)->left->left) {
+					findnode = &(*findnode)->left;
+				}
+				root->t = (*findnode)->left->t;
+				delete (*findnode)->left;
+				(*findnode)->left = nullptr;
+			}
+   			ic--;
+		}
+	}
+	void del_index(int index) {
+		
+	}
+	bool IsEmpty() const {
+		return !ic;
+	}
+	T at(int i) {
+		
+	}
+	T operator[](int i) {
+		
+	}
+	void printtree(void (*printfun)(T item, bool b)) {
+		
+	}
+	T max() {
+		node** findnode = &root;
+		while (nullptr != (*findnode)->right) {
+			findnode = &(*findnode)->right;
+		}
+		return (*findnode)->t;
+	}
+	T min() {
+		node** findnode = &root;
+		while (nullptr != (*findnode)->left) {
+			findnode = &(*findnode)->left;
+		}
+		return (*findnode)->t;
+	}
+}
+*///二叉树mybintree的del_front方法已完成实现^
