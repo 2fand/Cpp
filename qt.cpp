@@ -5685,3 +5685,26 @@ Widget::~Widget()
     delete ui;
 }
 *///改变输入框的可撤销状态就输入一段文字^
+/*
+//mainwindow.cpp
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+    QPixmap pm(":/start.png");
+    QPixmap pma(":/title.png");
+    ui->label->setPixmap(pma);
+    ui->toolButton->setStyleSheet("QToolButton{border:0px;}");
+    ui->toolButton->setIconSize(QSize(200,200));
+    ui->toolButton->setIcon(pm);
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+*///一个开始界面的简单加工^
