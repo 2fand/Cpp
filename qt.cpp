@@ -5708,3 +5708,22 @@ MainWindow::~MainWindow()
     delete ui;
 }
 *///一个开始界面的简单加工^
+/*
+//mainwindow.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    ui->progressBar->setValue(99);
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///还有1%没加载的进度条^
