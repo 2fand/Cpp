@@ -38334,3 +38334,26 @@ public:
 	}
 }
 *///已修正mybintree二叉树中del_node方法的一处错误^
+/*
+#include <iostream>
+using namespace std;
+int main() {
+	const float farr[7] = { 0.64f, 0.32f, 0.16f, 0.08f, 0.04f, 0.02f, 0.01f };
+	const char* strs[8] = {"Common", "Unusual", "Rare", "Epic", "Legendary", "Mythic", "Ultra", "Super"};
+	int icraft = 1;
+	float f = 0.0;
+	float fstart = 0.0;
+	for (int i = 0; i < 7; i++) {
+		cout << "至少";
+		f = 1 - farr[i];
+		fstart = f;
+		icraft = 1;
+		while (f >= 0.5) {
+			f *= fstart;
+			icraft++;
+		}
+		printf("%d张%s才能在运气为%.1f%c的情况下合出一张%s来\n", icraft * 4 + 1, strs[i], (1 - f) * 100, '%', strs[i + 1]);
+	}
+	return 0;
+}
+*///florr.io合卡计算器^
