@@ -5753,3 +5753,24 @@ Widget::~Widget()
     delete ui;
 }
 *///1秒就加载完成的进度条^
+/*
+//mainwindow.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+#include <QTimer>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    ui->progressBar->setMaximum(2000);
+    ui->progressBar->setValue(100);
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///用了百分比的进度条^
