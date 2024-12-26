@@ -5774,3 +5774,31 @@ Widget::~Widget()
     delete ui;
 }
 *///用了百分比的进度条^
+/*
+//mainwindow.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+#include <QTimer>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    ui->progressBar->setValue(0);
+    QTimer* time = new QTimer();
+    connect(time, &QTimer::timeout, [&](){
+        if (100 == ui->progressBar->value()){
+            this->close();
+        }
+        ui->progressBar->setValue(ui->progressBar->value() + 1);
+    });
+    time->start(500);
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///会加载的进度条^
