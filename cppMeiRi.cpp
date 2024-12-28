@@ -39627,3 +39627,228 @@ int main() {
 	return 0;
 }
 *///mybintree二叉树要测试的第一测试代码^
+/*
+//mybintree.hpp
+#pragma once
+#include <iostream>
+#include <queue>
+using namespace std;
+template<class T>
+class mybintree {
+private:
+	int ic;
+	class node {
+	public:
+		T t;
+		node* left;
+		node* right;
+		void set() {
+			this->t = NULL;
+			this->left = nullptr;
+			this->right = nullptr;
+		}
+		void set(T tf, node* leftf = nullptr, node* rightf = nullptr) {
+			this->t = tf;
+			this->left = leftf;
+			this->right = rightf;
+		}
+	};
+	node* root;
+	int nodenf;
+	node** returnnode;
+	node** get_node(int index, node** findtree, int noden = 0) {
+		if (ic >= 0 && index < ic && nullptr != findtree) {
+			if (nullptr != (*findtree)->left) {
+				if (nullptr != (returnnode = get_node(index, &(*findtree)->left, noden))) {
+					return returnnode;
+				}
+				noden = nodenf;
+			}
+			if (index == noden++) {
+				return findtree;
+			}
+			nodenf = noden;
+			if (nullptr != (*findtree)->right) {
+				if (nullptr != (returnnode = get_node(index, &(*findtree)->right, noden))) {
+					return returnnode;
+				}
+				noden = nodenf;
+			}
+		}
+		return nullptr;
+	}
+	void del_node(node** delnode) {
+		node** findnode = (*delnode)->right;
+		if (nullptr == findnode) {
+			node** leftnode = (*delnode)->left;
+			delete *delnode;
+			*delnode = *leftnode;
+		}
+		else if (nullptr == (*findnode)->left) {
+			(*delnode)->t = (*findnode)->t;
+			delete *findnode;
+			(*delnode)->right = nullptr;
+		}
+		else {
+			while (nullptr != (*findnode)->left->left) {
+				findnode = &(*findnode)->left;
+			}
+			(*delnode)->t = (*findnode)->left->t;
+			delete (*findnode)->left;
+			(*findnode)->left = nullptr;
+		}
+		ic--;
+	}
+	void insert(T t, node** rootf) {
+		if (!ic) {
+			root->t = t;
+		}
+		else {
+			if (t > (*rootf)->t) {
+				if (nullptr == (*rootf)->right) {
+					(*rootf)->right = new node;
+					(*rootf)->right->set(t);
+				}
+				else {
+					insert(t, &(*rootf)->right);
+				}
+			}
+			else {
+				if (nullptr == (*rootf)->left) {
+					(*rootf)->left = new node;
+					(*rootf)->left->set(t);
+				}
+				else {
+					insert(t, &(*rootf)->left);
+				}
+			}
+		}
+		ic++;
+	}
+public:
+	mybintree() {
+		root = new node;
+		root->set();
+		this->ic = 0;
+		this->nodenf = 0;
+		this->returnnode = nullptr;
+	}
+	void insert(T t) {
+		insert(t, &root);
+	}
+	int itemfind(T t) {
+		for (int i = 0; i < ic; i++) {
+			if ((*get_node(i, &root))->t == t) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	int capacity() const {
+		return ic;
+	}
+	void operator=(mybintree& ml) {
+		int ia = 0;
+		node* findnode = ml.root;
+		for (int i = 0; i < ml.ic; i++) {
+			findnode = findnode->next;
+			this->insert(findnode->t);
+		}
+	}
+	mybintree(mybintree& ml) {
+		*this = ml;
+	}
+	mybintree(const T tarr[], int has) {
+		root = new node;
+		root->set();
+		for (int i = 0; i < has; i++) {
+			insert(tarr[i]);
+		}
+	}
+	void del_back() {
+		if (ic) {
+			if (nullptr == root->right) {
+				root->t = NULL;
+			}
+			else {
+				node** findnode = &root;
+				while (nullptr != (*findnode)->right->right) {
+					findnode = &(*findnode)->right;
+				}
+				node** delnode = &(*findnode)->right;
+				(*findnode)->right = nullptr;
+				delete* delnode;
+			}
+			ic--;
+		}
+	}
+	void clear() {
+		while (ic) {
+			del_back();
+		}
+	}
+	~mybintree() {
+		clear();
+		delete root;
+	}
+	void del_front(int index) {
+		if (1 == ic) {
+			root->t = NULL;
+			ic--;
+		}
+		else if (ic){
+			node** findnode = root->right;
+			if (nullptr == findnode) {
+				node** leftnode = root->left;
+				delete root;
+				root = *leftnode;
+			}
+			else if(nullptr == (*findnode)->left){
+				root->t = (*findnode)->t;
+				delete* findnode;
+				root->right = nullptr;
+			}
+			else {
+				while (nullptr != (*findnode)->left->left) {
+					findnode = &(*findnode)->left;
+				}
+				root->t = (*findnode)->left->t;
+				delete (*findnode)->left;
+				(*findnode)->left = nullptr;
+			}
+			ic--;
+		}
+	}
+	void del_index(int index) {
+		del_node(get_node(index, &root));
+	}
+	bool IsEmpty() const {
+		return !ic;
+	}
+	T at(int i) {
+		return (*get_node(i, &root))->t;
+	}
+	T operator[](int i) {
+		return at(i);
+	}
+	void printtree(void (*printfun)(T item, bool b)) {
+		for (int i = 0; i < ic; i++) {
+			printfun((*get_node(i, &root))->t, ic - 1 != i);
+		}
+	}
+	T max() {
+		node** findnode = &root;
+		while (nullptr != (*findnode)->right) {
+			findnode = &(*findnode)->right;
+		}
+		return (*findnode)->t;
+	}
+	T min() {
+		node** findnode = &root;
+		while (nullptr != (*findnode)->left) {
+			findnode = &(*findnode)->left;
+		}
+		return (*findnode)->t;
+	}
+};
+*///修正之后的mybintree二叉树^
