@@ -39611,3 +39611,19 @@ public:
 	}
 }
 *///mybintree.hpp中的多处“mylist”已改为“mybintree”^
+/*
+//meiri.cpp
+#include <iostream>
+#include "mybintree.hpp"
+using namespace std;
+
+int main() {
+	mybintree<int>m;
+	cout << m.IsEmpty() << " " << m.capacity() << endl;
+	m.insert(1);
+	m.insert(0);
+	m.insert(2);
+	cout << m.max() << " " << m.min() << " " << m.IsEmpty() << endl;
+	return 0;
+}
+*///mybintree二叉树要测试的第一测试代码^
