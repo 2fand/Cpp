@@ -5830,3 +5830,31 @@ Widget::~Widget()
     delete ui;
 }
 *///很快就加载完成的进度条^
+/*
+//mainwindow.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+#include <QTimer>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    ui->progressBar->setValue(100);
+    QTimer* time = new QTimer();
+    connect(time, &QTimer::timeout, [&](){
+        if (!ui->progressBar->value()){
+            this->close();
+        }
+        ui->progressBar->setValue(ui->progressBar->value() - 1);
+    });
+    time->start(10);
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///倒着加载的进度条^
