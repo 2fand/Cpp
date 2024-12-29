@@ -39852,3 +39852,23 @@ public:
 	}
 };
 *///修正之后的mybintree二叉树^
+/*
+//meiri.cpp
+#include <iostream>
+#include "mybintree.hpp"
+using namespace std;
+
+int main() {
+	mybintree<int>m;
+	cout << m.IsEmpty() << " " << m.capacity() << endl;
+	m.insert(1);
+	m.insert(0);
+	m.insert(2);
+	m.insert(3);
+	m.del_back();
+	m.del_front();
+	m.del_index(0);
+	cout << m.IsEmpty() << " " << m.capacity() << " " << m[0] << " " << m[1] << endl;
+	return 0;
+}
+*///mybintree二叉树要测试的第二测试代码^
