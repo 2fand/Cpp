@@ -40079,3 +40079,24 @@ public:
 	}
 };
 *///再一次修正之后的mybintree二叉树^
+/*
+//meiri.cpp
+#include <iostream>
+#include "mybintree.hpp"
+using namespace std;
+
+void print(int item, bool b) {
+	cout << item;
+	b && cout << ", ";
+}
+
+int main() {
+	mybintree<int>m;
+	m.insert(1);
+	m.insert(0);
+	m.insert(2);
+	m.insert(3);
+	m.printtree(print);
+	return 0;
+}
+*///没有任何问题的printtree方法^
