@@ -40100,3 +40100,21 @@ int main() {
 	return 0;
 }
 *///没有任何问题的printtree方法^
+/*
+//meiri.cpp
+#include <iostream>
+#include "mybintree.hpp"
+using namespace std;
+
+void print(int item, bool b) {
+	cout << item;
+	b && cout << ", ";
+}
+
+int main() {
+	int arr[5] = { 1, 42, 4, 23, 5 };
+	mybintree<int>m(arr, 5);
+	m.printtree(print);
+	return 0;
+}
+*///也没有任何问题的有参构造函数^
