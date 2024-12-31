@@ -6072,3 +6072,24 @@ MainWindow::~MainWindow()
     delete ui;
 }
 *///可操控的标签^
+/*
+//mainwindow.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+#include <QLCDNumber>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    ui->lcdNumber->setDigitCount(1);
+    ui->lcdNumber->display(1);
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///用电子的“晶体管”显示了“1”^
