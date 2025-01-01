@@ -40360,3 +40360,33 @@ public:
 	}
 };
 *///最后一次修正之后的mybintree二叉树^
+/*
+//meiri.cpp
+#include <iostream>
+#include "mybintree.hpp"
+using namespace std;
+
+void print(int item, bool b) {
+	cout << item;
+	b && cout << ", ";
+}
+
+int main() {
+	int arr[5] = { 1, 4, 4, 3, 5 };
+	int i = 0;
+	cout << "排序前的元素：";
+	for (; i < 5; i++) {
+		cout << arr[i];
+		if (4 != i) {
+			cout << ", ";
+		}
+		else {
+			cout << endl;
+		}
+	}
+	cout << "排序后的元素：";
+	mybintree<int>m(arr, 5);
+	m.printtree(print);
+	return 0;
+}
+*///给元素进行排序的二叉树^
