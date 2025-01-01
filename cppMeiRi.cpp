@@ -40390,3 +40390,30 @@ int main() {
 	return 0;
 }
 *///给元素进行排序的二叉树^
+/*
+//meiri.cpp
+#include <iostream>
+#include "mybintree.hpp"
+using namespace std;
+
+void print(int item, bool b) {
+	cout << item;
+	b && cout << ", ";
+}
+
+int main() {
+	int arr[5] = { 1, 4, 4, 3, 5 };
+	mybintree<int>m(arr, 5);
+	cout << "请输入要查询的元素 -> ";
+	int i = 0;
+	int index = 0;
+	cin >> i;
+	if (-1 == (index = m.itemfind(i))) {
+		cout << endl << endl << "你所查询的元素不存在" << endl;
+	}
+	else {
+		cout << endl << endl << "你所查询的元素在mybintree二叉树m的第" << index << "项" << endl;
+	}
+	return 0;
+}
+*///查询元素是否存在的二叉树^
