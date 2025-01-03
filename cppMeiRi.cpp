@@ -40417,3 +40417,16 @@ int main() {
 	return 0;
 }
 *///查询元素是否存在的二叉树^
+/*
+//mybintree.hpp
+#include <iostream>
+#include "mybintree.hpp"
+using namespace std;
+
+int main() {
+	int arr[5] = { 1, 4, 4, 3, 5 };
+	mybintree<int>m(arr, 5);
+	cout << "arr中最大数为" << m.max() << "，最小数为" << m.min() << endl;
+	return 0;
+}
+*///查询最大值与最小值的二叉树^
