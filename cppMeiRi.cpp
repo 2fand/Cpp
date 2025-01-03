@@ -40476,3 +40476,30 @@ bool graph::islink(int nodea, int nodeb){
 
 }
 *///已创建mygraph.cpp源文件^
+/*
+//mygraph.cpp
+#include "mygraph.h"
+graph::graph(int inodesf){
+	inodes = inodesf;
+	iedges = 0;
+	adj = new queue<int>[inodes];
+}
+graph::graph(graph& g){
+
+}
+graph::~graph(){
+	delete[] adj;
+}
+void graph::link(int nodea, int nodeb){
+
+}
+void graph::dellink(int nodea, int nodeb){
+
+}
+queue<int> graph::getlink(int node){
+
+}
+bool graph::islink(int nodea, int nodeb){
+
+}
+*///已构建出mygraph无向图的构造方法及析构方法^
