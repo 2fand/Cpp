@@ -6135,3 +6135,24 @@ Widget::~Widget()
     delete ui;
 }
 *///“856”^
+/*
+//mainwindow.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+#include <QLCDNumber>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    ui->lcdNumber->setDigitCount(9);
+    ui->lcdNumber->display(103476582);
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///1亿多的数字^
