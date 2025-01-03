@@ -40430,3 +40430,24 @@ int main() {
 	return 0;
 }
 *///查询最大值与最小值的二叉树^
+/*
+//mygraph.h
+#pragma once
+#include <iostream>
+#include <queue>
+using namespace std;
+class graph {
+private:
+	queue<int>*adj;
+	int inodes;
+	int iedges;
+public:
+	graph(int inodes);
+	graph(graph& g);
+	~graph();
+	void link(int nodea, int nodeb);
+	void dellink(int nodea, int nodeb);
+	queue<int> getlink(int node);
+	bool islink(int nodea, int nodeb);
+};
+*///已创建mygraph.h头文件^
