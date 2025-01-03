@@ -40451,3 +40451,28 @@ public:
 	bool islink(int nodea, int nodeb);
 };
 *///已创建mygraph.h头文件^
+/*
+//mygraph.cpp
+#include "mygraph.h"
+graph::graph(int inodes){
+
+}
+graph::graph(graph& g){
+
+}
+graph::~graph(){
+
+}
+void graph::link(int nodea, int nodeb){
+
+}
+void graph::dellink(int nodea, int nodeb){
+
+}
+queue<int> graph::getlink(int node){
+
+}
+bool graph::islink(int nodea, int nodeb){
+
+}
+*///已创建mygraph.cpp源文件^
