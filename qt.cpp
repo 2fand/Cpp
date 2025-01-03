@@ -6114,3 +6114,24 @@ Widget::~Widget()
     delete ui;
 }
 *///“8”^
+/*
+//mainwindow.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+#include <QLCDNumber>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    ui->lcdNumber->setDigitCount(3);
+    ui->lcdNumber->display(856);
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///“856”^
