@@ -40532,3 +40532,49 @@ bool graph::islink(int nodea, int nodeb){
 
 }
 *///已构建出mygraph图中的拷贝构造方法^
+/*
+//mygraph.cpp
+#include "mygraph.h"
+graph::graph(int inodesf){
+	inodes = inodesf;
+	iedges = 0;
+	adj = new vector<int>[inodes];
+}
+graph::graph(graph& g){
+	inodes = g.inodes;
+	iedges = g.iedges;
+	adj = new vector<int>[inodes];
+}
+graph::~graph(){
+	delete[] adj;
+}
+void graph::link(int nodea, int nodeb){
+	for (vector<int>::iterator it = adj[nodea].begin(); adj[nodea].end() != it; it++) {
+		if (*it == nodeb) {
+			return;
+		}
+	}
+	adj[nodea].push_back(nodeb);
+	adj[nodeb].push_back(nodea);
+}
+void graph::dellink(int nodea, int nodeb){
+	for (vector<int>::iterator it = adj[nodea].begin(); adj[nodea].end() != it; it++) {
+		if (*it == nodeb) {
+			adj[nodea].erase(it);
+			break;
+		}
+	}
+	for (vector<int>::iterator it = adj[nodeb].begin(); adj[nodeb].end() != it; it++) {
+		if (*it == nodea) {
+			adj[nodeb].erase(it);
+			break;
+		}
+	}
+}
+vector<int> graph::getlink(int node){
+
+}
+bool graph::islink(int nodea, int nodeb){
+
+}
+*///已实现mygraph图的link和dellink方法^
