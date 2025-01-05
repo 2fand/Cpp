@@ -40578,3 +40578,29 @@ bool graph::islink(int nodea, int nodeb){
 
 }
 *///已实现mygraph图的link和dellink方法^
+/*
+//mygraph.h
+#pragma once
+#include <iostream>
+#include <vector>
+#include <map>
+using namespace std;
+class graph {
+private:
+	vector<int>* adj;
+	int inodes;
+	int iedges;
+public:
+	graph(int inodes);
+	graph(graph& g);
+	graph(vector<pair<int, int>> edges);
+	graph(multimap<int, int> edges);
+	~graph();
+	void link(int nodea, int nodeb);
+	void dellink(int nodea, int nodeb);
+	vector<int> getlink(int node);
+	bool islink(int nodea, int nodeb);
+	vector<pair<int, int>> graphlink();
+	void printlink(void (*printfun)(int nodea, int nodeb, bool isNotEnd));
+};
+*///已在mygraph.h里面新增了两个有参构造方法及两个方法^
