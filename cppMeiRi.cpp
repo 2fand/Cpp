@@ -40604,3 +40604,77 @@ public:
 	void printlink(void (*printfun)(int nodea, int nodeb, bool isNotEnd));
 };
 *///已在mygraph.h里面新增了两个有参构造方法及两个方法^
+/*
+//mygraph.cpp
+#pragma once
+#include <iostream>
+#include <vector>
+#include <map>
+using namespace std;
+class graph {
+private:
+	vector<int>* adj;
+	int inodes;
+	int iedges;
+public:
+	graph(const int inodes);
+	graph(const graph& g);
+	~graph();
+	void link(const int nodea, const int nodeb);
+	void dellink(const int nodea, const int nodeb);
+	vector<int> getlink (const int node) const;
+	bool islink(const int nodea, const int nodeb) const;
+	vector<pair<int, int>> graphlink();
+	void printlink(const void (*printfun)(const int nodea, const int nodeb, const bool isNotEnd)) const;
+};
+//mygraph.cpp
+#include "mygraph.h"
+graph::graph(const int inodesf){
+	inodes = inodesf;
+	iedges = 0;
+	adj = new vector<int>[inodes];
+}
+graph::graph(const graph& g){
+	inodes = g.inodes;
+	iedges = g.iedges;
+	adj = new vector<int>[inodes];
+}
+graph::~graph(){
+	delete[] adj;
+}
+void graph::link(const int nodea, const int nodeb){
+	for (vector<int>::iterator it = adj[nodea].begin(); adj[nodea].end() != it; it++) {
+		if (*it == nodeb) {
+			return;
+		}
+	}
+	adj[nodea].push_back(nodeb);
+	adj[nodeb].push_back(nodea);
+}
+void graph::dellink(const int nodea, const int nodeb){
+	for (vector<int>::iterator it = adj[nodea].begin(); adj[nodea].end() != it; it++) {
+		if (*it == nodeb) {
+			adj[nodea].erase(it);
+			break;
+		}
+	}
+	for (vector<int>::iterator it = adj[nodeb].begin(); adj[nodeb].end() != it; it++) {
+		if (*it == nodea) {
+			adj[nodeb].erase(it);
+			break;
+		}
+	}
+}
+vector<int> graph::getlink(const int node) const{
+
+}
+bool graph::islink(int nodea, int nodeb) const{
+
+}
+vector<pair<int, int>> graph::graphlink() {
+
+}
+void graph::printlink(const void (*printfun)(const int nodea, const int nodeb, const bool isNotEnd)) const {
+
+}
+*///已让大多数方法中的参数变为常量，并让大多数方法变为常方法，且删除了两个构造方法^
