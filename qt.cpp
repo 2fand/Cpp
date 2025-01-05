@@ -6285,3 +6285,133 @@ MainWindow::~MainWindow()
     delete ui;
 }
 *///QShortcut快捷键的新构建方法^
+/*
+//mainwindow.cpp
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include <QLabel>
+#include <QShortcut>
+#include <QPropertyAnimation>
+
+void MainWindow::startgame(){
+    ui->stackedWidget->setCurrentIndex(1);
+    static char strmaze[20][20] = {
+        ' ',' ',' ','*',' ',' ','*',' ','*',' ',' ',' ',' ','*',' ',' ',' ',' ',' ','*',
+        ' ',' ',' ',' ',' ','*',' ','*',' ',' ',' ',' ','*',' ',' ',' ',' ',' ',' ','*',
+        ' ',' ',' ','*',' ','*',' ',' ',' ',' ',' ','*',' ',' ',' ','*',' ',' ','*','*',
+        ' ','*','*',' ',' ',' ','*','*',' ','*',' ',' ',' ',' ','*',' ',' ',' ',' ',' ',
+        ' ',' ','*',' ',' ',' ','*','*',' ','*',' ','*',' ','*',' ',' ',' ','*',' ',' ',
+        ' ',' ','*',' ','*',' ',' ','*',' ',' ','*',' ','*',' ',' ',' ',' ','*',' ','*',
+        ' ','*','*',' ',' ','*',' ','*',' ',' ',' ',' ',' ','*',' ',' ','*',' ',' ',' ',
+        ' ',' ','*','*',' ',' ','*','*','*','*','*',' ',' ',' ','*',' ',' ',' ','*',' ',
+        '*',' ','*',' ','*',' ',' ',' ',' ',' ',' ','*','*',' ',' ','*','*','*',' ',' ',
+        ' ',' ','*',' ',' ','*',' ','*','*','*',' ',' ',' ',' ','*',' ',' ',' ',' ',' ',
+        ' ','*','*',' ',' ',' ',' ','*',' ',' ','*','*','*',' ','*',' ',' ','*','*','*',
+        ' ',' ','*',' ',' ','*',' ','*',' ','*',' ',' ','*',' ','*',' ',' ',' ','*',' ',
+        '*',' ','*',' ','*',' ','*','*','*',' ',' ','*',' ',' ','*',' ',' ',' ','*',' ',
+        ' ','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',' ',' ','*','*',' ','*',' ',
+        ' ','*',' ','*','*','*',' ',' ','*',' ',' ','*',' ',' ',' ','*',' ',' ',' ',' ',
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ','*',' ',' ','*',' ',' ','*',' ','*',' ',' ',
+        ' ',' ','*',' ','*',' ','*','*','*',' ',' ','*',' ',' ',' ','*',' ','*','*',' ',
+        ' ',' ','*','*','*',' ',' ','*',' ',' ',' ',' ','*',' ',' ','*',' ','*','*','*',
+        ' ',' ','*',' ','*',' ','*','*','*',' ',' ','*',' ',' ',' ','*',' ',' ','*',' ',
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ','*',' ',' ','*',' ',' ','*','*',' ',' ','G',
+    };
+    QLabel* lb = new QLabel(ui->page_2);
+    QPixmap pm(48, 48);
+    for (int i = 0; i <= 400; i++){
+        lb = new QLabel(ui->page_2);
+        if (400 == i){
+            lb->move(0, 0);
+            pm.load(":/Playerd.png");
+        }
+        else {
+            lb->move(i % 20 * 48, i / 20 * 48);
+            switch(strmaze[i / 20][i % 20]){
+            case '*':
+                pm.load(":/wall.png");
+                break;
+            case 'G':
+                pm.load(":/Goal.png");
+                break;
+            default:
+                pm.fill(Qt::white);
+                break;
+            }
+        }
+        pm = pm.scaled(48, 48);
+        lb->setPixmap(pm);
+        lb->show();
+    }
+    lb->show();
+    QPropertyAnimation* pa = new QPropertyAnimation(lb, "geometry");
+    this->bmove = 1;
+    this->cp = &strmaze[0][0];
+    const QShortcut* movesc[4]={
+        new QShortcut(QKeySequence("W"), this, [=](){
+            if (this->bmove){
+                lb->move(0, -276);
+                this->bmove = 0;
+            }
+            QPixmap pms(48, 48);
+            pms.load(":/Playerd.png");
+            pms = pm.scaled(48, 48);
+            lb->setPixmap(pms);
+            pa->setEasingCurve(QEasingCurve::Linear);
+            pa->setStartValue(QRect(lb->x(), lb->y(), this->width(), this->height()));
+            pa->setEndValue(QRect(lb->x(), lb->y() - 48, this->width(), this->height()));
+            pa->start();
+        }),
+        new QShortcut(QKeySequence("A"), this, [=](){
+            //左移操作
+        }),
+        new QShortcut(QKeySequence("S"), this, [=](){
+            //下移操作
+        }),
+        new QShortcut(QKeySequence("D"), this, [=](){
+            qDebug() << cp - &strmaze[0][0];
+            if (19 != ((cp - &strmaze[0][0]) % 20) && '*' != cp[1]){
+                if (this->bmove){
+                    lb->move(0, -276);
+                    this->bmove = 0;
+                }
+                this->cp++;
+                QPixmap pms(48, 48);
+                pms.load(":/Playerd.png");
+                pms = pm.scaled(48, 48);
+                lb->setPixmap(pms);
+                pa->setEasingCurve(QEasingCurve::Linear);
+                pa->setStartValue(QRect(lb->x(), lb->y(), this->width(), this->height()));
+                pa->setEndValue(QRect(lb->x() + 48, lb->y(), this->width(), this->height()));
+                pa->start();
+            }
+        })
+    };
+}
+
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+    QPixmap pm(":/start.png");
+    QPixmap pma(":/title.png");
+    ui->label->setPixmap(pma);
+    ui->toolButton->setStyleSheet("QToolButton{border:0px;}");
+    ui->toolButton->setIconSize(QSize(200,200));
+    ui->toolButton->setIcon(pm);
+    QLabel* lb = new QLabel;
+    connect(ui->toolButton, &QToolButton::clicked, [&](){
+        this->startgame();
+    });
+    connect(ui->actionkaishi1, &QAction::triggered, [&](){
+        this->startgame();
+    });
+    ui->actionkaishi1->setText("开始");
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+*///移动逻辑无效bug已修复^
