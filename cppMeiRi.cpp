@@ -40678,3 +40678,55 @@ void graph::printlink(const void (*printfun)(const int nodea, const int nodeb, c
 
 }
 *///已让大多数方法中的参数变为常量，并让大多数方法变为常方法，且删除了两个构造方法^
+/*
+//mygraph.cpp
+#include "mygraph.h"
+graph::graph(const int inodesf){
+	inodes = inodesf;
+	iedges = 0;
+	adj = new vector<int>[inodes];
+}
+graph::graph(const graph& g){
+	inodes = g.inodes;
+	iedges = g.iedges;
+	adj = new vector<int>[inodes];
+}
+graph::~graph(){
+	delete[] adj;
+}
+void graph::link(const int nodea, const int nodeb){
+	for (vector<int>::iterator it = adj[nodea].begin(); adj[nodea].end() != it; it++) {
+		if (*it == nodeb) {
+			return;
+		}
+	}
+	adj[nodea].push_back(nodeb);
+	adj[nodeb].push_back(nodea);
+}
+void graph::dellink(const int nodea, const int nodeb){
+	for (vector<int>::iterator it = adj[nodea].begin(); adj[nodea].end() != it; it++) {
+		if (*it == nodeb) {
+			adj[nodea].erase(it);
+			break;
+		}
+	}
+	for (vector<int>::iterator it = adj[nodeb].begin(); adj[nodeb].end() != it; it++) {
+		if (*it == nodea) {
+			adj[nodeb].erase(it);
+			break;
+		}
+	}
+}
+vector<int> graph::getlink(const int node) const{
+	return adj[node];
+}
+bool graph::islink(const int nodea, const int nodeb) const{
+
+}
+vector<pair<int, int>> graph::graphlink() {
+
+}
+void graph::printlink(const void (*printfun)(const int nodea, const int nodeb, const bool isNotEnd)) const {
+
+}
+*///已实现mygraph图中的getlink方法^
