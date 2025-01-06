@@ -6415,3 +6415,24 @@ MainWindow::~MainWindow()
     delete ui;
 }
 *///移动逻辑无效bug已修复^
+/*
+//mainwindow.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+#include <QLCDNumber>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    ui->lcdNumber->setDigitCount(2);
+    ui->lcdNumber->display(-1);
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///“-1”^
