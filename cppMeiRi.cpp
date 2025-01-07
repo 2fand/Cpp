@@ -40862,3 +40862,99 @@ void graph::printlink(const void (*printfun)(const int nodea, const int nodeb, c
 	}
 }
 *///已实现mygraph图的printlink方法^
+/*
+//mygraph.h
+#pragma once
+#include <iostream>
+#include <vector>
+#include <map>
+using namespace std;
+class graph {
+private:
+	vector<int>* adj;
+	int inodes;
+	int iedges;
+public:
+	graph(const int inodes);
+	graph(const graph& g);
+	~graph();
+	void link(const int nodea, const int nodeb);
+	void dellink(const int nodea, const int nodeb);
+	vector<int> getlink (const int node) const;
+	bool islink(const int nodea, const int nodeb) const;
+	bool islink(const int nodea, const int nodeb, vector<int> linknodes) const;
+	vector<pair<int, int>> graphlink();
+	void printlink(const void (*printfun)(const int nodea, const int nodeb, const bool isNotEnd)) const;
+};
+//mygraph.cpp
+#include "mygraph.h"
+graph::graph(const int inodesf){
+	inodes = inodesf;
+	iedges = 0;
+	adj = new vector<int>[inodes];
+}
+graph::graph(const graph& g){
+	inodes = g.inodes;
+	iedges = g.iedges;
+	adj = new vector<int>[inodes];
+}
+graph::~graph(){
+	delete[] adj;
+}
+void graph::link(const int nodea, const int nodeb){
+	for (vector<int>::iterator it = adj[nodea].begin(); adj[nodea].end() != it; it++) {
+		if (*it == nodeb) {
+			return;
+		}
+	}
+	adj[nodea].push_back(nodeb);
+	adj[nodeb].push_back(nodea);
+}
+void graph::dellink(const int nodea, const int nodeb){
+	for (vector<int>::iterator it = adj[nodea].begin(); adj[nodea].end() != it; it++) {
+		if (*it == nodeb) {
+			adj[nodea].erase(it);
+			break;
+		}
+	}
+	for (vector<int>::iterator it = adj[nodeb].begin(); adj[nodeb].end() != it; it++) {
+		if (*it == nodea) {
+			adj[nodeb].erase(it);
+			break;
+		}
+	}
+}
+vector<int> graph::getlink(const int node) const{
+	return adj[node];
+}
+bool graph::islink(const int nodea, const int nodeb) const{
+
+}
+bool graph::islink(const int nodea, const int nodeb, vector<int> linknodes) const {
+
+}
+vector<pair<int, int>> graph::graphlink() {
+	vector<pair<int, int>> v;
+	int i = 0;
+	int ia = 0;
+	for (; i < inodes; i++) {
+		for (ia = 0; ia < adj[i].size(); ia++) {
+			if (i < adj[i][ia]) {
+				v.push_back({ i, adj[i][ia] });
+			}
+		}
+	}
+	return v;
+}
+void graph::printlink(const void (*printfun)(const int nodea, const int nodeb, const bool isNotEnd)) const {
+	int i = 0;
+	int ia = 0;
+	for (; i < inodes; i++) {
+		for (ia = 0; ia < adj[i].size(); ia++) {
+			if (i < adj[i][ia]) {
+				printfun(i, adj[i][ia], inodes - 1 != i || adj[i].size() - 1 != ia);
+			}
+		}
+	}
+}
+*///已新增一个islink的重载方法^
