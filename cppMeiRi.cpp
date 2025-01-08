@@ -40983,3 +40983,107 @@ public:
 	void printlink(const void (*printfun)(const int nodea, const int nodeb, const bool isNotEnd)) const;
 };
 *///已将一个方法转为私有方法^
+/*
+//mygraph.h
+#pragma once
+#include <iostream>
+#include <vector>
+#include <map>
+using namespace std;
+class graph {
+private:
+	vector<int>* adj;
+	int inodes;
+	int iedges;
+	bool islink(const int nodea, const int nodeb, bool** linknodes);
+public:
+	graph(const int inodes);
+	graph(const graph& g);
+	~graph();
+	void link(const int nodea, const int nodeb);
+	void dellink(const int nodea, const int nodeb);
+	vector<int> getlink (const int node) const;
+	bool islink(const int nodea, const int nodeb);
+	vector<pair<int, int>> graphlink();
+	void printlink(const void (*printfun)(const int nodea, const int nodeb, const bool isNotEnd)) const;
+};
+//mygraph.cpp
+#include "mygraph.h"
+graph::graph(const int inodesf){
+	inodes = inodesf;
+	iedges = 0;
+	adj = new vector<int>[inodes];
+}
+graph::graph(const graph& g){
+	inodes = g.inodes;
+	iedges = g.iedges;
+	adj = new vector<int>[inodes];
+}
+graph::~graph(){
+	delete[] adj;
+}
+void graph::link(const int nodea, const int nodeb){
+	for (vector<int>::iterator it = adj[nodea].begin(); adj[nodea].end() != it; it++) {
+		if (*it == nodeb) {
+			return;
+		}
+	}
+	adj[nodea].push_back(nodeb);
+	adj[nodeb].push_back(nodea);
+}
+void graph::dellink(const int nodea, const int nodeb){
+	for (vector<int>::iterator it = adj[nodea].begin(); adj[nodea].end() != it; it++) {
+		if (*it == nodeb) {
+			adj[nodea].erase(it);
+			break;
+		}
+	}
+	for (vector<int>::iterator it = adj[nodeb].begin(); adj[nodeb].end() != it; it++) {
+		if (*it == nodea) {
+			adj[nodeb].erase(it);
+			break;
+		}
+	}
+}
+vector<int> graph::getlink(const int node) const {
+	return adj[node];
+}
+bool graph::islink(const int nodea, const int nodeb) {
+	bool* linknodes = new bool[inodes];
+	islink(nodea, nodeb, &linknodes);
+	delete linknodes;
+}
+bool graph::islink(const int nodea, const int nodeb, bool** linknodes) {
+	(*linknodes)[nodea] = 1;
+	for (vector<int>::const_iterator it = adj[nodea].cbegin(); adj[nodea].cend() != it; it++) {
+		if (!(*linknodes)[*it] && (*it == nodeb || islink(*it, nodeb, linknodes))) {
+			return 1;
+		}
+	}
+	return 0;
+}
+vector<pair<int, int>> graph::graphlink() {
+	vector<pair<int, int>> v;
+	int i = 0;
+	int ia = 0;
+	for (; i < inodes; i++) {
+		for (ia = 0; ia < adj[i].size(); ia++) {
+			if (i < adj[i][ia]) {
+				v.push_back({ i, adj[i][ia] });
+			}
+		}
+	}
+	return v;
+}
+void graph::printlink(const void (*printfun)(const int nodea, const int nodeb, const bool isNotEnd)) const {
+	int i = 0;
+	int ia = 0;
+	for (; i < inodes; i++) {
+		for (ia = 0; ia < adj[i].size(); ia++) {
+			if (i < adj[i][ia]) {
+				printfun(i, adj[i][ia], inodes - 1 != i || adj[i].size() - 1 != ia);
+			}
+		}
+	}
+}
+*///已改变mygraph图中islink私有重载方法的参数与islink公开方法的实现，并实现好了islink私有重载方法^
