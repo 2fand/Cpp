@@ -40958,3 +40958,28 @@ void graph::printlink(const void (*printfun)(const int nodea, const int nodeb, c
 	}
 }
 *///已新增一个islink的重载方法^
+/*
+//mygraph.h
+#pragma once
+#include <iostream>
+#include <vector>
+#include <map>
+using namespace std;
+class graph {
+private:
+	vector<int>* adj;
+	int inodes;
+	int iedges;
+	bool islink(const int nodea, const int nodeb, bool linknodes[]) const;
+public:
+	graph(const int inodes);
+	graph(const graph& g);
+	~graph();
+	void link(const int nodea, const int nodeb);
+	void dellink(const int nodea, const int nodeb);
+	vector<int> getlink (const int node) const;
+	bool islink(const int nodea, const int nodeb) const;
+	vector<pair<int, int>> graphlink();
+	void printlink(const void (*printfun)(const int nodea, const int nodeb, const bool isNotEnd)) const;
+};
+*///已将一个方法转为私有方法^
