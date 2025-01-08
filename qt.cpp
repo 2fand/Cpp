@@ -6457,3 +6457,25 @@ Widget::~Widget()
     delete ui;
 }
 *///“-199999”^
+/*
+//exit\mainwindow.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+#include <QLCDNumber>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    ui->lcdNumber->setBinMode();
+    ui->lcdNumber->setDigitCount(20);
+    ui->lcdNumber->display(123);
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///123的二进制^
