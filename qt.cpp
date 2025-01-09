@@ -6479,3 +6479,25 @@ Widget::~Widget()
     delete ui;
 }
 *///123的二进制^
+/*
+//exit\mainwindow.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+#include <QLCDNumber>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    ui->lcdNumber->setHexMode();
+    ui->lcdNumber->setDigitCount(2);
+    ui->lcdNumber->display(124);
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///124的十六进制^
