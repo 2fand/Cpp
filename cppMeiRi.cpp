@@ -41296,3 +41296,16 @@ void graph::printlink(const void (*printfun)(const unsigned int nodea, const uns
 	}
 }
 *///已在mygraph图中改变某些私有变量的类型，并在mygraph.cpp中修正了islink公开方法无返回值的bug^
+/*
+//meiri.cpp
+#include <iostream>
+#include "mygraph.h"
+using namespace std;
+
+int main() {
+	graph g(5);
+	g.link(0, 1);
+	cout << "0 - " << g.getlink(0)[0] << ", 1 - " << g.getlink(1)[0];
+	return 0;
+}
+*///已测试mygraph图中的link与getlink方法^
