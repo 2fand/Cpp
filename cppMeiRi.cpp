@@ -41415,3 +41415,135 @@ int main() {
 	return 0;
 }
 *///已测试mygraph图中的graphlink与islink方法，并修正了gpaphlink方法^
+/*
+//mygraph.h
+#pragma once
+#include <iostream>
+#include <vector>
+#include <map>
+using namespace std;
+class graph {
+private:
+	vector<unsigned int>* adj;
+	bool* linknodes;
+	unsigned int inodes;
+	unsigned int iedges;
+	bool islink(const unsigned int nodea, const unsigned int nodeb, bool);
+public:
+	graph(const unsigned int inodes);
+	graph(const graph& g);
+	~graph();
+	void link(const unsigned int nodea, const unsigned int nodeb);
+	void dellink(const unsigned int nodea, const unsigned int nodeb);
+	vector<unsigned int> getlink (const unsigned int node) const;
+	bool islink(const unsigned int nodea, const unsigned int nodeb);
+	vector<pair<unsigned int, unsigned int>> graphlink();
+	void printlink(void (*printfun)(const unsigned int nodea, const unsigned int nodeb, const bool isNotEnd)) const;
+};
+//mygraph.cpp
+#include "mygraph.h"
+graph::graph(const unsigned int inodesf){
+	inodes = inodesf;
+	iedges = 0;
+	adj = new vector<unsigned int>[inodes];
+	linknodes = new bool[inodes];
+}
+graph::graph(const graph& g){
+	inodes = g.inodes;
+	iedges = g.iedges;
+	adj = new vector<unsigned int>[inodes];
+	linknodes = new bool[inodes];
+}
+graph::~graph(){
+	delete[] adj;
+	delete[] linknodes;
+}
+void graph::link(const unsigned int nodea, const unsigned int nodeb){
+	for (vector<unsigned int>::iterator it = adj[nodea].begin(); adj[nodea].end() != it; it++) {
+		if (*it == nodeb) {
+			return;
+		}
+	}
+	adj[nodea].push_back(nodeb);
+	adj[nodeb].push_back(nodea);
+}
+void graph::dellink(const unsigned int nodea, const unsigned int nodeb){
+	for (vector<unsigned int>::iterator it = adj[nodea].begin(); adj[nodea].end() != it; it++) {
+		if (*it == nodeb) {
+			adj[nodea].erase(it);
+			break;
+		}
+	}
+	for (vector<unsigned int>::iterator it = adj[nodeb].begin(); adj[nodeb].end() != it; it++) {
+		if (*it == nodea) {
+			adj[nodeb].erase(it);
+			break;
+		}
+	}
+}
+vector<unsigned int> graph::getlink(const unsigned int node) const {
+	return adj[node];
+}
+bool graph::islink(const unsigned int nodea, const unsigned int nodeb) {
+	for (int i = 0; i < inodes; i++) {
+		linknodes[i] = 0;
+	}
+	return islink(nodea, nodeb, 0);
+}
+bool graph::islink(const unsigned int nodea, const unsigned int nodeb, bool) {
+	linknodes[nodea] = 1;
+	for (vector<unsigned int>::const_iterator it = adj[nodea].cbegin(); adj[nodea].cend() != it; it++) {
+		if (!linknodes[*it] && (*it == nodeb || islink(*it, nodeb, 0))) {
+			return 1;
+		}
+	}
+	return 0;
+}
+vector<pair<unsigned int, unsigned int>> graph::graphlink() {
+	vector<pair<unsigned int, unsigned int>> v;
+	unsigned int i = 0;
+	unsigned int ia = 0;
+	for (; i < inodes; i++) {
+		for (ia = 0; ia < adj[i].size(); ia++) {
+			if (i < adj[i][ia]) {
+				v.push_back({ i, adj[i][ia] });
+			}
+		}
+	}
+	return v;
+}
+void graph::printlink(void (*printfun)(const unsigned int nodea, const unsigned int nodeb, const bool isNotEnd)) const {
+	unsigned int i = 0;
+	unsigned int ia = 0;
+	for (; i < inodes; i++) {
+		for (ia = 0; ia < adj[i].size(); ia++) {
+			if (i < adj[i][ia]) {
+				printfun(i, adj[i][ia], inodes - 1 != i || adj[i].size() - 1 != ia);
+			}
+		}
+	}
+}
+//meiri.cpp
+#include <iostream>
+#include "mygraph.h"
+using namespace std;
+
+void print(unsigned int i, unsigned int ia, bool b) {
+	cout << i << " - " << ia << endl;
+}
+
+int main() {
+	graph g(2);
+	graph ga = g;
+	cout << g.graphlink().size() << " ";
+	g.dellink(0, 1);
+	g.dellink(1, 0);
+	ga.link(0, 1);
+	cout << ga.graphlink().size() << " ";
+	ga.dellink(0, 1);
+	ga.dellink(1, 0);
+	cout << ga.graphlink().size() << " ";
+	ga.printlink(print);
+	return 0;
+}
+*///已测试mygraph图中的dellink方法，printlink方法与拷贝方法，并使printlink方法的形参重新修正过来了^
