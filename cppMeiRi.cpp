@@ -41547,3 +41547,120 @@ int main() {
 	return 0;
 }
 *///已测试mygraph图中的dellink方法，printlink方法与拷贝方法，并使printlink方法的形参重新修正过来了^
+/*
+//mygraph.cpp
+#include "mygraph.h"
+graph::graph(const unsigned int inodesf){
+	inodes = inodesf;
+	iedges = 0;
+	adj = new vector<unsigned int>[inodes];
+	linknodes = new bool[inodes];
+}
+graph::graph(const graph& g){
+	inodes = g.inodes;
+	iedges = g.iedges;
+	adj = new (vector<unsigned int>[inodes]);
+	linknodes = new bool[inodes];
+}
+graph::~graph(){
+	delete[] adj;
+	delete[] linknodes;
+}
+void graph::link(const unsigned int nodea, const unsigned int nodeb){
+	for (vector<unsigned int>::iterator it = adj[nodea].begin(); adj[nodea].end() != it; it++) {
+		if (*it == nodeb) {
+			return;
+		}
+	}
+	adj[nodea].push_back(nodeb);
+	adj[nodeb].push_back(nodea);
+}
+void graph::dellink(const unsigned int nodea, const unsigned int nodeb){
+	for (vector<unsigned int>::iterator it = adj[nodea].begin(); adj[nodea].end() != it; it++) {
+		if (*it == nodeb) {
+			adj[nodea].erase(it);
+			break;
+		}
+	}
+	for (vector<unsigned int>::iterator it = adj[nodeb].begin(); adj[nodeb].end() != it; it++) {
+		if (*it == nodea) {
+			adj[nodeb].erase(it);
+			break;
+		}
+	}
+}
+vector<unsigned int> graph::getlink(const unsigned int node) const {
+	return adj[node];
+}
+bool graph::islink(const unsigned int nodea, const unsigned int nodeb) {
+	for (int i = 0; i < inodes; i++) {
+		linknodes[i] = 0;
+	}
+	return islink(nodea, nodeb, 0);
+}
+bool graph::islink(const unsigned int nodea, const unsigned int nodeb, bool) {
+	linknodes[nodea] = 1;
+	for (vector<unsigned int>::const_iterator it = adj[nodea].cbegin(); adj[nodea].cend() != it; it++) {
+		if (!linknodes[*it] && (*it == nodeb || islink(*it, nodeb, 0))) {
+			return 1;
+		}
+	}
+	return 0;
+}
+vector<pair<unsigned int, unsigned int>> graph::graphlink() {
+	vector<pair<unsigned int, unsigned int>> v;
+	unsigned int i = 0;
+	unsigned int ia = 0;
+	for (; i < inodes; i++) {
+		for (ia = 0; ia < adj[i].size(); ia++) {
+			if (i < adj[i][ia]) {
+				v.push_back({ i, adj[i][ia] });
+			}
+		}
+	}
+	return v;
+}
+void graph::printlink(void (*printfun)(const unsigned int nodea, const unsigned int nodeb, const bool isNotEnd)) const {
+	vector<pair<unsigned int, unsigned int>> v;
+	unsigned int i = 0;
+	unsigned int ia = 0;
+	for (; i < inodes; i++) {
+		for (ia = 0; ia < adj[i].size(); ia++) {
+			if (i < adj[i][ia]) {
+				v.push_back({ i, adj[i][ia] });
+			}
+		}
+	}
+	for (auto it = v.cbegin(); v.cend() != it; it++) {
+		printfun(it->first, it->second, v.cend() - 1 != it);
+	}
+}
+//meiri.cpp
+#include <iostream>
+#include "mygraph.h"
+using namespace std;
+
+void print(unsigned int i, unsigned int ia, bool b) {
+	cout << i << " - " << ia << endl;
+}
+
+void printa(unsigned int i, unsigned int ia, bool b) {
+	cout << i << " - " << ia;
+	b && (cout << ", "), b || (cout << endl);
+}
+
+int main() {
+	graph g(5);
+	g.link(0, 4);
+	g.link(1, 2);
+	g.link(0, 1);
+	g.link(3, 2);
+	g.link(2, 4);
+	g.link(0, 2);
+	g.link(3, 4);
+	g.printlink(print);
+	cout << endl;
+	g.printlink(printa);
+	return 0;
+}
+*///已深度测试mygraph图中的printlink方法，并修正了printlink方法的实现^
