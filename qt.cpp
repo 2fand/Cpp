@@ -6680,3 +6680,212 @@ MainWindow::~MainWindow()
     delete ui;
 }
 *///迷宫游戏的移动逻辑已实现^
+/*
+//mainwindow.h
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
+
+#include <QMainWindow>
+#include <QLabel>
+#include <QPainter>
+
+QT_BEGIN_NAMESPACE
+namespace Ui {
+class MainWindow;
+}
+QT_END_NAMESPACE
+
+class MainWindow : public QMainWindow
+{
+    Q_OBJECT
+
+public:
+    MainWindow(QWidget *parent = nullptr);
+    ~MainWindow();
+
+    void startgame();
+
+    void paintEvent(QPaintEvent*);
+signals:
+    void Iswin();
+
+private:
+    Ui::MainWindow *ui;
+
+    bool bmove;
+
+    char* cp;
+};
+#endif // MAINWINDOW_H
+
+//mainwindow.cpp
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include <QShortcut>
+#include <QPropertyAnimation>
+#include <QImage>
+#include <QFileInfo>
+
+void MainWindow::startgame(){
+    ui->stackedWidget->setCurrentIndex(1);
+    static char strmaze[20][20] = {
+        ' ',' ',' ','*',' ',' ','*',' ','*',' ',' ',' ',' ','*',' ',' ',' ',' ',' ','*',
+        ' ',' ',' ',' ',' ','*',' ','*',' ',' ',' ',' ','*',' ',' ',' ',' ',' ',' ','*',
+        ' ',' ',' ','*',' ','*',' ',' ',' ',' ',' ','*',' ',' ',' ','*',' ',' ','*','*',
+        ' ','*','*',' ',' ',' ','*','*',' ','*',' ',' ',' ',' ','*',' ',' ',' ',' ',' ',
+        ' ',' ','*',' ',' ',' ','*','*',' ','*',' ','*',' ','*',' ',' ',' ','*',' ',' ',
+        ' ',' ','*',' ','*',' ',' ','*',' ',' ','*',' ','*',' ',' ',' ',' ','*',' ','*',
+        ' ','*','*',' ',' ','*',' ','*',' ',' ',' ',' ',' ','*',' ',' ','*',' ',' ',' ',
+        ' ',' ','*','*',' ',' ','*','*','*','*','*',' ',' ',' ','*',' ',' ',' ','*',' ',
+        '*',' ','*',' ','*',' ',' ',' ',' ',' ',' ','*','*',' ',' ','*','*','*',' ',' ',
+        ' ',' ','*',' ',' ','*',' ','*','*','*',' ',' ',' ',' ','*',' ',' ',' ',' ',' ',
+        ' ','*','*',' ',' ',' ',' ','*',' ',' ','*','*','*',' ','*',' ',' ','*','*','*',
+        ' ',' ','*',' ',' ','*',' ','*',' ','*',' ',' ','*',' ','*',' ',' ',' ','*',' ',
+        '*',' ','*',' ','*',' ','*','*','*',' ',' ','*',' ',' ','*',' ',' ',' ','*',' ',
+        ' ','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ','*',' ',' ','*','*',' ','*',' ',
+        ' ','*',' ','*','*','*',' ',' ','*',' ',' ','*',' ',' ',' ','*',' ',' ',' ',' ',
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ','*',' ',' ','*',' ',' ','*',' ','*',' ',' ',
+        ' ',' ','*',' ','*',' ','*','*','*',' ',' ','*',' ',' ',' ','*',' ','*','*',' ',
+        ' ',' ','*','*','*',' ',' ','*',' ',' ',' ',' ','*',' ',' ','*',' ','*','*','*',
+        ' ',' ','*',' ','*',' ','*','*','*',' ',' ','*',' ',' ',' ','*',' ',' ','*',' ',
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ','*',' ',' ','*',' ',' ','*','*',' ',' ','G',
+    };
+    QLabel* lb = new QLabel(ui->page_2);
+    QPixmap pm(48, 48);
+    for (int i = 0; i <= 400; i++){
+        lb = new QLabel(ui->page_2);
+        if (400 == i){
+            lb->move(0, 0);
+            pm.load(":/Playerd.png");
+        }
+        else {
+            lb->move(i % 20 * 48, i / 20 * 48);
+            switch(strmaze[i / 20][i % 20]){
+            case '*':
+                pm.load(":/wall.png");
+                break;
+            case 'G':
+                pm.load(":/Goal.png");
+                break;
+            default:
+                pm.fill(Qt::white);
+                break;
+            }
+        }
+        pm = pm.scaled(48, 48);
+        lb->setPixmap(pm);
+        lb->show();
+    }
+    lb->show();
+    QPropertyAnimation* pa = new QPropertyAnimation(lb, "geometry");
+    this->bmove = 1;
+    this->cp = &strmaze[0][0];
+    connect(this, &MainWindow::Iswin, [=](){
+        if ('G' == *this->cp){
+            ui->stackedWidget->setCurrentIndex(2);
+        }
+    });
+    const QShortcut* movesc[4]={
+        new QShortcut(QKeySequence("W"), this, [=](){
+            QPixmap pmPlayer(":/Playerw.png");
+            pmPlayer = pmPlayer.scaled(48, 48);
+            lb->setPixmap(pmPlayer);
+            if (((cp - &strmaze[0][0]) / 20) && '*' != cp[-20]){
+                if (this->bmove){
+                    lb->move(0, -276);
+                    this->bmove = false;
+                }
+                this->cp -= 20;
+                pa->setEasingCurve(QEasingCurve::Linear);
+                pa->setStartValue(QRect(lb->x(), lb->y(), this->width(), this->height()));
+                pa->setEndValue(QRect(lb->x(), lb->y() - 48, this->width(), this->height()));
+                pa->start();
+            }
+            emit Iswin();
+        }),
+        new QShortcut(QKeySequence("A"), this, [=](){
+            QPixmap pmPlayer(":/Playera.png");
+            pmPlayer = pmPlayer.scaled(48, 48);
+            lb->setPixmap(pmPlayer);
+            if (((cp - &strmaze[0][0]) % 20) && '*' != cp[-1]){
+                if (this->bmove){
+                    lb->move(0, -276);
+                    this->bmove = false;
+                }
+                this->cp--;
+                pa->setEasingCurve(QEasingCurve::Linear);
+                pa->setStartValue(QRect(lb->x(), lb->y(), this->width(), this->height()));
+                pa->setEndValue(QRect(lb->x() - 48, lb->y(), this->width(), this->height()));
+                pa->start();
+            }
+            emit Iswin();
+        }),
+        new QShortcut(QKeySequence("S"), this, [=](){
+            QPixmap pmPlayer(":/Players.png");
+            pmPlayer = pmPlayer.scaled(48, 48);
+            lb->setPixmap(pmPlayer);
+            if (19 != ((cp - &strmaze[0][0]) / 20) && '*' != cp[20]){
+                if (this->bmove){
+                    lb->move(0, -276);
+                    this->bmove = false;
+                }
+                this->cp += 20;
+                pa->setEasingCurve(QEasingCurve::Linear);
+                pa->setStartValue(QRect(lb->x(), lb->y(), this->width(), this->height()));
+                pa->setEndValue(QRect(lb->x(), lb->y() + 48, this->width(), this->height()));
+                pa->start();
+            }
+            emit Iswin();
+        }),
+        new QShortcut(QKeySequence("D"), this, [=](){
+            QPixmap pmPlayer(":/Playerd.png");
+            pmPlayer = pmPlayer.scaled(48, 48);
+            lb->setPixmap(pmPlayer);
+            if (19 != ((cp - &strmaze[0][0]) % 20) && '*' != cp[1]){
+                if (this->bmove){
+                    lb->move(0, -276);
+                    this->bmove = false;
+                }
+                this->cp++;
+                pa->setEasingCurve(QEasingCurve::Linear);
+                pa->setStartValue(QRect(lb->x(), lb->y(), this->width(), this->height()));
+                pa->setEndValue(QRect(lb->x() + 48, lb->y(), this->width(), this->height()));
+                pa->start();
+            }
+            emit Iswin();
+        })
+    };
+}
+
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+    QPixmap pm(":/start.png");
+    QPixmap pma(":/title.png");
+    ui->label->setPixmap(pma);
+    ui->toolButton->setStyleSheet("QToolButton{border:0px;}");
+    ui->toolButton->setIconSize(QSize(200,200));
+    ui->toolButton->setIcon(pm);
+    connect(ui->toolButton, &QToolButton::clicked, [&](){
+        this->startgame();
+    });
+    connect(ui->actionkaishi1, &QAction::triggered, [&](){
+        this->startgame();
+    });
+    ui->actionkaishi1->setText("开始");
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+void MainWindow::paintEvent(QPaintEvent*){
+    static bool bpaint = true;
+    if (bpaint){
+        QPainter* painter = new QPainter(ui->page_3);
+    }
+}
+*///只差胜利界面没有完成了^
