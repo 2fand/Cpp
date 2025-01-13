@@ -6681,7 +6681,7 @@ MainWindow::~MainWindow()
 }
 *///迷宫游戏的移动逻辑已实现^
 /*
-//mainwindow.h
+//unitited7\mainwindow.h
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -6718,7 +6718,7 @@ private:
 };
 #endif // MAINWINDOW_H
 
-//mainwindow.cpp
+//unitited7\mainwindow.cpp
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QShortcut>
@@ -6889,3 +6889,22 @@ void MainWindow::paintEvent(QPaintEvent*){
     }
 }
 *///只差胜利界面没有完成了^
+/*
+//exit\mainwindow.cpp
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include <QDebug>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    ui->line->setMidLineWidth(1000);
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///线的操作^
