@@ -41840,3 +41840,101 @@ public:
 	}
 };
 *///已实现mystack栈中的push与pop方法^
+/*
+//mystack.hpp
+#pragma once
+#include <iostream>
+#include <stack>
+using namespace std;
+template<class T>
+class mylist {
+private:
+	int ic;
+	class node {
+	public:
+		T t;
+		node* next;
+		void set() {
+			this->t = NULL;
+			this->next = nullptr;
+		}
+		void set(T tf, node* nextf) {
+			this->t = tf;
+			this->next = nextf;
+		}
+	};
+	node* head;
+public:
+	mylist() {
+		head = new node;
+		head->set();
+		this->ic = 0;
+	}
+	T push(T t) {
+		node* addnode = new node;
+		addnode->set(t, head->next);
+		head->next = addnode;
+		ic++;
+		return t;
+	}
+	int capacity() const {
+		return ic;
+	}
+	void operator=(mylist& ml) {
+		int ia = 0;
+		node* findnode = ml.head;
+		for (int i = 0; i < ml.ic; i++) {
+			findnode = findnode->next;
+			this->push(findnode->t);
+		}
+	}
+	mylist(mylist& ml) {
+		*this = ml;
+	}
+	mylist(const T tarr[], int has) {
+		head = new node;
+		head->set();
+		if (sizeof * tarr) {
+			const T* tp = tarr;
+			for (int i = 0; i < has; i++) {
+				push(*tp++);
+			}
+		}
+	}
+	T pop() {
+		if (ic) {
+			T tpop = NULL;
+			node* newnode = head->next->next;
+			tpop = head->next->item;
+			delete head->next;
+			head->next = newnode;
+			ic--;
+			return tpop;
+		}
+		else {
+			return NULL;
+		}
+	}
+	void clear() {
+		while (ic) {
+			pop();
+		}
+	}
+	~mylist() {
+		clear();
+		delete head;
+	}
+	bool IsEmpty() const {
+		return !ic;
+	}
+	void printlist(void (*printfun)(T item, bool IsNotEnd)) {
+		if (ic) {
+			node* printnode = root->next;
+			while (nullptr != printnode) {
+				printfun(printnode->t, nullptr != printnode->next);
+				printnode = printnode->next;
+			}
+		}
+	}
+};
+*///已实现mystack栈中的printlist方法^
