@@ -42172,3 +42172,139 @@ int main() {
 	return 0;
 }
 *///已测试好mystack栈的capacity方法，push方法，IsEmpty方法与pop方法^
+/*
+//mystack.hpp
+#pragma once
+#include <iostream>
+#include <stack>
+using namespace std;
+template<class T>
+class mystack {
+private:
+	int ic;
+	class node {
+	public:
+		T t;
+		node* next;
+		void set() {
+			this->t = NULL;
+			this->next = nullptr;
+		}
+		void set(T tf, node* nextf) {
+			this->t = tf;
+			this->next = nextf;
+		}
+	};
+	node* head;
+public:
+	mystack() {
+		head = new node;
+		head->set();
+		this->ic = 0;
+	}
+	T push(T t) {
+		node* addnode = new node;
+		addnode->set(t, head->next);
+		head->next = addnode;
+		ic++;
+		return t;
+	}
+	int capacity() const {
+		return ic;
+	}
+	void operator=(mystack& ml) {
+		this->clear();
+		T* arr = new T[ml.ic];
+		node* addnode = ml.head->next;
+		for (int i = 0; i < ml.ic; i++) {
+			arr[i] = addnode->t;
+			addnode = addnode->next;
+		}
+		for (int i = ml.ic - 1; i >= 0; i--) {
+			this->push(arr[i]);
+		}
+	}
+	mystack(mystack& ml) {
+		head = new node;
+		head->set();
+		this->ic = 0;
+		*this = ml;
+	}
+	mystack(const T tarr[], int has) {
+		head = new node;
+		head->set();
+		this->ic = 0;
+		if (sizeof * tarr) {
+			const T* tp = tarr;
+			for (int i = 0; i < has; i++) {
+				push(*tp++);
+			}
+		}
+	}
+	T pop() {
+		if (ic) {
+			T tpop = NULL;
+			node* nextnode = head->next->next;
+			tpop = head->next->t;
+			delete head->next;
+			head->next = nextnode;
+			ic--;
+			return tpop;
+		}
+		else {
+			return NULL;
+		}
+	}
+	T top() {
+		if (ic) {
+			return head->next->t;
+		}
+		else {
+			return NULL;
+		}
+	}
+	void clear() {
+		while (ic) {
+			pop();
+		}
+	}
+	~mystack() {
+		clear();
+		delete head;
+	}
+	bool IsEmpty() const {
+		return !ic;
+	}
+	void printstack(void (*printfun)(T t, bool IsNotEnd)) {
+		if (ic) {
+			node* printnode = head->next;
+			while (nullptr != printnode) {
+				printfun(printnode->t, nullptr != printnode->next);
+				printnode = printnode->next;
+			}
+		}
+	}
+};
+//meiri.cpp
+#include <iostream>
+#include "mystack.hpp"
+#include <stack>
+using namespace std;
+
+void print(int i, bool b) {
+	cout << i << " ";
+}
+
+int main() {
+	int arr[4] = { 1234, 123, 12, 1 };
+	mystack<int>sa(arr, 4);
+	mystack<int>s = sa;
+	cout << s.capacity() << endl << endl << "反转后：";
+	s.printstack(print);
+	cout << endl << s.top() << endl;
+	s.clear();
+	cout << s.top() << endl;
+	cout << endl << s.capacity() << endl;
+	return 0;
+}
+*///已测试好mystack的拷贝构造方法，有参构造方法，printstack方法，top方法与clear方法0，并修正了拷贝构造方法的实现^
