@@ -42044,3 +42044,131 @@ public:
 	}
 };
 *///已新建并实现了mystack栈的top方法^
+/*
+//mystack.hpp
+#pragma once
+#include <iostream>
+#include <stack>
+using namespace std;
+template<class T>
+class mystack {
+private:
+	int ic;
+	class node {
+	public:
+		T t;
+		node* next;
+		void set() {
+			this->t = NULL;
+			this->next = nullptr;
+		}
+		void set(T tf, node* nextf) {
+			this->t = tf;
+			this->next = nextf;
+		}
+	};
+	node* head;
+public:
+	mystack() {
+		head = new node;
+		head->set();
+		this->ic = 0;
+	}
+	T push(T t) {
+		node* addnode = new node;
+		addnode->set(t, head->next);
+		head->next = addnode;
+		ic++;
+		return t;
+	}
+	int capacity() const {
+		return ic;
+	}
+	void operator=(mystack& ml) {
+		int ia = 0;
+		node* findnode = ml.head;
+		for (int i = 0; i < ml.ic; i++) {
+			findnode = findnode->next;
+			this->push(findnode->t);
+		}
+	}
+	mystack(mystack& ml) {
+		*this = ml;
+	}
+	mystack(const T tarr[], int has) {
+		head = new node;
+		head->set();
+		if (sizeof * tarr) {
+			const T* tp = tarr;
+			for (int i = 0; i < has; i++) {
+				push(*tp++);
+			}
+		}
+	}
+	T pop() {
+		if (ic) {
+			T tpop = NULL;
+			node* nextnode = head->next->next;
+			tpop = head->next->t;
+			delete head->next;
+			head->next = nextnode;
+			ic--;
+			return tpop;
+		}
+		else {
+			return NULL;
+		}
+	}
+	T top() {
+		if (ic) {
+			return head->next->t;
+		}
+		else {
+			return NULL;
+		}
+	}
+	void clear() {
+		while (ic) {
+			pop();
+		}
+	}
+	~mystack() {
+		clear();
+		delete head;
+	}
+	bool IsEmpty() const {
+		return !ic;
+	}
+	void printstack(void (*printfun)(T t, bool IsNotEnd)) {
+		if (ic) {
+			node* printnode = head->next;
+			while (nullptr != printnode) {
+				printfun(printnode->t, nullptr != printnode->next);
+				printnode = printnode->next;
+			}
+		}
+	}
+};
+//meiri.cpp
+#include <iostream>
+#include "mystack.hpp"
+#include <stack>
+using namespace std;
+
+int main() {
+	mystack<int>s;
+	stack<int>ss;
+	int i = 1234;
+	cout << s.capacity() << endl << endl << "反转前：";
+	while (i) {
+		cout << s.push(i) << " ";
+		i /= 10;
+	}
+	cout << endl << s.capacity() << endl << endl << "反转后：";
+	while (!s.IsEmpty()) {
+		cout << s.pop() << " ";
+	}
+	cout << endl << s.capacity() << endl;
+	return 0;
+}
+*///已测试好mystack栈的capacity方法，push方法，IsEmpty方法与pop方法^
