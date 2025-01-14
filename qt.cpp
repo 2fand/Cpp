@@ -6908,3 +6908,23 @@ Widget::~Widget()
     delete ui;
 }
 *///线的操作^
+/*
+//exit\mainwindow.cpp
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include <QDebug>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    ui->groupBox->setTitle("Box1");
+    ui->groupBox_2->setTitle("Box2");
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///对GroupBox的简单操作^
