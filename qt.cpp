@@ -6928,3 +6928,22 @@ Widget::~Widget()
     delete ui;
 }
 *///对GroupBox的简单操作^
+/*
+//exit\mainwindow.cpp
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include <QDebug>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    ui->calendarWidget->setCurrentPage(2000, 1);
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///对日历的简单操作^
