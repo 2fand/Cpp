@@ -42308,3 +42308,24 @@ int main() {
 	return 0;
 }
 *///已测试好mystack的拷贝构造方法，有参构造方法，printstack方法，top方法与clear方法0，并修正了拷贝构造方法的实现^
+/*
+//meiri.cpp
+#include <iostream>
+#include "mystack.hpp"
+#include <stack>
+using namespace std;
+
+void print(int i, bool b) {
+	cout << i;
+	if (b) {
+		cout << ", ";
+	}
+}
+
+int main() {
+	int arr[4] = { 1234, 123, 12, 1 };
+	mystack<int>s(arr, 4);
+	s.printstack(print);
+	return 0;
+}*
+*///已测试好mystack栈的所有方法^
