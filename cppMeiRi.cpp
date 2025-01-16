@@ -42329,3 +42329,120 @@ int main() {
 	return 0;
 }*
 *///已测试好mystack栈的所有方法^
+/*
+//myqueue.hpp
+#pragma once
+#include <iostream>
+using namespace std;
+template<class T>
+class myqueue {
+private:
+	int ic;
+	class node {
+	public:
+		T t;
+		node* next;
+		void set() {
+			this->t = NULL;
+			this->next = nullptr;
+		}
+		void set(T tf, node* nextf) {
+			this->t = tf;
+			this->next = nextf;
+		}
+	};
+	node* head;
+public:
+	myqueue() {
+		head = new node;
+		head->set();
+		this->ic = 0;
+	}
+	T push(T t) {
+		node* addnode = new node;
+		addnode->set(t, nullptr);
+		node** lastnode = &head;
+		while (nullptr != (*lastnode)->next) {
+			lastnode = &(*lastnode)->next;
+		}
+		(*lastnode)->next = addnode;
+		ic++;
+		return t;
+	}
+	int capacity() const {
+		return ic;
+	}
+	void operator=(myqueue& ml) {
+		this->clear();
+		T* arr = new T[ml.ic];
+		node* addnode = ml.head->next;
+		for (int i = 0; i < ml.ic; i++) {
+			arr[i] = addnode->t;
+			addnode = addnode->next;
+		}
+		for (int i = ml.ic - 1; i >= 0; i--) {
+			this->push(arr[i]);
+		}
+	}
+	myqueue(myqueue& ml) {
+		head = new node;
+		head->set();
+		this->ic = 0;
+		*this = ml;
+	}
+	myqueue(const T tarr[], int has) {
+		head = new node;
+		head->set();
+		this->ic = 0;
+		if (sizeof * tarr) {
+			const T* tp = tarr;
+			for (int i = 0; i < has; i++) {
+				push(*tp++);
+			}
+		}
+	}
+	T pop() {
+		if (ic) {
+			T tfront = NULL;
+			node* nextnode = head->next->next;
+			tfront = head->next->t;
+			delete head->next;
+			head->next = nextnode;
+			ic--;
+			return tfront;
+		}
+		else {
+			return NULL;
+		}
+	}
+	T front() {
+		if (ic) {
+			return head->next->t;
+		}
+		else {
+			return NULL;
+		}
+	}
+	void clear() {
+		while (ic) {
+			pop();
+		}
+	}
+	~myqueue() {
+		clear();
+		delete head;
+	}
+	bool IsEmpty() const {
+		return !ic;
+	}
+	void printqueue(void (*printfun)(T t, bool IsNotEnd)) {
+		if (ic) {
+			node* printnode = head->next;
+			while (nullptr != printnode) {
+				printfun(printnode->t, nullptr != printnode->next);
+				printnode = printnode->next;
+			}
+		}
+	}
+};
+*///已实现myqueue队列的入队方法^
