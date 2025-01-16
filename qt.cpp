@@ -6947,3 +6947,59 @@ Widget::~Widget()
     delete ui;
 }
 *///对日历的简单操作^
+/*
+//add\widget.h
+#ifndef WIDGET_H
+#define WIDGET_H
+
+#include <QWidget>
+
+QT_BEGIN_NAMESPACE
+namespace Ui {
+class Widget;
+}
+QT_END_NAMESPACE
+
+class Widget : public QWidget
+{
+    Q_OBJECT
+
+public:
+    Widget(QWidget *parent = nullptr);
+    ~Widget();
+
+signals:
+    void add();
+
+private:
+    Ui::Widget *ui;
+};
+#endif // WIDGET_H
+
+//add\widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QSpinBox>
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    this->setFixedSize(139, 39);
+    this->setWindowTitle("相加器");
+    connect(ui->spinBox, &QSpinBox::valueChanged, [=](){
+        emit add();
+    });
+    connect(ui->spinBox_2, &QSpinBox::valueChanged, [=](){
+        emit add();
+    });
+    connect(this, &Widget::add, [=](){
+        ui->label->setText(QString("%1").arg(ui->spinBox->value()+ui->spinBox_2->value()));
+    });
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///相加器^
