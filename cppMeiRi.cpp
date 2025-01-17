@@ -42587,3 +42587,59 @@ int main() {
 	return 0;
 }
 *///已测试好queue队列的printqueue方法，pop方法，push方法，拷贝构造方法与clear方法^
+/*
+//myheap.hpp
+#pragma once
+#include <iostream>
+#include <queue>
+using namespace std;
+template<class T>
+class myheap {
+private:
+	int ic;
+	int inodenum;
+	T* nodearr;
+public:
+	myheap(int icapacity) {
+		this->ic = icapacity;
+		this->inodenum = 0;
+		this->nodearr = new T[icapacity];
+	}
+	myheap(const T tarr[], int has) {
+
+	}
+	myheap(myheap& heap) {
+
+	}
+	T insert(T item) {
+
+	}
+	T getMax() {
+
+	}
+	T delMax() {
+
+	}
+	void clear() {
+
+	}
+	int capacity() {
+		return ic;
+	}
+	int nodenum() {
+		return inodenum;
+	}
+	void swim(int inode) {
+
+	}
+	void sink(int inode) {
+
+	}
+	void printheap() {
+		
+	}
+	~myheap() {
+		delete[] nodearr;
+	}
+};
+*///已创建myheap.hpp类文件^
