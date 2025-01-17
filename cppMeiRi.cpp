@@ -42559,3 +42559,31 @@ public:
 	}
 };
 *///已修正myqueue队列的拷贝构造方法^
+/*
+//meiri.cpp
+#include <iostream>
+#include "myqueue.hpp"
+using namespace std;
+
+void print(int i, bool b) {
+	cout << i;
+	if (b) {
+		cout << ", ";
+	}
+	else {
+		cout << endl;
+	}
+}
+
+int main() {
+	int arr[4] = { 1234, 123, 12, 1 };
+	myqueue<int>qa(arr, 4);
+	myqueue<int>q = qa;
+	q.printqueue(print);
+	q.pop();
+	q.printqueue(print);
+	q.clear();
+	q.printqueue(print);
+	return 0;
+}
+*///已测试好queue队列的printqueue方法，pop方法，push方法，拷贝构造方法与clear方法^
