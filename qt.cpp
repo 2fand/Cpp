@@ -7033,3 +7033,34 @@ Widget::~Widget()
     delete ui;
 }
 *///已提高两个SpinBox最大值的上限^
+/*
+//add\widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QSpinBox>
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    this->setFixedSize(200, 39);
+    this->setWindowTitle("相加器");
+    this->setWindowIcon(QPixmap(":/plus.png"));
+    ui->spinBox->setMaximum(9999);
+    ui->spinBox_2->setMaximum(9999);
+    connect(ui->spinBox, &QSpinBox::valueChanged, [=](){
+        emit add();
+    });
+    connect(ui->spinBox_2, &QSpinBox::valueChanged, [=](){
+        emit add();
+    });
+    connect(this, &Widget::add, [=](){
+        ui->label->setText(QString("%1").arg(ui->spinBox->value()+ui->spinBox_2->value()));
+    });
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///已设置相加器的Icon图标^
