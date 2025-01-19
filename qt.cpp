@@ -7064,3 +7064,107 @@ Widget::~Widget()
     delete ui;
 }
 *///已设置相加器的Icon图标^
+/*
+//add\widget.h
+#ifndef WIDGET_H
+#define WIDGET_H
+
+#include <QWidget>
+
+QT_BEGIN_NAMESPACE
+namespace Ui {
+class Widget;
+}
+QT_END_NAMESPACE
+
+class Widget : public QWidget
+{
+    Q_OBJECT
+
+public:
+    Widget(QWidget *parent = nullptr);
+    ~Widget();
+
+signals:
+    void add();
+
+    void sub();
+
+    void tim();
+
+    void div();
+
+private:
+    Ui::Widget *ui;
+};
+#endif // WIDGET_H
+
+//add\widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QSpinBox>
+#include <QDebug>
+#include <QComboBox>
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    this->setFixedSize(225, 39);
+    this->setWindowTitle("计算器");
+    this->setWindowIcon(QPixmap(":/calc.png"));
+    ui->spinBox->setMinimum(-9999);
+    ui->spinBox_2->setMinimum(-9999);
+    ui->spinBox->setMaximum(9999);
+    ui->spinBox_2->setMaximum(9999);
+    auto l = [=](){
+        switch (ui->comboBox->currentIndex()){
+            case 0:
+                emit add();
+                break;
+            case 1:
+                emit sub();
+                break;
+            case 2:
+                emit tim();
+                break;
+            case 3:
+                emit div();
+                break;
+            default:
+                break;
+        }
+    };
+    connect(ui->comboBox, &QComboBox::currentIndexChanged, [=](){
+        l();
+    });
+    connect(ui->spinBox, &QSpinBox::valueChanged, [=](){
+        l();
+    });
+    connect(ui->spinBox_2, &QSpinBox::valueChanged, [=](){
+        l();
+    });
+    connect(this, &Widget::add, [=](){
+        ui->label->setText(QString("%1").arg(ui->spinBox->value()+ui->spinBox_2->value()));
+    });
+    connect(this, &Widget::sub, [=](){
+        ui->label->setText(QString("%1").arg(ui->spinBox->value()-ui->spinBox_2->value()));
+    });
+    connect(this, &Widget::tim, [=](){
+        ui->label->setText(QString("%1").arg(ui->spinBox->value()*ui->spinBox_2->value()));
+    });
+    connect(this, &Widget::div, [=](){
+        if (ui->spinBox_2->value()){
+            ui->label->setText(QString("%1").arg(ui->spinBox->value()/ui->spinBox_2->value()));
+        }
+        else {
+            ui->label->setText("Error");
+        }
+    });
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///已将相加器进化为简易计算器^
