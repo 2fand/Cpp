@@ -42768,3 +42768,67 @@ public:
 	}
 };
 *///已实现myheap堆的clear清空方法^
+/*
+//myheap.hpp
+#pragma once
+#include <iostream>
+#include <queue>
+using namespace std;
+template<class T>
+class myheap {
+private:
+	int ic;
+	int inodenum;
+	T* nodearr;
+	void swap(int nodea, int nodeb) {
+		int nodetemp = nodea;
+		nodea = nodeb;
+		nodeb = nodetemp;
+	}
+public:
+	myheap(int icapacity) {
+		this->ic = icapacity;
+		this->inodenum = 0;
+		this->nodearr = new T[icapacity];
+	}
+	myheap(const T tarr[], int has) {
+
+	}
+	myheap(myheap& heap) {
+
+	}
+	T insert(T item) {
+
+	}
+	T getMax() {
+		return tarr[0];
+	}
+	T delMax() {
+
+	}
+	void clear() {
+		for (int i = 0; i < ic; i++) {
+			nodearr[i] = NULL;
+		}
+		inodenum = 0;
+	}
+	int capacity() {
+		return ic;
+	}
+	int nodenum() {
+		return inodenum;
+	}
+	void swim(int inode) {
+
+	}
+	void sink(int inode) {
+
+	}
+	void printheap() {
+		
+	}
+	~myheap() {
+		delete[] nodearr;
+	}
+};
+*///已实现myheap堆的getMax方法^
