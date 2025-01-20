@@ -7168,3 +7168,55 @@ Widget::~Widget()
     delete ui;
 }
 *///已将相加器进化为简易计算器^
+/*
+//text\widget.h
+#ifndef WIDGET_H
+#define WIDGET_H
+
+#include <QWidget>
+#include <QString>
+
+QT_BEGIN_NAMESPACE
+namespace Ui {
+class Widget;
+}
+QT_END_NAMESPACE
+
+class Widget : public QWidget
+{
+    Q_OBJECT
+
+public:
+    Widget(QWidget *parent = nullptr);
+    ~Widget();
+
+private:
+    Ui::Widget *ui;
+
+    QString str;
+};
+#endif // WIDGET_H
+
+//text\widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    this->str = "";
+    connect(ui->pushButton, &QPushButton::clicked, [=](){
+        this->str = ui->plainTextEdit->toPlainText();
+        this->str = str.append('!');
+        ui->textBrowser->setPlainText(this->str);
+    });
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///已完成自动加感叹号器^
