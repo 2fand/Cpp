@@ -43173,3 +43173,111 @@ public:
 	}
 };
 *///已实现myheap堆的有参构造方法和拷贝构造方法，并重载了赋值运算符^
+/*
+//myheap.hpp
+#pragma once
+#include <iostream>
+#include <queue>
+using namespace std;
+template<class T>
+class myheap {
+private:
+	int ic;
+	int inodenum;
+	T* nodearr;
+	void swap(int nodea, int nodeb) {
+		int nodetemp = nodea;
+		nodea = nodeb;
+		nodeb = nodetemp;
+	}
+public:
+	myheap(int icapacity) {
+		this->ic = icapacity;
+		this->inodenum = 0;
+		this->nodearr = new T[icapacity + 1];
+	}
+	myheap(const T tarr[], int has) {
+		this->ic = ihas;
+		this->inodenum = 0;
+		this->nodearr = new T[ic + 1];
+		for (int i = 0; i < ihas; i++) {
+			this->insert(tarr[i]);
+		}
+	}
+	myheap(myheap& heap) {
+		*this = heap;
+	}
+	void operator=(myheap& heap) {
+		static bool bcreate = false;
+		if (bcreate) {
+			this->clear();
+			delete[] this->nodearr;
+		}
+		this->ic = heap.ic;
+		this->inodenum = heap.inodenum;
+		this->nodearr = new T[ic + 1];
+		for (int i = 0; i < this->ic; i++) {
+			this->nodearr[i + 1] = heap->nodearr[i + 1];
+		}
+		bcreate = true;
+	}
+	T insert(T item) {
+		if (inodenum >= ic) {
+			return NULL;
+		}
+		nodearr[++inodenum] = item;
+		swim(inodenum);
+		return item;
+	}
+	T getMax() {
+		return nodearr[0];
+	}
+	T delMax() {
+		t max = NULL;
+		if (inodenum) {
+			nodearr[0] = nodearr[inodenum--];
+			max = nodearr[0];
+			nodearr[inodenum + 1] = NULL;
+			inodenum--;
+			sink(0);
+		}
+		return max;
+	}
+	void clear() {
+		for (int i = 0; i < ic; i++) {
+			nodearr[i + 1] = NULL;
+		}
+		inodenum = 0;
+	}
+	int capacity() {
+		return ic;
+	}
+	int nodenum() {
+		return inodenum;
+	}
+	void swim(int inode) {
+		if (inode / 2 && nodearr[inode / 2] < nodearr[inode]) {
+			swap(inode / 2, inode);
+			swim(inode / 2);
+		}
+	}
+	void sink(int inode) {
+		if (inode * 2 < inodenum && nodearr[inode * 2] >= nodearr[inode] && (inode * 2 + 1 >= inodenum || nodearr[inode * 2] >= nodearr[inode * 2 + 1])) {
+			swap(inode * 2, inode);
+			sink(inode * 2);
+		}
+		else if (inode * 2 + 1 < inodenum && nodearr[inode * 2 + 1] >= nodearr[inode] && nodearr[inode * 2] <= nodearr[inode * 2 + 1]) {
+			swap(inode * 2 + 1, inode);
+			sink(inode * 2 + 1);
+		}
+	}
+	void printheap(void (*printfun)(T, bool)) {
+		for (int i = 0; i < ic; i++) {
+			printfun(nodearr[i + 1], i + 1 != ic);
+		}
+	}
+	~myheap() {
+		delete[] nodearr;
+	}
+};
+*///已实现了myheap堆的printfun方法^
