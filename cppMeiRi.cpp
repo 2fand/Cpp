@@ -43420,3 +43420,31 @@ int main() {
 	return 0;
 }
 *///已基本测试了myheap堆的有参构造方法，拷贝构造方法，赋值运算符，printheap方法，getMax方法，delMax方法，capacity方法，insert方法，swim方法，sink方法，nodenum方法和clear方法，并修正了这些方法中的大多数^
+/*
+#include <iostream>
+using namespace std;
+int main() {
+	int ia = 5;
+	int ib = 3;
+	bool bifs[3] = { ib < ia, 5 == ia, 4 > ib };
+	for (int i = 0; i < 3; i++) {
+		switch ((!bifs[i]) * 3 + i) {
+		case 0:
+			cout << "0" << endl;
+			i = 3;
+			break;
+		case 1:
+			cout << "1" << endl;
+			i = 3;
+			break;
+		case 2:
+			cout << "2" << endl;
+			i = 3;
+			break;
+		default:
+			break;
+		}
+	}
+	return 0;
+}
+*///奇怪的用switch语句代替if-else语句的程序^
