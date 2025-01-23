@@ -43448,3 +43448,141 @@ int main() {
 	return 0;
 }
 *///奇怪的用switch语句代替if-else语句的程序^
+/*
+//myheap.hpp
+#pragma once
+#include <iostream>
+#include <queue>
+using namespace std;
+template<class T>
+class myheap {
+private:
+	int ic;
+	int inodenum;
+	T* nodearr;
+	bool bcreate;
+	void swap(const int nodea, const int nodeb) {
+		int nodetemp = nodearr[nodea];
+		nodearr[nodea] = nodearr[nodeb];
+		nodearr[nodeb] = nodetemp;
+	}
+public:
+	myheap(const int icapacity) {
+		this->bcreate = false;
+		this->ic = icapacity;
+		this->inodenum = 0;
+		this->nodearr = new T[icapacity + 1];
+		for (int i = 1; i <= this->ic; i++) {
+			nodearr[i] = 0;
+		}
+	}
+	myheap(const T tarr[], const int ihas) {
+		this->bcreate = false;
+		this->ic = ihas;
+		this->inodenum = 0;
+		this->nodearr = new T[ic + 1];
+		for (int i = 0; i < ihas; i++) {
+			this->insert(tarr[i]);
+		}
+	}
+	myheap(myheap& heap) {
+		this->bcreate = false;
+		*this = heap;
+	}
+	void operator=(myheap& heap) {
+		if (this->bcreate) {
+			this->clear();
+			delete[] this->nodearr;
+		}
+		this->ic = heap.ic;
+		this->inodenum = heap.inodenum;
+		this->nodearr = new T[ic + 1];
+		for (int i = 0; i < this->ic; i++) {
+			this->nodearr[i + 1] = heap.nodearr[i + 1];
+		}
+		this->bcreate = true;
+	}
+	T insert(const T item) {
+		if (inodenum >= ic) {
+			return NULL;
+		}
+		nodearr[++inodenum] = item;
+		swim(inodenum);
+		return item;
+	}
+	T getMax() {
+		return nodearr[1];
+	}
+	T delMax() {
+		T max = NULL;
+		if (inodenum) {
+			max = nodearr[1];
+			nodearr[1] = nodearr[inodenum--];
+			nodearr[inodenum + 1] = NULL;
+			sink(1);
+		}
+		return max;
+	}
+	void clear() {
+		for (int i = 0; i < ic; i++) {
+			nodearr[i + 1] = NULL;
+		}
+		inodenum = 0;
+	}
+	int capacity() const {
+		return ic;
+	}
+	int nodenum() const {
+		return inodenum;
+	}
+	void swim(int inode) {
+		if (0 < inode / 2 && nodearr[inode / 2] < nodearr[inode]) {
+			swap(inode / 2, inode);
+			swim(inode / 2);
+		}
+	}
+	void sink(int inode) {
+		if (inode * 2 < inodenum && nodearr[inode * 2] >= nodearr[inode] && (inode * 2 + 1 >= inodenum || nodearr[inode * 2] >= nodearr[inode * 2 + 1])) {
+			swap(inode * 2, inode);
+			sink(inode * 2);
+		}
+		else if (inode * 2 + 1 < inodenum && nodearr[inode * 2 + 1] >= nodearr[inode] && nodearr[inode * 2] <= nodearr[inode * 2 + 1]) {
+			swap(inode * 2 + 1, inode);
+			sink(inode * 2 + 1);
+		}
+	}
+	void printheap(void (*printfun)(T, bool)) {
+		for (int i = 0; i < ic; i++) {
+			printfun(nodearr[i + 1], i + 1 != ic);
+		}
+	}
+	~myheap() {
+		delete[] nodearr;
+	}
+};
+//meiri.cpp
+#include <iostream>
+#include "myheap.hpp"
+using namespace std;
+
+void print(int i, bool b) {
+	cout << i;
+	if (b) {
+		cout << ", ";
+	}
+	else {
+		cout << endl;
+	}
+}
+
+int main() {
+	myheap<int>h(1);
+	cout << h.getMax() << endl;
+    cout << h.delMax() << endl;
+	for (int i = 1; i <= 2; i++) {
+		cout << h.insert(i) << " ";
+	}
+	cout << endl;
+	return 0;
+}
+*///已测试myheap堆的按容量构造的构造方法，getMax方法，delMax方法和insert方法的安全性，并修正了按容量构造的构造方法的实现^
