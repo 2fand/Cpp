@@ -7514,3 +7514,35 @@ void MainWindow::paintEvent(QPaintEvent*){
     }
 }
 *///新迷宫游戏^
+/*
+//text\mainwindow.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    this->str = "";
+    this->i = 0;
+    connect(ui->pushButton, &QPushButton::clicked, [=](){
+        this->str = ui->plainTextEdit->toPlainText();
+        this->str.push_front("//");
+        while (-1 != (this->i = this->str.indexOf('\n'))){
+            this->str[this->i] = (char)0;
+            this->str.insert(this->i+1, "//");
+        }
+        while (-1 != (this->i = this->str.indexOf((char)0))){
+            this->str[this->i] = '\n';
+        }
+        ui->textBrowser->setPlainText(this->str);
+    });
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///一键注释器已完成^
