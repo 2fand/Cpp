@@ -43860,3 +43860,121 @@ public:
 	}
 };
 *///已创建myRedBlackTree.hpp类文件^
+/*
+//myRedBlacktree.hpp
+#pragma once
+#include <iostream>
+#include <queue>
+using namespace std;
+template<class T>
+class myRedBlackTree {
+private:
+	int ic;
+	class node {
+	public:
+		T t;
+		node* left;
+		node* right;
+		bool isRed;
+		void set() {
+			this->t = NULL;
+			this->left = nullptr;
+			this->right = nullptr;
+			this->isRed = true;
+		}
+		void set(T tf, node* leftf = nullptr, node* rightf = nullptr, bool isRed = true) {
+			this->t = tf;
+			this->left = leftf;
+			this->right = rightf;
+			this->isRed = isRed;
+		}
+	};
+	node* root;
+	int nodenf;
+	void insert(T t, node** rootf) {
+		if (!ic) {
+			root->t = t;
+			ic++;
+		}
+		else {
+			if (t > (*rootf)->t) {
+				if (nullptr == (*rootf)->right) {
+					(*rootf)->right = new node;
+					(*rootf)->right->set(t);
+					ic++;
+				}
+				else {
+					insert(t, &(*rootf)->right);
+				}
+			}
+			else {
+				if (nullptr == (*rootf)->left) {
+					(*rootf)->left = new node;
+					(*rootf)->left->set(t);
+					ic++;
+				}
+				else {
+					insert(t, &(*rootf)->left);
+				}
+			}
+		}
+	}
+public:
+	myRedBlackTree() {
+		root = new node;
+		root->set();
+		this->ic = 0;
+		this->nodenf = 0;
+		this->returnnode = nullptr;
+	}
+	void insert(T t) {
+		insert(t, &root);
+	}
+	int capacity() const {
+		return ic;
+	}
+	void operator=(myRedBlackTree& ml) {
+		queue<node*>q;
+		node* addnode = nullptr;
+		q.push(ml.root);
+		while (q.size()) {
+			addnode = q.front();
+			if (nullptr != addnode->left) {
+				q.push(addnode->left);
+			}
+			if (nullptr != addnode->right) {
+				q.push(addnode->right);
+			}
+			this->insert(q.front()->t);
+			q.pop();
+		}
+	}
+	void clear() {
+
+	}
+	~myRedBlackTree() {
+		clear();
+		delete root;
+	}
+	bool IsEmpty() const {
+		return !ic;
+	}
+	void printtree(void (*printfun)(T item, bool b)) {
+		
+	}
+	T max() {
+		node** findnode = &root;
+		while (nullptr != (*findnode)->right) {
+			findnode = &(*findnode)->right;
+		}
+		return (*findnode)->t;
+	}
+	T min() {
+		node** findnode = &root;
+		while (nullptr != (*findnode)->left) {
+			findnode = &(*findnode)->left;
+		}
+		return (*findnode)->t;
+	}
+};
+*///已修正myRedBlackTree红黑树node节点的set方法及set的重载方法^
