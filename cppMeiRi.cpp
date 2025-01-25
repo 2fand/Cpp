@@ -43978,3 +43978,112 @@ public:
 	}
 };
 *///已修正myRedBlackTree红黑树node节点的set方法及set的重载方法^
+/*
+//mylist2.hpp
+#pragma once
+#include <iostream>
+using namespace std;
+template<class T>
+class mylist {
+private:
+	class node {
+	public:
+		T t;
+		node* next;
+		node(T t = NULL, node* next = nullptr) {
+			this->t = t;
+			this->next = next;
+		}
+	};
+	int ic;
+	node* head;
+	void deletenode(node*& delnode) {
+		if (nullptr != delnode->next) {
+			deletenode(delnode->next);
+		}
+		delnode->next = nullptr;
+		delete delnode;
+	}
+public:
+	mylist() {
+		this->ic = 0;
+		this->head = new node;
+	}
+	mylist(T[] arr, int isize) {
+		this->ic = 0;
+		this->head = new node;
+		node*& addnode = this->head;
+		for (int i = 0; i < isize; i++) {
+			addnode->next = new node(arr[i]);
+			addnode = addnode->next;
+		}
+	}
+	mylist(const mylist& list) {
+		this->ic = 0;
+		this->head = new node;
+		*this = list;
+	}
+	mylist& operator=(const mylist& list) {
+		node* searchnode = list.head;
+		node*& addnode = this->head;
+		while (nullptr != searchnode->next) {
+			searchnode = searchnode->next;
+			addnode->next = new node(searchnode->t);
+			addnode = addnode->next;
+		}
+	}
+	~mylist() {
+		deletenode(this->head);
+	}
+	T push_back(const T item) {
+		node*& addnode = this->head;
+		while (nullptr != addnode->next) {
+			addnode = addnode->next;
+		}
+		addnode->next = new node(item);
+		this->ic++;
+		return item;
+	}
+	T insert(const T item, unsigned int index) {
+		if (index >= this->ic) {
+			return NULL;
+		}
+		node*& addnode = this->head;
+		while (index--) {
+			addnode = addnode->next;
+		}
+		node* newnode = new node(item, addnode->next);
+		addnode->next = newnode;
+		this->ic++;
+	}
+	T del_back() {
+		if (this->ic) {
+			return NULL;
+		}
+		node*& nextIsTailNode = this->head;
+		while (nullptr != nextIsTailNode->next->next) {
+			nextIsTailNode = nextIsTailNode->next;
+		}
+		T last = nextIsTailNode->next->t;
+		delete nextIsTailNode->next;
+		nextIsTailNode->next = nullptr;
+		this->ic--;
+		return last;
+	}
+	T del_index(unsigned int index) {
+		if (this->ic && index >= this->ic) {
+			return NULL;
+		}
+		node*& searchnode = this->head;
+		while (index--) {
+			searchnode = searchnode->next;
+		}
+		T item = searchnode->next->t;
+		node* hasnode = searchnode->next->next;
+		delete searchnode->next;
+		searchnode->next = hasnode;
+		this->ic--;
+		return item;
+	}
+};
+*///链表新做^
