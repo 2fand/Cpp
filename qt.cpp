@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 #include "widget.h"
 
 #include <QApplication>
-
+0
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -7546,3 +7546,64 @@ Widget::~Widget()
     delete ui;
 }
 *///一键注释器已完成^
+/*
+//text\widget.h
+#ifndef WIDGET_H
+#define WIDGET_H
+
+#include <QWidget>
+#include <QString>
+
+QT_BEGIN_NAMESPACE
+namespace Ui {
+class Widget;
+}
+QT_END_NAMESPACE
+
+class Widget : public QWidget
+{
+    Q_OBJECT
+
+public:
+    Widget(QWidget *parent = nullptr);
+    ~Widget();
+
+private:
+    Ui::Widget *ui;
+
+    QString str;
+
+    int i;
+
+    QChar tempSwap;
+};
+#endif // WIDGET_H
+
+//text\widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    this->str = "";
+    this->i = 0;
+    connect(ui->pushButton, &QPushButton::clicked, [=](){
+        this->str = ui->plainTextEdit->toPlainText();
+        for (int i = 0; i < (this->str.size() - 1) / 2; i++) {
+            this->tempSwap = this->str[i];
+            this->str[i] = this->str[this->str.size() - 1 - i];
+            this->str[this->str.size() - 1 - i] = this->tempSwap;
+        }
+        ui->textBrowser->setPlainText(this->str);
+    });
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///字符串反转器已完成^
