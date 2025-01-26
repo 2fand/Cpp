@@ -7607,3 +7607,34 @@ Widget::~Widget()
     delete ui;
 }
 *///字符串反转器已完成^
+/*
+//text\mainwindow.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    this->str = "";
+    this->i = 0;
+    connect(ui->pushButton, &QPushButton::clicked, [=](){
+        this->str = ui->plainTextEdit->toPlainText();
+        for (int i = 0; i < (this->str.size() - 1) / 2; i++) {
+            this->tempSwap = this->str[i];
+            this->str[i] = this->str[this->str.size() - 1 - i];
+            this->str[this->str.size() - 1 - i] = this->tempSwap;
+        }
+        this->str.push_front('(');
+        this->str.append(')');
+        ui->textBrowser->setPlainText(this->str);
+    });
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///多加括号^
