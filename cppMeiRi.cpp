@@ -44196,3 +44196,165 @@ public:
 	}
 };
 *///增加某些成员方法的鲁棒性^
+/*
+//mylist2.hpp
+#pragma once
+#include <iostream>
+using namespace std;
+template<class T>
+class mylist {
+private:
+	class node {
+	public:
+		T t;
+		node* next;
+		node(const T t = NULL, node* nextTo = nullptr) {
+			this->t = t;
+			this->next = nextTo;
+		}
+	};
+	unsigned int ic;
+	node* head;
+	void deletenode(node*& delnode) {
+		if (nullptr != delnode->next) {
+			deletenode(delnode->next);
+		}
+		delnode->next = nullptr;
+		delete delnode;
+	}
+	T* arr;
+public:
+	mylist() {
+		this->ic = 0;
+		this->head = new node;
+		this->arr = new T[0];
+	}
+	mylist(T* arr, const unsigned int isize) {
+		this->ic = 0;
+		this->head = new node;
+		node*& addnode = this->head;
+		this->arr = new T[0];
+		for (int i = 0; i < isize; i++) {
+			addnode->next = new node(arr[i]);
+			addnode = addnode->next;
+		}
+	}
+	mylist(const mylist& list) {
+		this->ic = 0;
+		this->head = new node;
+		this->arr = new T[0];
+		*this = list;
+	}
+	mylist& operator=(const mylist& list) {
+		node* searchnode = list.head;
+		node*& addnode = this->head;
+		while (nullptr != searchnode->next) {
+			searchnode = searchnode->next;
+			addnode->next = new node(searchnode->t);
+			addnode = addnode->next;
+		}
+	}
+	T push_back(const T item) {
+		node*& addnode = this->head;
+		while (nullptr != addnode->next) {
+			addnode = addnode->next;
+		}
+		addnode->next = new node(item);
+		this->ic++;
+		return item;
+	}
+	T insert(const T item, const unsigned int index) {
+		if (index >= this->ic) {
+			return NULL;
+		}
+		node*& addnode = this->head;
+		while (index--) {
+			addnode = addnode->next;
+		}
+		node* newnode = new node(item, addnode->next);
+		addnode->next = newnode;
+		this->ic++;
+	}
+	T del_back() {
+		if (this->ic) {
+			return NULL;
+		}
+		node*& nextIsTailNode = this->head;
+		while (nullptr != nextIsTailNode->next->next) {
+			nextIsTailNode = nextIsTailNode->next;
+		}
+		T last = nextIsTailNode->next->t;
+		delete nextIsTailNode->next;
+		nextIsTailNode->next = nullptr;
+		this->ic--;
+		return last;
+	}
+	T del_index(const unsigned int index) {
+		if (this->ic && index >= this->ic) {
+			return NULL;
+		}
+		node*& searchnode = this->head;
+		while (index--) {
+			searchnode = searchnode->next;
+		}
+		T item = searchnode->next->t;
+		node* hasnode = searchnode->next->next;
+		delete searchnode->next;
+		searchnode->next = hasnode;
+		this->ic--;
+		return item;
+	}
+	void clear() {
+		if (this->ic) {
+			this->ic = 0;
+			deletenode(this->head->next);
+		}
+	}
+	T& operator[](const unsigned int index) {
+		if (index >= this->ic) {
+			return NULL;
+		}
+		node* searchnode = this->head->next;
+		while (index--) {
+			searchnode = searchnode->next;
+		}
+		return searchnode->t;
+	}
+	T& at(const unsigned int index) {
+		return *this[index];
+	}
+	const T* toArray() {
+		delete[] this->arr;
+		this->arr = new T[this->ic];
+		node* searchnode = this->head;
+		int i = 0;
+		while (nullptr != searchnode->next) {
+			searchnode = searchnode->next;
+			this->arr[i++];
+		}
+		return this->arr;
+	}
+	long long indexOf(const T item) {
+		node* searchnode = this->head;
+		unsigned int index = 0;
+		while (nullptr != searchnode->next) {
+			searchnode = searchnode->next;
+			if (item == searchnode->t) {
+				return index;
+			}
+			index++;
+		}
+		return -1;
+	}
+	bool isEmpty() const {
+		return 0 == this->ic;
+	}
+	unsigned int size() const {
+		return this->ic;
+	}
+	~mylist() {
+		deletenode(this->head);
+		delete[] this->arr;
+	}
+};
+*///clear方法已新建并实现^
