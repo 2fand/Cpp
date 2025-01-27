@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 #include "widget.h"
 
 #include <QApplication>
-0
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -7638,3 +7638,32 @@ Widget::~Widget()
     delete ui;
 }
 *///多加括号^
+/*
+//text\widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    this->str = "";
+    this->i = 0;
+    connect(ui->pushButton, &QPushButton::clicked, [=](){
+        this->str = ui->plainTextEdit->toPlainText();
+        if (this->str.size()){
+            ui->textBrowser->setPlainText(str.back());
+        }
+        else {
+            ui->textBrowser->setPlainText("");
+        }
+    });
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///只显示最后一个字符^
