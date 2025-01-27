@@ -44687,3 +44687,39 @@ public:
 	}
 };
 *///新链表完成后的链表类^
+/*
+//meiri.cpp
+#include <iostream>
+#include "mylist2.hpp"
+using namespace std;
+
+int main() {
+	mylist<int>m;
+	cout << "原始大小：" << m.size() << "    是否为空：" << (m.isEmpty() ? "true" : "false") << endl;
+	m.insert(1, 0);
+	m.push_back(1);
+	m.push_back(2);
+	m.insert(3, 1);
+	cout << "链表m增加数据后大小：" << m.size() << "    是否为空：" << (m.isEmpty() ? "true" : "false") << endl;
+	m.del_back();
+	m.del_index(2);
+	m.del_index(1);
+	cout << "链表m删除数据后大小：" << m.size() << "    是否为空：" << (m.isEmpty() ? "true" : "false") << endl;
+	int arr[5] = { 1, 2, 3, 4, 5 };
+	mylist<int>ma(arr, 5);
+	mylist<int>mb = ma;
+	const int* arra = ma.toArray();
+	const int* arrb = mb.toArray();
+	int i = 0;
+	while (i < 5) {
+		cout << "ma[" << i << "] == mb[" << i << "]：" << (arra[i] == arrb[i] ? "true" : "false") << endl;
+		i++;
+	}
+	cout << "ma[1] = " << ma[1] << "    ma[3] == ma.at(3)：" << (ma[3] == ma.at(3) ? "true" : "false") << endl;
+	cout << "5 == ma[ma.indexOf(5)]：" << (5 == ma[ma.indexOf(5)] ? "true" : "false") << endl;
+	cout << "ma.indexOf(7) = " << ma.indexOf(7) << "    NULL == ma[-1]：" << (NULL == ma[-1] ? "true" : "false") << endl;
+	m.clear();
+	cout << "链表m清空数据后大小：" << m.size() << "    是否为空：" << (m.isEmpty() ? "true" : "false") << endl;
+	return 0;
+}
+*///新链表完成之后用于测试的测试代码^
