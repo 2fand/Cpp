@@ -7667,3 +7667,30 @@ Widget::~Widget()
     delete ui;
 }
 *///只显示最后一个字符^
+/*
+//text\widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+#include <cstdlib>
+#include <ctime>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    this->str = "";
+    this->i = 0;
+    srand(time(NULL));
+    connect(ui->pushButton, &QPushButton::clicked, [=](){
+        this->str = ui->plainTextEdit->toPlainText();
+        ui->textBrowser->setPlainText(this->str.setNum(rand()));
+    });
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///随机数重现^
