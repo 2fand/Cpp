@@ -44969,3 +44969,135 @@ public:
 	}
 };
 *///已实现filpcolours方法^
+/*
+//myRedBlackTree.hpp
+#pragma once
+#include <iostream>
+#include <queue>
+using namespace std;
+template<class T>
+class myRedBlackTree {
+private:
+	int ic;
+	class node {
+	public:
+		T t;
+		node* left;
+		node* right;
+		bool isRed;
+		node(T tf = NULL, bool isRed = true, node* leftf = nullptr, node* rightf = nullptr) {
+			this->t = tf;
+			this->left = leftf;
+			this->right = rightf;
+			this->isRed = isRed;
+		}
+	};
+	node* root;
+	int nodenf;
+	void insert(T t, node** rootf) {
+		if (!ic) {
+			root->t = t;
+			ic++;
+		}
+		else {
+			if (t > (*rootf)->t) {
+				if (nullptr == (*rootf)->right) {
+					(*rootf)->right = new node(t, true);
+					ic++;
+				}
+				else {
+					insert(t, &(*rootf)->right);
+				}
+			}
+			else {
+				if (nullptr == (*rootf)->left) {
+					(*rootf)->left = new node(t, true);
+					ic++;
+				}
+				else {
+					insert(t, &(*rootf)->left);
+				}
+			}
+		}
+	}
+	void leftTurn(node** turnnode) {
+		T tempitem = turnnode->t;
+		turnnode->t = turnnode->right->t;
+		turnnode->right->t = tempitem;
+		node* maxnode = turnnode->right->right;
+		turnnode->left = turnnode->right;
+		delete turnnode->right;
+		node* tempnode = turnnode->left->left;
+		turnnode->left->left = turnnode->left->right;
+		turnnode->left->right = tempnode;
+		turnnode->right = maxnode;
+	}
+	void rightTurn(node** turnnode) {
+
+	}
+	void filpColours(node** filpnode) {
+		if (this->root != *filpnode) {
+			(*filpnode)->isRed = false;
+		}
+		(*filpnode)->left->isRed = true;
+		(*filpnode)->right->isRed = true;
+	}
+public:
+	myRedBlackTree() {
+		root = new node;
+		root->set();
+		this->ic = 0;
+		this->nodenf = 0;
+		this->returnnode = nullptr;
+	}
+	void insert(T t) {
+		insert(t, &root);
+	}
+	int capacity() const {
+		return ic;
+	}
+	void operator=(myRedBlackTree& ml) {
+		queue<node*>q;
+		node* addnode = nullptr;
+		q.push(ml.root);
+		while (q.size()) {
+			addnode = q.front();
+			if (nullptr != addnode->left) {
+				q.push(addnode->left);
+			}
+			if (nullptr != addnode->right) {
+				q.push(addnode->right);
+			}
+			this->insert(q.front()->t);
+			q.pop();
+		}
+	}
+	void clear() {
+
+	}
+	~myRedBlackTree() {
+		clear();
+		delete root;
+	}
+	bool IsEmpty() const {
+		return !ic;
+	}
+	void printtree(void (*printfun)(T item, bool b)) {
+		
+	}
+	T max() {
+		node** findnode = &root;
+		while (nullptr != (*findnode)->right) {
+			findnode = &(*findnode)->right;
+		}
+		return (*findnode)->t;
+	}
+	T min() {
+		node** findnode = &root;
+		while (nullptr != (*findnode)->left) {
+			findnode = &(*findnode)->left;
+		}
+		return (*findnode)->t;
+	}
+};
+*///红黑树myRedBlackTree的leftTurn方法已实现^
