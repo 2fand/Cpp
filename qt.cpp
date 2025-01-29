@@ -7694,3 +7694,33 @@ Widget::~Widget()
     delete ui;
 }
 *///随机数重现^
+/*
+//text\widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+#include <cstdlib>
+#include <ctime>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    this->str = "";
+    this->i = 0;
+    srand(time(NULL));
+    connect(ui->pushButton, &QPushButton::clicked, [=](){
+        this->str = ui->plainTextEdit->toPlainText();
+        for (int i = 0; i < this->str.size(); i++){
+            this->str[i] = QChar(rand() % 95 + 33);
+        }
+        ui->textBrowser->setPlainText(this->str);
+    });
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///随机改变字符^
