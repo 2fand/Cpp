@@ -7724,3 +7724,33 @@ Widget::~Widget()
     delete ui;
 }
 *///随机改变字符^
+/*
+//text\widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+#include <cstdlib>
+#include <ctime>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    this->str = "";
+    this->i = 0;
+    srand(time(NULL));
+    connect(ui->pushButton, &QPushButton::clicked, [=](){
+        this->str = ui->plainTextEdit->toPlainText();
+        if (this->str.size()){
+            this->str.fill(this->str[0]);
+        }
+        ui->textBrowser->setPlainText(this->str);
+    });
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///填充字符串的第一个字符^
