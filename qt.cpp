@@ -7754,3 +7754,28 @@ Widget::~Widget()
     delete ui;
 }
 *///填充字符串的第一个字符^
+/*
+//button\widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDialog>
+#include <QPushButton>
+#include <QWindow>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    QDialog* ww = new QDialog(this);
+    ww->setWindowFlag(Qt::CustomizeWindowHint);
+    //QPushButton* pb = new QPushButton;
+    //ww->
+    ww->show();
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///测试bug实现^
