@@ -7779,3 +7779,25 @@ Widget::~Widget()
     delete ui;
 }
 *///测试bug实现^
+/*
+//text\widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    ui->tab->setFixedHeight(100);
+    connect(ui->pushButton, &QPushButton::clicked, [=](){
+        ui->label->setText(ui->textEdit->toPlainText());
+    });
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///TabWidget的使用^
