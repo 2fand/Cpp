@@ -46149,3 +46149,28 @@ public:
 	}
 };
 *///第一次修改之后的红黑树类实现^
+/*
+//meiri.cpp
+#include <iostream>
+#include "myRedbLackTree.hpp"
+using namespace std;
+
+void print(int item, bool isNotEnd) {
+	cout << item;
+	if (isNotEnd) {
+		cout << ", ";
+	}
+	else {
+		cout << endl;
+	}
+}
+
+int main() {
+	myRedBlackTree<int>m;
+	for (int i = 0; i < 10; i++) {
+		m.insert(i);
+	}
+	m.printtree(print);
+	return 0;
+}
+*///第一次测试的代码^
