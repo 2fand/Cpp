@@ -7824,3 +7824,28 @@ Widget::~Widget()
     delete ui;
 }
 *///2行TabWidget的使用^
+/*
+//text\widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+#include <QPushButton>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    QPushButton* button = new QPushButton;
+    ui->tabWidget->addTab(button, ";;;");
+    connect(ui->pushButton, &QPushButton::clicked, [=](){
+        ui->label->setText(ui->textEdit->toPlainText());
+    });
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+
+*///QTabWidget种addtab方法的使用^
