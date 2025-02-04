@@ -7849,3 +7849,24 @@ Widget::~Widget()
 }
 
 *///QTabWidget种addtab方法的使用^
+/*
+//ui\widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+#include <QPushButton>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    QPushButton* button = new QPushButton;
+    ui->toolBox->addItem(button, "ggg");
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///toolBox增加页的操作^
