@@ -46956,3 +46956,28 @@ public:
 	}
 };
 *///已新建并实现check方法，且修正好私有重载的insert方法^
+/*
+//meiri.cpp
+#include <iostream>
+#include "myRedbLackTree.hpp"
+using namespace std;
+
+void print(int item, bool isNotEnd) {
+	cout << item;
+	if (isNotEnd) {
+		cout << ", ";
+	}
+	else {
+		cout << endl;
+	}
+}
+
+int main() {
+	myRedBlackTree<int>m;
+	for (int i = 10; i > 1; i--) {
+		m.insert(i);
+	}
+	m.printtree(print);
+	return 0;
+}
+*///已更换新的测试代码^
