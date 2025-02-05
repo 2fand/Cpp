@@ -7870,3 +7870,24 @@ Widget::~Widget()
     delete ui;
 }
 *///toolBox增加页的操作^
+/*
+//ui\widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+#include <QPushButton>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    QPushButton* button = new QPushButton;
+    ui->scrollArea->addScrollBarWidget(button, Qt::AlignVCenter);
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///ScrollArea的使用^
