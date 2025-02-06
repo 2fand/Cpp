@@ -7891,3 +7891,23 @@ Widget::~Widget()
     delete ui;
 }
 *///ScrollArea的使用^
+/*
+//ui\widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+#include <QPushButton>
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    ui->timeEdit->setTime(QTime(11, 11));
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///修改QTimeEdit的时间^
