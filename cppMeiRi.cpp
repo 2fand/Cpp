@@ -46981,3 +46981,167 @@ int main() {
 	return 0;
 }
 *///已更换新的测试代码^
+/*
+//meiri.cpp
+#pragma once
+#include <iostream>
+#include <queue>
+using namespace std;
+template<class T>
+class myRedBlackTree {
+private:
+	int ic;
+	class node {
+	public:
+		T t;
+		node* left;
+		node* right;
+		bool isRed;
+		node(bool isRed = true, T tf = NULL, node* leftf = nullptr, node* rightf = nullptr) {
+			this->t = tf;
+			this->left = leftf;
+			this->right = rightf;
+			this->isRed = isRed;
+		}
+	};
+	node* root;
+	int iprints;
+	void check(node** nodea, node** beforenode) {
+		if (nullptr != (*nodea)->right && (*nodea)->right->isRed) {
+			leftTurn(nodea);
+		}
+		if (nullptr != beforenode && nullptr != (*beforenode)->left->left && (*beforenode)->left->isRed && (*beforenode)->left->left->isRed) {
+			rightTurn(beforenode);
+			filpColours(beforenode);
+		}
+	}
+	void insert(T t, node** rootf, node** beforenode = nullptr) {
+		if (!ic) {
+			root->t = t;
+			ic++;
+		}
+		else {
+			if (t > (*rootf)->t) {
+				if (nullptr == (*rootf)->right) {
+					(*rootf)->right = new node(true, t);
+					ic++;
+					check(rootf, beforenode);
+				}
+				else {
+					insert(t, &(*rootf)->right, rootf);
+				}
+			}
+			else {
+				if (nullptr == (*rootf)->left) {
+					(*rootf)->left = new node(true, t);
+					ic++;
+					check(rootf, beforenode);
+				}
+				else {
+					insert(t, &(*rootf)->left, rootf);
+				}
+			}
+		}
+	}
+	template<typename Ta>
+	void swap(Ta& itema, Ta& itemb) {
+		Ta temp = itema;
+		itema = itemb;
+		itemb = temp;
+	}
+	void leftTurn(node** turnnode) {
+		this->swap((*turnnode)->t, (*turnnode)->right->t);
+		node* minnode = (*turnnode)->left;
+		node* maxnode = (*turnnode)->right->right;
+		(*turnnode)->left = (*turnnode)->right;
+		this->swap((*turnnode)->left->left, (*turnnode)->left->right);
+		(*turnnode)->right = maxnode;
+		(*turnnode)->left->left = minnode;
+	}
+	void rightTurn(node** turnnode) {
+		this->swap((*turnnode)->t, (*turnnode)->left->t);
+		node* minnode = (*turnnode)->left->left;
+		node* maxnode = (*turnnode)->right;
+		(*turnnode)->right = (*turnnode)->left;
+		this->swap((*turnnode)->right->left, (*turnnode)->right->right);
+		(*turnnode)->left = minnode;
+		(*turnnode)->right->right = maxnode;
+	}
+	void filpColours(node** filpnode) {
+		if (this->root != *filpnode) {
+			(*filpnode)->isRed = false;
+		}
+		(*filpnode)->left->isRed = true;
+		(*filpnode)->right->isRed = true;
+	}
+	void printLRnode(node* node, void (*printfun)(T item, bool b)) {
+		if (nullptr != node) {
+			printLRnode(node->left, printfun);
+			printfun(node->t, this->iprints + 1 != this->ic);
+			this->iprints++;
+			printLRnode(node->right, printfun);
+		}
+	}
+public:
+	myRedBlackTree() {
+		root = new node(false);
+		this->ic = 0;
+		this->iprints = 0;
+	}
+	myRedBlackTree(T* arr, int ihas) {
+		root = new node(false);
+		this->ic = 0;
+		this->iprints = 0;
+
+	}
+	myRedBlackTree(myRedBlackTree& tree) {
+		root = new node(false);
+		this->ic = 0;
+		this->iprints = 0;
+
+	}
+	void insert(T t) {
+		insert(t, &root);
+	}
+	int capacity() const {
+		return ic;
+	}
+	void clear() {
+		if (nullptr != root->left) {
+			delete root->left;
+			root->left = nullptr;
+		}
+		if (nullptr != root->right) {
+			delete root->right;
+			root->right = nullptr;
+		}
+		root->t = NULL;
+		this->ic = 0;
+	}
+	~myRedBlackTree() {
+		clear();
+		delete root;
+	}
+	bool IsEmpty() const {
+		return !ic;
+	}
+	void printtree(void (*printfun)(T item, bool b)) {
+		this->iprints = 0;
+		printLRnode(root, printfun);
+	}
+	T max() {
+		node** findnode = &root;
+		while (nullptr != (*findnode)->right) {
+			findnode = &(*findnode)->right;
+		}
+		return (*findnode)->t;
+	}
+	T min() {
+		node** findnode = &root;
+		while (nullptr != (*findnode)->left) {
+			findnode = &(*findnode)->left;
+		}
+		return (*findnode)->t;
+	}
+};
+*///已修正红黑树的check方法^
