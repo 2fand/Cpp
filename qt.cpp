@@ -7933,3 +7933,73 @@ Widget::~Widget()
     delete ui;
 }
 *///自定义24点一键出解器已初具雏形^
+/*
+//24/widget.h
+#ifndef WIDGET_H
+#define WIDGET_H
+
+#include <QWidget>
+#include <QVector>
+
+QT_BEGIN_NAMESPACE
+namespace Ui {
+class Widget;
+}
+QT_END_NAMESPACE
+
+class Widget : public QWidget
+{
+    Q_OBJECT
+
+private:
+    Ui::Widget *ui;
+
+    class node{
+    public:
+        int value;
+        node* from;
+        node(int v, node* f = nullptr){
+            this->value = v;
+            this->from = f;
+        }
+    };
+
+    QVector<QVector<node*>>v;
+
+public:
+    Widget(QWidget *parent = nullptr);
+    ~Widget();
+
+    void disturb(QVector<node*> UF, int index, int last_index);
+
+};
+#endif // WIDGET_H
+
+//24/widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+#include <QPushButton>
+
+void Widget::disturb(QVector<node*> UF, int index, int last_index) {
+
+}
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    connect(ui->pushButton, &QPushButton::clicked, [=](){
+        QVector<node*>UF = {new node(0), new node(1), new node(2), new node(3)};
+        for (int i = 0; i < 4; i++){
+            disturb(UF, i, -1);
+        }
+    });
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///自定义24点一键出解器的方法已有一些被创建过^
