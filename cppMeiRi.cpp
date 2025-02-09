@@ -47998,3 +47998,26 @@ public:
 	}
 };
 *///已新建并实现好红黑树的copy临时方法，且实现了红黑树的拷贝方法^
+/*
+//meiri.cpp
+#include <iostream>
+#include "myRedbLackTree.hpp"
+using namespace std;
+
+void print(int item, bool isNotEnd) {
+	cout << item;
+	if (isNotEnd) {
+		cout << ", ";
+	}
+	else {
+		cout << endl;
+	}
+}
+
+int main() {
+	int arr[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+	myRedBlackTree<int>m(arr, 10);
+	cout << "max = " << m.max() << " min = " << m.min() << endl;
+	return 0;
+}
+*///已测试红黑树的max和min方法^
