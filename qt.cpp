@@ -8003,3 +8003,45 @@ Widget::~Widget()
     delete ui;
 }
 *///自定义24点一键出解器的方法已有一些被创建过^
+/*
+//24\widget.h
+#ifndef WIDGET_H
+#define WIDGET_H
+
+#include <QWidget>
+#include <QVector>
+
+QT_BEGIN_NAMESPACE
+namespace Ui {
+class Widget;
+}
+QT_END_NAMESPACE
+
+class Widget : public QWidget
+{
+    Q_OBJECT
+
+private:
+    Ui::Widget *ui;
+
+    class node{
+    public:
+        int value;
+        int from;
+        node(int v, int f){
+            this->value = v;
+            this->from = f;
+        }
+    };
+
+    QVector<QVector<node*>>v;
+
+public:
+    Widget(QWidget *parent = nullptr);
+    ~Widget();
+
+    void disturb(QVector<node*> UF, int index, int insert_index);
+
+};
+#endif // WIDGET_H
+*///已改变并查集节点类的成员变量的类型^
