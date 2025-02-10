@@ -8045,3 +8045,93 @@ public:
 };
 #endif // WIDGET_H
 *///已改变并查集节点类的成员变量的类型^
+/*
+//24\widget.h
+#ifndef WIDGET_H
+#define WIDGET_H
+
+#include <QWidget>
+#include <QVector>
+
+QT_BEGIN_NAMESPACE
+namespace Ui {
+class Widget;
+}
+QT_END_NAMESPACE
+
+class Widget : public QWidget
+{
+    Q_OBJECT
+
+private:
+    Ui::Widget *ui;
+
+    class node{
+    public:
+        int value;
+        bool from;
+        node(int v, bool f){
+            this->value = v;
+            this->from = f;
+        }
+    };
+
+    QVector<unsigned int>v;//根据数据位来查找数据，便于IndexOf筛出不唯一数据
+
+public:
+    Widget(QWidget *parent = nullptr);
+    ~Widget();
+
+    void disturb(QVector<node*> UF, int insert_index);
+
+};
+#endif // WIDGET_H
+
+//24\widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+#include <QPushButton>
+
+void Widget::disturb(QVector<node*> UF, int insert_index) {
+    if (4 == insert_index){
+        unsigned int insert_data = 0;
+        for (int i = 0; i < 4; i++){
+            insert_data += UF[i]->value;
+            insert_data = insert_data << 8;
+        }
+        if (-1 != this->v.indexOf(insert_data)) {
+            this->v.push_back(insert_data);
+        }
+        return;
+    }
+    for (int i = 0; i < 4; i++){
+        if (!UF[i]->from){
+            UF[i]->from = true;
+            UF.swapItemsAt(insert_index, i);
+            disturb(UF, insert_index + 1);
+            UF.swapItemsAt(insert_index, i);
+            UF[i]->from = false;
+        }
+    }
+}
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    connect(ui->pushButton, &QPushButton::clicked, [=](){
+        QVector<node*>UF = {new node(0, 0), new node(1, 1), new node(2, 2), new node(3, 3)};
+        for (int i = 0; i < 4; i++){
+            disturb(UF, 0);
+        }
+    });
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+
+*///已优化并查集，并已完全实现disturb方法^
