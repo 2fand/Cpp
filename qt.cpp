@@ -8135,3 +8135,95 @@ Widget::~Widget()
 }
 
 *///已优化并查集，并已完全实现disturb方法^
+/*
+//24\widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+#include <QPushButton>
+#include <QStringList>
+#include <cstring>
+
+void Widget::disturb(QVector<node*> UF, int insert_index = 0) {
+    if (4 == insert_index){
+        unsigned int insert_data = 0;
+        for (int i = 0; i < 4; i++){
+            insert_data += UF[i]->value;
+            insert_data = insert_data << 8;
+        }
+        if (-1 != this->v.indexOf(insert_data)) {
+            this->v.push_back(insert_data);
+        }
+        return;
+    }
+    for (int i = 0; i < 4; i++){
+        if (!UF[i]->from){
+            UF[i]->from = true;
+            UF.swapItemsAt(insert_index, i);
+            disturb(UF, insert_index + 1);
+            UF.swapItemsAt(insert_index, i);
+            UF[i]->from = false;
+        }
+    }
+}
+
+void add1(char* cp){
+    switch(*cp){
+    case '+':
+        *cp = '-';
+        break;
+    case '-':
+        *cp = '*';
+        break;
+    case '*':
+        *cp = '/';
+        break;
+    case '/':
+        *cp = '+';
+        add1(cp - 1);
+        break;
+    default:
+        break;
+    }
+}
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    QStringList sl={"%d%c%d%c%d%c%d",
+                    "(%d%c%d)%c%d%c%d",
+                    "%d%c(%d%c%d)%c%d",
+                    "%d%c%d%c(%d%c%d)",
+                    "(%d%c%d%c%d)%c%d",
+                    "%d%c(%d%c%d%c%d)",
+                    "((%d%c%d)%c%d)%c%d",
+                    "(%d%c(%d%c%d))%c%d",
+                    "%d%c((%d%c%d)%c%d)",
+                    "%d%c(%d%c(%d%c%d))"};
+    connect(ui->pushButton, &QPushButton::clicked, [=](){
+        QVector<node*>UF = {new node(0, 0), new node(1, 1), new node(2, 2), new node(3, 3)};
+        QVector<string> slout;
+        char str[16] = "";
+        char strCalc[4] = "+++";
+        char* cp = strCalc + 2;
+        disturb(UF);
+        int i = 0;
+        for (unsigned int u : this->v){
+            for (i = 0; i < 7; i++){
+                do {
+                    sprintf(str, sl[0].toStdString().c_str(), u & 0b11111111, strCalc[0], u >> 8 & 0b11111111, strCalc[1], u >> 16 & 0b11111111, strCalc[2], u >> 24 & 0b11111111);
+                    add1(cp);
+                    slout.push_back(str);
+                } while (strcmp("///", strCalc));
+            }
+        }
+    });
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///已经可以从容器中获得算式^
