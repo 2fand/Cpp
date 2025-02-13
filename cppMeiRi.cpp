@@ -49161,4 +49161,4 @@ int main() {
 	print(o);
 	return 0;
 }
-*///已新建并测试了oneGroupUF单组并查集的getCapacity方法^
+*///已新建并测试了oneGroupUF单组并查集的getCapacity方法和pop_back方法^
