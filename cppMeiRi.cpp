@@ -49272,3 +49272,146 @@ public:
 	}
 };
 *///已删除单组查询oneGroupUF的searchNodeFrom方法^
+/*
+//1GUF.hpp
+#pragma once
+#include <iostream>
+#include <vector>
+#include <cassert>
+using namespace std;
+template<class T>
+class oneGroupUF {
+private:
+	class node {
+	public:
+		T item;
+		bool from;
+		node(T t = NULL, bool f = false) {
+			this->item = t;
+			this->from = f;
+		}
+	};
+	vector<node*> nodeArr;
+	int ic;
+	vector<vector<T>>sequencArr;
+	void swap_node(const unsigned int index, const unsigned int indexa) {
+		node* temp = this->nodeArr[index];
+		this->nodeArr[index] = this->nodeArr[indexa];
+		this->nodeArr[indexa] = temp;
+	}
+	void generateAllSequences(const unsigned int insert_index) {
+		if (this->ic <= insert_index && this->ic) {
+			vector<T>v;
+			for (node* n : this->nodeArr) {
+				v.push_back(n->item);
+			}
+			if (this->sequencArr.end() == find(this->sequencArr.begin(), this->sequencArr.end(), v)) {
+				this->sequencArr.push_back(v);
+			}
+			return;
+		}
+		for (int i = 0; i < this->ic; i++) {
+			if (!this->nodeArr[i]->from) {
+				this->nodeArr[i]->from = true;
+				swap_node(insert_index, i);
+				generateAllSequences(insert_index + 1);
+				swap_node(insert_index, i);
+				this->nodeArr[i]->from = false;
+			}
+		}
+	}
+public:
+	oneGroupUF() {
+		this->ic = 0;
+	}
+	oneGroupUF(const unsigned int isize) {
+		this->nodeArr.reserve(isize);
+		this->ic = isize;
+	}
+	oneGroupUF(vector<T>v) {
+		for (T item : v) {
+			this->nodeArr.push_back(new node(item));
+		}
+		this->ic = v.size();
+	}
+	oneGroupUF(oneGroupUF& uf) {
+		for (node* n : uf.nodeArr) {
+			this->push_back(n->item);
+		}
+	}
+	T& at(const unsigned int index) {
+		assert(index < this->ic);
+		return this->nodeArr[index]->item;
+	}
+	T& operator[](const unsigned int index) {
+		return at(index);
+	}
+	T push_back(const T t) {
+		this->nodeArr.push_back(new node(t));
+		this->ic++;
+		return t;
+	}
+	T pop_back() {
+		if (!this->ic) {
+			return NULL;
+		}
+		T last = this->nodeArr.back()->item;
+		delete this->nodeArr.back();
+		this->nodeArr.pop_back();
+		this->ic--;
+		return last;
+	}
+	void clear() {
+		while (this->ic) {
+			pop_back();
+		}
+	}
+	vector<vector<T>> generateAllSequences() {
+		this->sequencArr.clear();
+		generateAllSequences(0);
+		return this->sequencArr;
+	}
+	~oneGroupUF() {
+		clear();
+	}
+	unsigned int countSequences() {
+		return this->sequencArr.size();
+	}
+	unsigned int getCapacity() {
+		return this->ic;
+	}
+};
+//meiri.cpp
+#include <iostream>
+#include "1GUF.hpp"
+using namespace std;
+
+template<typename T>
+void print(oneGroupUF<T>& o) {
+	vector<vector<T>>vv = o.generateAllSequences();
+	for (vector<T>tempv : vv) {
+		for (T i : tempv) {
+			cout << i << " ";
+		}
+		cout << endl;
+	}
+}
+
+int main() {
+	oneGroupUF<char>o;
+	for (char ch = 'a'; ch <= 'd'; ch++) {
+		o.push_back(ch);
+	}
+	for (int i = 0; i < 4; i++) {
+		cout << o[i];
+		if (3 == i) {
+			cout << endl;
+		}
+		else {
+			cout << ", ";
+		}
+	}
+	
+	return 0;
+}
+*///已测试oneGroupUF单组查询的at方法和重载的中括号运算符^
