@@ -49271,7 +49271,7 @@ public:
 		return this->ic;
 	}
 };
-*///已删除单组查询oneGroupUF的searchNodeFrom方法^
+*///已删除单组并查集oneGroupUF的searchNodeFrom方法^
 /*
 //1GUF.hpp
 #pragma once
@@ -49414,7 +49414,7 @@ int main() {
 	
 	return 0;
 }
-*///已测试oneGroupUF单组查询的at方法和重载的中括号运算符^
+*///已测试oneGroupUF单组并查集的at方法和重载的中括号运算符^
 /*
 //1GUF.hpp
 #pragma once
@@ -49525,4 +49525,33 @@ public:
 		return this->ic;
 	}
 };
-*///已修正oneGroupUF单组查询的拷贝构造方法^
+*///已修正oneGroupUF单组并查集的拷贝构造方法^
+/*
+//meiri.cpp
+#include <iostream>
+#include "1GUF.hpp"
+using namespace std;
+
+template<typename T>
+void print(oneGroupUF<T>& o) {
+	vector<vector<T>>vv = o.generateAllSequences();
+	for (vector<T>tempv : vv) {
+		for (T i : tempv) {
+			cout << i << " ";
+		}
+		cout << endl;
+	}
+}
+
+int main() {
+	oneGroupUF<char>o;
+	for (char ch = 'a'; ch <= 'd'; ch++) {
+		o.push_back(ch);
+	}
+	o.generateAllSequences();
+	oneGroupUF<char>oa = o;
+	print(oa);
+	cout << oa.countSequences() << endl;
+	return 0;
+}
+*///已测试oneGroupUF单组并查集的拷贝构造方法^
