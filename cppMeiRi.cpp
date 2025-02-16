@@ -49936,4 +49936,4 @@ public:
 		return u_i;
 	}
 };
-*///已新建并实现阶进制数unsignedHierarchicalNum类的一些主要方法^
+*///已新建unsignedHierarchicalNum阶进制数的所有所需方法，并实现unsignedHierarchicalNum阶进制数类的一些主要方法^
