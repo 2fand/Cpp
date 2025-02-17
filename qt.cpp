@@ -8989,3 +8989,188 @@ Widget::~Widget()
     delete ui;
 }
 *///已即将进行自定义24点计算器的最后一步——通过栈sCalc中每一次剩下的算式结果筛选出合适的算式^
+/*
+//24\widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+#include <QPushButton>
+#include <QStringList>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <QStack>
+#include <QMap>
+
+void Widget::disturb(QVector<node*> UF, int insert_index = 0) {
+    if (4 == insert_index){
+        unsigned int insert_data = 0;
+        for (int i = 0; i < 4; i++){
+            insert_data += UF[i]->value;
+            insert_data = insert_data << 8;
+        }
+        if (-1 != this->v.indexOf(insert_data)) {
+            this->v.push_back(insert_data);
+        }
+        return;
+    }
+    for (int i = 0; i < 4; i++){
+        if (!UF[i]->from){
+            UF[i]->from = true;
+            UF.swapItemsAt(insert_index, i);
+            disturb(UF, insert_index + 1);
+            UF.swapItemsAt(insert_index, i);
+            UF[i]->from = false;
+        }
+    }
+}
+
+void add1(char* cp){
+    switch(*cp){
+    case '+':
+        *cp = '-';
+        break;
+    case '-':
+        *cp = '*';
+        break;
+    case '*':
+        *cp = '/';
+        break;
+    case '/':
+        *cp = '+';
+        add1(cp - 1);
+        break;
+    default:
+        break;
+    }
+}
+
+void iterator_swap(string::iterator& it, const unsigned int index, const unsigned int indexa){
+    char temp = *(it + index);
+    *(it + index) = *(it + indexa);
+    *(it + indexa) = temp;
+}
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    QStringList sl={"%d%c%d%c%d%c%d",
+                    "(%d%c%d)%c%d%c%d",
+                    "%d%c(%d%c%d)%c%d",
+                    "%d%c%d%c(%d%c%d)",
+                    "(%d%c%d%c%d)%c%d",
+                    "%d%c(%d%c%d%c%d)",
+                    "((%d%c%d)%c%d)%c%d",
+                    "(%d%c(%d%c%d))%c%d",
+                    "%d%c((%d%c%d)%c%d)",
+                    "%d%c(%d%c(%d%c%d))"};
+    connect(ui->pushButton, &QPushButton::clicked, [=](){
+        QVector<node*>UF = {new node(0, 0), new node(1, 1), new node(2, 2), new node(3, 3)};
+        QVector<string> slout;
+        QStack<char>s;
+        QStack<int>sCalc;
+        QString tempstr;
+        QMap<QString, int>m;
+        char tempchar = 0;
+        char str[16] = "";
+        char strCalc[4] = "+++";
+        char* cp = strCalc + 2;
+        disturb(UF);
+        int i = 0;
+        int index = 0;
+        for (unsigned int u : this->v){
+            for (i = 0; i < 7; i++){
+                do {
+                    sprintf(str, sl[0].toStdString().c_str(), u & 0b11111111, strCalc[0], u >> 8 & 0b11111111, strCalc[1], u >> 16 & 0b11111111, strCalc[2], u >> 24 & 0b11111111);
+                    add1(cp);
+                    slout.push_back(str);
+                } while (strcmp("///", strCalc));
+            }
+        }
+        for (string str : slout){
+            for (auto it = str.begin(); it != str.end(); it++){
+                if ('0' <= *it && *it <= '9'){
+                    tempstr.append(*it);
+                }
+                else if('*' == *it || '/' == *it || '(' == *it){
+                    s.push(*it);
+                }
+                else if('+' == *it || '-' == *it) {
+                    if ('(' == s.top()){
+                        continue;
+                    }
+                    s.push(*it);
+                    if (1 != s.size() && '(' != s.top()){
+                        do {
+                            tempchar = s.top();
+                            s.pop();
+                            tempstr.append(tempchar);
+                        } while(s.size());
+                    }
+                }
+                else if(')' == *it){
+                    do {
+                        tempchar = s.top();
+                        s.pop();
+                        if ('(' != tempchar){
+                            tempstr.append(tempchar);
+                        }
+                    } while('(' == tempchar);
+                }
+            }
+            while (s.size()){
+                tempchar = s.top();
+                s.pop();
+                tempstr.append(tempchar);
+            }
+            index = 0;
+            int ia = 0;
+            int ib = 0;
+            for(QChar ch : tempstr){
+                switch(ch.toLatin1()){
+                case '+':
+                    ia = sCalc.top();
+                    sCalc.pop();
+                    ib = sCalc.top();
+                    sCalc.pop();
+                    sCalc.push(ia + ib);
+                    break;
+                case '-':
+                    ia = sCalc.top();
+                    sCalc.pop();
+                    ib = sCalc.top();
+                    sCalc.pop();
+                    sCalc.push(ia - ib);
+                    break;
+                case '*':
+                    ia = sCalc.top();
+                    sCalc.pop();
+                    ib = sCalc.top();
+                    sCalc.pop();
+                    sCalc.push(ia * ib);
+                    break;
+                case '/':
+                    ia = sCalc.top();
+                    sCalc.pop();
+                    ib = sCalc.top();
+                    sCalc.pop();
+                    sCalc.push((float)ia / (float)ib);
+                    break;
+                default:
+                    sCalc.push(atoi(tempstr.toStdString().c_str() + index));
+                    break;
+                }
+                m.insert(tempstr, sCalc.top());
+            }
+        }
+
+    });
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///已将数据插入到m键值对树中^
