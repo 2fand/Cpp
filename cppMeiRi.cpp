@@ -50307,3 +50307,16 @@ public:
 	}
 };
 *///已修正好阶进制数unsignedHierarchicalNum的一些方法^
+/*
+//meiri.cpp
+#include<iostream>
+#include "HierarchicalNum.hpp"
+using namespace std;
+
+int main()
+{
+    unsignedHierarchicalNum u_n(100);
+    cout << (u_n - 10).toUnsignedInt();
+    return 0;
+}
+*///已为阶进制数unsignedHierarchicalNum更换新的测试代码并测试^
