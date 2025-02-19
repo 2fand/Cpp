@@ -50320,3 +50320,16 @@ int main()
     return 0;
 }
 *///已为阶进制数unsignedHierarchicalNum更换新的测试代码并测试^
+/*
+//meiri.cpp
+#include<iostream>
+#include "HierarchicalNum.hpp"
+using namespace std;
+
+int main()
+{
+    unsignedHierarchicalNum u_n(100);
+    cout << (u_n + 10).toUnsignedInt();
+    return 0;
+}
+*///已测试阶进制数unsignedHierarchicalNum的加号重载运算符^
