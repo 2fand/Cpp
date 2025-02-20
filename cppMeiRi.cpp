@@ -50468,3 +50468,17 @@ int main()
     return 0;
 }
 *///已新建并测试了阶进制数类unsignedHierarchicalNum的返回无符号整数的重载赋值运算符^
+/*
+//meiri.cpp
+#include<iostream>
+#include "HierarchicalNum.hpp"
+using namespace std;
+
+int main()
+{
+    unsignedHierarchicalNum u_n(100);
+    u_n += 10;
+    cout << u_n.toUnsignedInt();
+    return 0;
+}
+*///已测试阶进制数类unsignedHierarchicalNum的加等号运算符^
