@@ -50496,3 +50496,19 @@ int main()
     return 0;
 }
 *///已测试阶进制数类unsignedHierarchicalNum的减等号运算符^
+/*
+//meiri.cpp
+#include <iostream>
+#include "HierarchicalNum.hpp"
+using namespace std;
+
+int main()
+{
+    unsignedHierarchicalNum u_n(100);
+    cout << u_n++.toUnsignedInt() << endl;
+    cout << (++u_n).toUnsignedInt() << endl;
+    cout << u_n--.toUnsignedInt() << endl;
+    cout << (--u_n).toUnsignedInt() << endl;
+    return 0;
+}
+*///已测试阶进制数类unsignedHierarchicalNum的前缀自增运算符，后缀自增运算符，前缀自减运算符和后缀自减运算符^
