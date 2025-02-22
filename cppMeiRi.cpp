@@ -50663,3 +50663,18 @@ unsigned int getPosNum(const unsigned int u_i, const unsigned int index) {
 	return u_i / digitNum % (index + 2);
 }
 *///已新建并实现新的getPosNum方法^
+/*
+//meiri.cpp
+#include <iostream>
+#include "HierarchicalNum.h"
+using namespace std;
+
+int main()
+{
+    unsigned int u_i = 100;
+    for (int i = 4; i > 0; i--) {
+        cout << getPosNum(u_i, i);
+    }
+    return 0;
+} 
+*///已测试新的getPosNum方法的实现^
