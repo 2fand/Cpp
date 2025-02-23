@@ -50678,3 +50678,34 @@ int main()
     return 0;
 } 
 *///已测试新的getPosNum方法的实现^
+/*
+//Sequence.hpp
+#include <iostream>
+#include <vector>
+#include "HierarchicalNum.h"
+using namespace std;
+template<class T>
+class Sequence {
+private:
+	vector<T>items;
+	vector<vector<T>>sequenceVector;
+	unsigned int maxNum;
+	unsigned int swapNum;
+public:
+	Sequence(const unsigned int len) {
+
+	}
+	Sequence(const vector<T> f_items) {
+
+	}
+	void swapVectorItem(const unsigned int index, const unsigned int indexa) {
+
+	}
+	vector<vector<T>>getSequence() {
+
+	}
+	unsigned int sequenceCount() {
+
+	}
+};
+*///已新建并基本构建出Sequence类模板^
