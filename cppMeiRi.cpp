@@ -50971,3 +50971,64 @@ public:
 	}
 };
 *///已重新修正pushBackItem方法，并实现了popBackItem方法^
+/*
+//Sequence.hpp
+#include <iostream>
+#include <vector>
+#include "HierarchicalNum.h"
+using namespace std;
+template<class T>
+class Sequence {
+private:
+	vector<T>items;
+	vector<vector<T>>sequenceVector;
+	unsigned int maxNum;
+	unsigned int swapNum;
+public:
+	Sequence() {
+		this->maxNum = 1;
+		this->swapNum = 0;
+	}
+	Sequence(const unsigned int len) {
+		this->maxNum = 1;
+		this->swapNum = 0;
+		unsigned int factNum = len - 1;
+		while (this->maxNum *= factNum, factNum-- > 1){}
+		while (len--) { this->items.push_back(0); }
+	}
+	Sequence(const vector<T> f_items) {
+		this->items = f_items;
+		this->maxNum = 1;
+		this->swapNum = 0;
+		unsigned int factNum = this->items.size() - 1;
+		while (this->maxNum *= factNum, factNum-- > 1){}
+	}
+	void swapVectorItem(const unsigned int index, const unsigned int indexa) {
+		T tempItem = this->items[index];
+		this->items[index] = this->items[indexa];
+		this->items[indexa] = tempItem;
+	}
+	vector<vector<T>>getSequence() {
+		vector<vector<T>>Sequences;
+		Sequences.push_back(this->items);
+		this->swapNum = 1;
+		while (swapNum < this->maxNum) {
+			
+			swapNum++;
+		}
+	}
+	unsigned int sequenceCount() {
+		return this->sequenceVector.size();
+	}
+	T pushBackItem(const T item) {
+		this->items.push_back(item);
+		this->maxNum *= this->items.size();
+	}
+	T popBackItem(const T item) {
+		if (this->items.size()) {
+			this->maxNum /= this->items.size();
+			this->items.pop_back(item);
+		}
+	}
+};
+*///已实现Sequence类的getSequence方法的基础^
