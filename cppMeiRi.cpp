@@ -51250,3 +51250,15 @@ public:
 	}
 };
 *///已修正好Sequence类的getSequence方法^
+/*
+//meiri.cpp
+#include <iostream>
+#include "Sequence.hpp"
+using namespace std;
+
+int main()
+{
+    Sequence<int>s;
+    return 0;
+}
+*///已测试Sequence类的无参构造方法^
