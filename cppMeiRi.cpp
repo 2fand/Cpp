@@ -51345,3 +51345,16 @@ int main()
     return 0;
 }
 *///已测试并修正了Sequence类的长度构造方法^
+/*
+//meiri.cpp
+#include <iostream>
+#include "Sequence.hpp"
+using namespace std;
+
+int main()
+{
+    vector<int>v = { 1, 2, 3 };
+    Sequence<int>s = v;
+    return 0;
+}
+*///已测试Sequence类的vector数组构造方法^
