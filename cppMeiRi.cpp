@@ -51458,3 +51458,19 @@ int main()
     return 0;
 }
 *///已测试并修正了Sequence类的getSequence方法^
+/*
+//meiri.cpp
+#include <iostream>
+#include "Sequence.hpp"
+using namespace std;
+
+int main()
+{
+    vector<int>v = { 1, 2, 3, 4 };
+    Sequence<int>s = v;
+    cout << s.sequenceCount() << " ";
+    s.getSequence();
+    cout << s.sequenceCount() << endl;
+    return 0;
+}
+*///已测试Sequence类的sequenceCount方法^
