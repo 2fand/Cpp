@@ -51578,3 +51578,23 @@ int main()
     return 0;
 }
 *///已测试并修正了Sequence类的popBackItem方法^
+/*
+//meiri.cpp
+#include <iostream>
+#include "Sequence.hpp"
+using namespace std;
+
+int main()
+{
+    vector<int>v = { 1, 3, 3, 3 };
+    Sequence<int>s = v;
+    vector<vector<int>>vv = s.getSequence();
+    for (vector<int> v : vv) {
+        for (int i : v) {
+            cout << i << " ";
+        }
+        cout << endl;
+    }
+    return 0;
+}
+*///已测试Sequence类的在Sequence类的items数组中元素不唯一的情况下执行的getSequence方法^
