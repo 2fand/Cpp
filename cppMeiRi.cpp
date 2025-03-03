@@ -51598,3 +51598,23 @@ int main()
     return 0;
 }
 *///已测试Sequence类的在Sequence类的items数组中元素不唯一的情况下执行的getSequence方法^
+/*
+//meiri.cpp
+#include <iostream>
+#include "Sequence.hpp"
+using namespace std;
+
+int main()
+{
+    vector<char>v = { 'a', 'b', 'c', 'd', 'e', 'f', 'g'};
+    Sequence<char>s = v;
+    vector<vector<char>>vv = s.getSequence();
+    for (vector<char> v : vv) {
+        for (char ch : v) {
+            cout << ch << " ";
+        }
+        cout << endl;
+    }
+    return 0;
+}
+*///Sequence类的最后一次测试^
