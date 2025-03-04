@@ -51618,3 +51618,26 @@ int main()
     return 0;
 }
 *///Sequence类的最后一次测试^
+/*
+//stringCalc.h
+#pragma once
+#include <iostream>
+using namespace std;
+class stringPlus {
+private:
+	string last;
+public:
+	string getLast();
+	string calc(string str, string stra);
+};
+//stringCalc.cpp
+#include "stringPlus.h"
+string stringPlus::getLast() {
+	return this->last;
+}
+string stringPlus::calc(string str, string stra) {
+	this->last.clear();
+
+	return this->last;
+}
+*///已构建出stringPlus类的基础^
