@@ -51710,3 +51710,17 @@ int main() {
     return 0;
 }
 *///已初步测试并修正了stringPlus类的calc方法^
+/*
+//meiri.cpp
+#include <iostream>
+#include "stringPlus.h"
+using namespace std;
+
+int main() {
+    stringPlus sp;
+    sp.calc("11", "11");
+    string str = sp.getLast();
+    cout << str << endl;
+    return 0;
+}
+*///已测试stringPlus类的getLast方法^
