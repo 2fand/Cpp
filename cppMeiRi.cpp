@@ -51619,7 +51619,7 @@ int main()
 }
 *///Sequence类的最后一次测试^
 /*
-//stringCalc.h
+//stringPlus.h
 #pragma once
 #include <iostream>
 using namespace std;
@@ -51642,7 +51642,7 @@ string stringPlus::calc(string str, string stra) {
 }
 *///已构建出stringPlus类的基础^
 /*
-//stringCalc.cpp
+//stringPlus.cpp
 #include "stringPlus.h"
 string stringPlus::getLast() {
 	return this->last;
@@ -51670,3 +51670,43 @@ string stringPlus::calc(string str, string stra) {
 	return this->last;
 }
 *///已实现stringPlus类的calc方法^
+/*
+//stringPlus.cpp
+#include "stringPlus.h"
+string stringPlus::getLast() {
+	return this->last;
+}
+string stringPlus::calc(string str, string stra) {
+	this->last.clear();
+	bool isAddOne = false;
+	bool itIsZero = !str.size();
+	bool itaIsZero = !stra.size();
+	auto it = str.crbegin();
+	auto ita = stra.crbegin();
+	int digitNum = 0;
+	while (!itaIsZero || !itIsZero) {
+		digitNum = (itIsZero ? 0 : *it++ - '0') + (itaIsZero ? 0 : *ita++ - '0') + isAddOne;
+		isAddOne = digitNum / 10;
+		digitNum %= 10;
+		this->last.insert(this->last.begin(), '0' + digitNum);
+		if (str.crend() == it) {
+			itIsZero = true;
+		}
+		if (stra.crend() == ita) {
+			itaIsZero = true;
+		}
+	}
+	return this->last;
+}
+//meiri.cpp
+#include <iostream>
+#include "stringPlus.h"
+using namespace std;
+
+int main() {
+    stringPlus sp;
+    string str = sp.calc("11", "11");
+    cout << str << endl;
+    return 0;
+}
+*///已初步测试并修正了stringPlus类的calc方法^
