@@ -12411,3 +12411,233 @@ Widget::~Widget()
     delete ui;
 }
 *///已修改自定义24点计算器的中缀表达式转后缀表达式的一些代码^
+/*
+//24\widget.cpp
+#include "widget.h"
+#include "ui_widget.h"
+#include <QDebug>
+#include <QPushButton>
+#include <QStringList>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <QStack>
+#include <QPair>
+#include <QQueue>
+
+void Widget::disturb(QVector<node*>& UF, int insert_index = 0) {
+    if (4 == insert_index){
+        unsigned int insert_data = UF[0]->value;
+        for (int i = 1; i < 4; i++){
+            insert_data <<= 8;
+            insert_data += UF[i]->value;
+        }
+        if (-1 == this->v.indexOf(insert_data)) {
+            this->v.push_back(insert_data);
+        }
+        return;
+    }
+    for (int i = 0; i < 4; i++){
+        if (!UF[i]->from){
+            UF[i]->from = true;
+            UF.swapItemsAt(insert_index, i);
+            disturb(UF, insert_index + 1);
+            UF.swapItemsAt(insert_index, i);
+            UF[i]->from = false;
+        }
+    }
+}
+
+void add1(char* cp){
+    switch(*cp){
+    case '+':
+        *cp = '-';
+        break;
+    case '-':
+        *cp = '*';
+        break;
+    case '*':
+        *cp = '/';
+        break;
+    case '/':
+        *cp = '+';
+        add1(cp - 1);
+        break;
+    default:
+        break;
+    }
+}
+
+void iterator_swap(string::iterator& it, const unsigned int index, const unsigned int indexa){
+    char temp = *(it + index);
+    *(it + index) = *(it + indexa);
+    *(it + indexa) = temp;
+}
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    QStringList sl={"0123456", "0124356", "0124536", "0142536" "0142356"};
+    connect(ui->pushButton, &QPushButton::clicked, [=](){
+        ui->listWidget->clear();
+        QVector<node*>UF = {new node(ui->num1->value(), false), new node(ui->num2->value(), false), new node(ui->num3->value(), false), new node(ui->num4->value(), false)};
+        QVector<string> slout;
+        QStack<char>s;
+        QStack<int>sCalc;
+        QQueue<string>q;
+        QVector<QPair<int, QString>>m;
+        QString toStr;
+        char tempchar = 0;
+        char str[16] = "";
+        char strCalc[4] = "+++";
+        char* cp = strCalc + 2;
+        disturb(UF);
+        int i = 0;
+        int ia = 0;
+        int ib = 0;
+        int itemp = 0;
+        int index = 0;
+        string intToStr;
+        string charToStr;
+        string dequeStr;
+        QString calcStr;
+        for (unsigned int u : this->v){
+            for (i = 0; i < 5; i++){
+                do {
+                    calcStr.clear();
+                    for (index = 0; index < 7; index++){
+                        if ('4' > sl[i][index]) {
+                            itemp = u >> ((sl[i][index].toLatin1() - '0') * 8) & 0b11111111;
+                            while (itemp){
+                                intToStr.insert(intToStr.begin(), itemp % 10);
+                                itemp /= 10;
+                            }
+                            q.enqueue(intToStr);
+                            calcStr.append(intToStr);
+                        }
+                        else {
+                            charToStr = strCalc[sl[i][index].toLatin1() - '4'];
+                            q.enqueue(charToStr);
+                            calcStr.append(charToStr);
+                        }
+                    }
+                    for (string s : q){
+                        switch(s[0]){
+                        case '+':
+                            ia = sCalc.top();
+                            sCalc.pop();
+                            ib = sCalc.top();
+                            sCalc.pop();
+                            sCalc.push(ia + ib);
+                            break;
+                        case '-':
+                            ia = sCalc.top();
+                            sCalc.pop();
+                            ib = sCalc.top();
+                            sCalc.pop();
+                            sCalc.push(ia - ib);
+                            break;
+                        case '*':
+                            ia = sCalc.top();
+                            sCalc.pop();
+                            ib = sCalc.top();
+                            sCalc.pop();
+                            sCalc.push(ia * ib);
+                            break;
+                        case '/':
+                            ia = sCalc.top();
+                            sCalc.pop();
+                            if (!sCalc.top()){
+                                goto end;
+                            }
+                            ib = sCalc.top();
+                            sCalc.pop();
+                            sCalc.push((float)ia / (float)ib);
+                            break;
+                        default:
+                            dequeStr = q.dequeue();
+                            sCalc.push(atoi(dequeStr.c_str()));
+                            break;
+                        }
+                    }
+                    toStr.clear();
+                    for (char ch : str){
+                        toStr.append(ch);
+                    }
+                    m.push_back({sCalc.top(), toStr});
+                    if (ui->spinBox->value() == sCalc.top()){
+                        ui->listWidget->addItem(calcStr);
+                    }
+                end:
+                    sCalc.clear();
+                    q.clear();
+                    add1(strCalc);
+                } while (strcmp("///", strCalc));
+            }
+        }
+        // for (string str : slout){
+        //     for (auto it = str.begin(); it < str.end(); it++){
+        //         if ('0' <= *it && *it <= '9'){
+        //             while ('0' <= *it && *it <= '9'){
+        //                 intToStr.insert(intToStr.begin(), *it++);
+        //                 if (str.end() <= it){
+        //                     break;
+        //                 }
+        //             }
+        //             q.enqueue(intToStr);
+        //             intToStr.clear();
+        //         }
+        //         else if('*' == *it || '/' == *it){
+        //             while (s.size() && '(' != s.top() && '+' != s.top() && '-' != s.top()) {
+        //                 tempchar = s.top();
+        //                 s.pop();
+        //                 charToStr.push_back(tempchar);
+        //                 q.enqueue(charToStr);
+        //                 charToStr.clear();
+        //             }
+        //             s.push(*it);
+        //         }
+        //         else if('(' == *it){
+        //             s.push(*it);
+        //         }
+        //         else if('+' == *it || '-' == *it) {
+        //             while (s.size() && '(' != s.top()) {
+        //                 tempchar = s.top();
+        //                 s.pop();
+        //                 charToStr.push_back(tempchar);
+        //                 q.enqueue(charToStr);
+        //                 charToStr.clear();
+        //             }
+        //             s.push(*it);
+        //         }
+        //         else if(')' == *it){
+        //             do {
+        //                 tempchar = s.top();
+        //                 s.pop();
+        //                 if ('(' != tempchar){
+        //                     charToStr.push_back(tempchar);
+        //                     q.enqueue(charToStr);
+        //                     charToStr.clear();
+        //                 }
+        //             } while('(' != tempchar);
+        //         }
+        //     }
+        //     while (s.size()){
+        //         tempchar = s.top();
+        //         s.pop();
+        //         charToStr.push_back(tempchar);
+        //         q.enqueue(charToStr);
+        //         charToStr.clear();
+        //     }
+
+
+    });
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+*///已翻新自定义24点计算器的代码^
