@@ -51724,3 +51724,45 @@ int main() {
     return 0;
 }
 *///已测试stringPlus类的getLast方法^
+/*
+//stringPlus.cpp
+#include "stringPlus.h"
+string stringPlus::getLast() {
+	return this->last;
+}
+string stringPlus::calc(string str, string stra) {
+	this->last.clear();
+	bool isAddOne = false;
+	bool itIsZero = !str.size();
+	bool itaIsZero = !stra.size();
+	auto it = str.crbegin();
+	auto ita = stra.crbegin();
+	int digitNum = 0;
+	while (!itaIsZero || !itIsZero) {
+		digitNum = (itIsZero ? 0 : *it++ - '0') + (itaIsZero ? 0 : *ita++ - '0') + isAddOne;
+		isAddOne = digitNum / 10;
+		digitNum %= 10;
+		this->last.insert(this->last.begin(), '0' + digitNum);
+		if (str.crend() == it) {
+			itIsZero = true;
+		}
+		if (stra.crend() == ita) {
+			itaIsZero = true;
+		}
+	}
+	if (this->last.empty()) {
+		this->last.push_back('0');
+	}
+	return this->last;
+}
+//meiri.cpp
+#include <iostream>
+#include "stringPlus.h"
+using namespace std;
+
+int main() {
+    stringPlus sp;
+    cout << sp.calc("12345", "") << " " << sp.calc("", "") << " " << sp.calc("12345", "12345") << " " << sp.calc("16262323445364387934457643645364", "18231723462347892372349234790") << " " << endl;
+    return 0;
+}
+*///已测试stringPlus类的空字符串计算与大值计算^
