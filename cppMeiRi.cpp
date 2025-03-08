@@ -51994,3 +51994,20 @@ public:
 	}
 };
 *///已修正getSequence方法的实现^
+/*
+//meiri.cpp
+#include <iostream>
+#include "Sequence.hpp"
+using namespace std;
+
+int main()
+{
+    vector<int>v = { 1 };
+    Sequence<int>s;
+    Sequence<int>sa = v;
+    s.getSequence();
+    sa.getSequence();
+    cout << s.sequenceCount() << " " << sa.sequenceCount() << endl;
+    return 0;
+}
+*///已测试Sequence类修正之后的getSequence方法^
