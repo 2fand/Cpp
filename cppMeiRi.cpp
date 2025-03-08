@@ -51903,3 +51903,94 @@ string stringPlus::calc(string str, string stra) {
 	return this->last;
 }
 *///再修改了一下calc方法^
+/*
+//Sequence.hpp
+#include <iostream>
+#include <vector>
+#include "HierarchicalNum.h"
+using namespace std;
+template<class T>
+class Sequence {
+private:
+	vector<T>items;
+	vector<vector<T>>sequenceVector;
+	unsigned int maxNum;
+	unsigned int swapNum;
+	void swapVectorItem(const unsigned int index, const unsigned int indexa) {
+		T tempItem = this->items[index];
+		this->items[index] = this->items[indexa];
+		this->items[indexa] = tempItem;
+	}
+	bool isUnique(const vector<T> checkVector) {
+		for (vector<T> v : this->sequenceVector) {
+			if (checkVector == v) {
+				return false;
+			}
+		}
+		return true;
+	}
+public:
+	Sequence() {
+		this->maxNum = 1;
+		this->swapNum = 0;
+	}
+	Sequence(unsigned int len) {
+		this->maxNum = 1;
+		this->swapNum = 0;
+		unsigned int factNum = len;
+		while (this->maxNum *= factNum, factNum-- > 1){}
+		while (len--) { this->items.push_back(0); }
+	}
+	Sequence(const vector<T> f_items) {
+		this->items = f_items;
+		this->maxNum = 1;
+		this->swapNum = 0;
+		unsigned int factNum = this->items.size();
+		while (this->maxNum *= factNum, factNum-- > 1){}
+	}
+	vector<vector<T>> getSequence() {
+		this->sequenceVector.clear();
+		if (this->items.size()) {
+			this->sequenceVector.push_back(this->items);
+			this->swapNum = 1;
+			int digitNum = this->items.size() - 1;
+			int swapIndex = 0;
+			int index = this->items.size() - 2;
+			vector<T>tempItems = this->items;
+			while (swapNum < this->maxNum) {
+				for (swapIndex = this->items.size() - 2, index = 0; index < this->items.size() - 1; index++, swapIndex--) {
+					swapVectorItem(index, index + getPosNum(swapNum, swapIndex));
+				}
+				if (isUnique(this->items)) {
+					this->sequenceVector.push_back(this->items);
+				}
+				this->items = tempItems;
+				swapNum++;
+			}
+		}
+		else {
+			this->sequenceVector.push_back(this->items);
+		}
+		return this->sequenceVector;
+	}
+	unsigned int sequenceCount() const {
+		return this->sequenceVector.size();
+	}
+	T pushBackItem(const T item) {
+		this->items.push_back(item);
+		this->maxNum *= this->items.size();
+		return item;
+	}
+	T popBackItem() {
+		if (this->items.size()) {
+			T item = this->items.back();
+			this->maxNum /= this->items.size();
+			this->items.pop_back();
+			return item;
+		}
+		else {
+			return NULL;
+		}
+	}
+};
+*///已修正getSequence方法的实现^
