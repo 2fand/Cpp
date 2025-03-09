@@ -13110,3 +13110,59 @@ Widget::~Widget()
     delete ui;
 }
 *///自定义24点计算器的准确率已提高^
+/*
+//24\tree.h
+#ifndef TREE_H
+#define TREE_H
+
+#include <string>
+using namespace std;
+
+class tree
+{
+    string str;
+    class treeNode{
+    public:
+        char val;
+        treeNode* left;
+        treeNode* right;
+        treeNode(char v = 0, treeNode* l = nullptr, treeNode* r = nullptr){
+            this->val = v;
+            this->left = l;
+            this->right = r;
+        }
+    };
+    treeNode* root;
+    string getFormula(treeNode* searchNode){
+
+        return this->str;
+    }
+
+public:
+    char rootVal();
+    void unionTree(tree& troot, tree& t, tree& ta);
+    string getFormula();
+    tree(char ch);
+};
+
+#endif // TREE_H
+
+//24\tree.cpp
+#include "tree.h"
+
+char tree::rootVal(){
+    return this->root->val;
+}
+void tree::unionTree(tree& troot, tree& t, tree& ta){
+    troot.root->left = t.root;
+    troot.root->right = ta.root;
+}
+string tree::getFormula(){
+    return getFormula(this->root);
+}
+
+tree::tree(char ch) {
+    this->root = new treeNode(ch);
+}
+
+*///已新建tree.h和tree.cpp两个文件，并在创建tree类的同时实现了tree类的大多数方法^
