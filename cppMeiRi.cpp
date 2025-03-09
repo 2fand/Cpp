@@ -52101,3 +52101,29 @@ public:
 	}
 };
 *///已删除Sequence类中的getSequence方法中的多余的digitNum变量^
+/*
+//meiri.cpp
+#include <iostream>
+#include "Sequence.hpp"
+using namespace std;
+
+int main()
+{
+    vector<int>v = { 1 };
+    vector<int>va = { 1, 2, 3, 4 };
+    Sequence<int>s;
+    Sequence<int>sa = v;
+    Sequence<int>sc = va;
+    s.getSequence();
+    sa.getSequence();
+    vector<vector<int>>vv = sc.getSequence();
+    cout << s.sequenceCount() << " " << sa.sequenceCount() << " " << sc.sequenceCount() << endl;
+    for (vector<int> v : vv) {
+        for (int i : v) {
+            cout << i << " ";
+        }
+        cout << endl;
+    }
+    return 0;
+}
+*///已测试删掉多余变量digitNum之后的Sequence类的getSequence方法^
