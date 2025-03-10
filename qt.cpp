@@ -13166,3 +13166,68 @@ tree::tree(char ch) {
 }
 
 *///已新建tree.h和tree.cpp两个文件，并在创建tree类的同时实现了tree类的大多数方法^
+/*
+//tree.h
+#ifndef TREE_H
+#define TREE_H
+
+#include <string>
+using namespace std;
+
+class tree
+{
+    string str;
+    class treeNode{
+    public:
+        string val;
+        treeNode* left;
+        treeNode* right;
+        treeNode(string v = "", treeNode* l = nullptr, treeNode* r = nullptr){
+            this->val = v;
+            this->left = l;
+            this->right = r;
+        }
+    };
+    treeNode* root;
+    string getFormula(treeNode* searchNode);
+
+public:
+    string rootVal();
+    void unionTree(tree& troot, tree& t, tree& ta);
+    string getFormula();
+    tree(string str);
+};
+
+#endif // TREE_H
+
+//tree.cpp
+#include "tree.h"
+
+string tree::rootVal(){
+    return this->root->val;
+}
+void tree::unionTree(tree& troot, tree& t, tree& ta){
+    troot.root->left = t.root;
+    troot.root->right = ta.root;
+}
+string tree::getFormula(treeNode* searchNode){
+    if (nullptr != searchNode->left){
+        getFormula(searchNode->left);
+    }
+    this->str.append(searchNode->val);
+    if (nullptr != searchNode->right){
+        getFormula(searchNode->right);
+    }
+    if (searchNode == this->root){
+        return this->str;
+    }
+}
+string tree::getFormula(){
+    this->str.clear();
+    return getFormula(this->root);
+}
+tree::tree(string str) {
+    this->root = new treeNode(str);
+}
+
+*///已实现tree类的两个getFormula方法^
