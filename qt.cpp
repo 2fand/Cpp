@@ -13167,7 +13167,7 @@ tree::tree(char ch) {
 
 *///已新建tree.h和tree.cpp两个文件，并在创建tree类的同时实现了tree类的大多数方法^
 /*
-//tree.h
+//24\tree.h
 #ifndef TREE_H
 #define TREE_H
 
@@ -13200,7 +13200,7 @@ public:
 
 #endif // TREE_H
 
-//tree.cpp
+//24\tree.cpp
 #include "tree.h"
 
 string tree::rootVal(){
@@ -13231,3 +13231,95 @@ tree::tree(string str) {
 }
 
 *///已实现tree类的两个getFormula方法^
+/*
+//24\tree.h
+#ifndef TREE_H
+#define TREE_H
+
+#include <string>
+using namespace std;
+
+class tree
+{
+    string str;
+    class treeNode{
+    public:
+        string val;
+        treeNode* left;
+        treeNode* right;
+        treeNode(string v = "", treeNode* l = nullptr, treeNode* r = nullptr){
+            this->val = v;
+            this->left = l;
+            this->right = r;
+        }
+    };
+    treeNode* root;
+    string getFormula(treeNode* searchNode, bool isRight);
+    string completeParentheses();
+
+public:
+    string rootVal();
+    void unionTree(tree& troot, tree& t, tree& ta);
+    string getFormula();
+    tree(string str);
+};
+
+#endif // TREE_H
+
+//24\tree.cpp
+#include "tree.h"
+
+string tree::rootVal(){
+    return this->root->val;
+}
+void tree::unionTree(tree& troot, tree& t, tree& ta){
+    troot.root->left = t.root;
+    troot.root->right = ta.root;
+}
+string tree::getFormula(treeNode* searchNode, bool isRight){
+    if (nullptr != searchNode->left){
+        getFormula(searchNode->left, false);
+    }
+    if (!isRight && '0' <= searchNode->val[0] && '9' >= searchNode->val[0]){
+        this->str.push_back('(');
+    }
+    this->str.append(searchNode->val);
+    if (isRight && '0' <= searchNode->val[0] && '9' >= searchNode->val[0]){
+        this->str.push_back(')');
+    }
+    if (nullptr != searchNode->right){
+        getFormula(searchNode->right, true);
+    }
+    if (searchNode == this->root){
+        return completeParentheses();
+    }
+}
+string tree::completeParentheses() {
+    int i = 0;
+    for (char ch : this->str){
+        if ('(' == ch){
+            i++;
+        }
+        else if(')' == ch){
+            i--;
+        }
+    }
+    for (; i; i < 0 ? i++ : i--){
+        if (i < 0){
+            this->str.push_back(')');
+        }
+        else{
+            this->str.insert(this->str.begin(), '(');
+        }
+    }
+    return this->str;
+}
+string tree::getFormula(){
+    this->str.clear();
+    return getFormula(this->root, false);
+}
+tree::tree(string str) {
+    this->root = new treeNode(str);
+}
+
+*///已新建并实现tree类的completeParentheses方法，并完善了tree类的getFormula有参重载方法^
