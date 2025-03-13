@@ -52445,3 +52445,15 @@ string stringPlus::calc(string str, string stra) {
 	return this->last;
 }
 *///calc方法基本无问题^
+/*
+//meiri.cpp
+#include <iostream>
+#include "stringPlus.h"
+using namespace std;
+
+int main() {
+    stringPlus sp;
+    cout << sp.calc("-100", "1") <<  endl;
+    return 0;
+}
+*///已测试新的strinmgPlus类新的calc方法^
