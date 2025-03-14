@@ -52597,3 +52597,15 @@ string stringPlus::calc(string str, string stra) {
 	return this->last;
 }
 *///已新添str和stra字符串的过滤无效字符功能^
+/*
+//meiri.cpp
+#include <iostream>
+#include "stringPlus.h"
+using namespace std;
+
+int main() {
+    stringPlus sp;
+    cout << sp.calc("-1|0", "7a6") <<  endl;
+    return 0;
+}
+*///已测试stringPlus类的过滤无效字符功能^
