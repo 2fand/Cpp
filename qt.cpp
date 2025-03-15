@@ -14132,3 +14132,117 @@ Widget::~Widget()
     delete ui;
 }
 *///自定义24点计算器已基本完成^
+/*
+//tree.h
+#ifndef TREE_H
+#define TREE_H
+
+#include <string>
+using namespace std;
+
+class tree
+{
+    string str;
+    class treeNode{
+    public:
+        string val;
+        treeNode* left;
+        treeNode* right;
+        treeNode(string v = "", treeNode* l = nullptr, treeNode* r = nullptr){
+            this->val = v;
+            this->left = l;
+            this->right = r;
+        }
+    };
+    treeNode* root;
+    string getFormula(treeNode* searchNode, bool isRight);
+    string completeParentheses();
+
+public:
+    string& rootVal();
+    void unionTree(tree& t, tree& ta);
+    string getFormula();
+    tree();
+    tree(string str);
+    tree(const tree& t);
+    tree& operator=(const tree& t);
+    ~tree();
+};
+
+#endif // TREE_H
+
+//tree.cpp
+#include "tree.h"
+
+string& tree::rootVal(){
+    return this->root->val;
+}
+void tree::unionTree(tree& t, tree& ta){
+    this->root->left = t.root;
+    this->root->right = ta.root;
+}
+string tree::getFormula(treeNode* searchNode, bool isRight){
+    if (nullptr != searchNode->left){
+        getFormula(searchNode->left, false);
+    }
+    if (!isRight && '0' <= searchNode->val[0] && '9' >= searchNode->val[0]){
+        this->str.push_back('(');
+    }
+    this->str.append(searchNode->val);
+    if (isRight && '0' <= searchNode->val[0] && '9' >= searchNode->val[0]){
+        this->str.push_back(')');
+    }
+    if (nullptr != searchNode->right){
+        getFormula(searchNode->right, true);
+    }
+    if (searchNode == this->root){
+        return completeParentheses();
+    }
+    return "";
+}
+string tree::completeParentheses() {
+    int i = 0;
+    for (char ch : this->str){
+        if ('(' == ch){
+            i++;
+        }
+        else if(')' == ch){
+            i--;
+        }
+    }
+    for (; i; i < 0 ? i++ : i--){
+        if (i > 0){
+            this->str.push_back(')');
+        }
+        else{
+            this->str.insert(this->str.begin(), '(');
+        }
+    }
+    return this->str;
+}
+string tree::getFormula(){
+    this->str.clear();
+    return getFormula(this->root, false);
+}
+tree::tree(string str) {
+    this->root = new treeNode(str);
+}
+tree::tree(){
+    this->root = new treeNode("");
+}
+tree::tree(const tree& t){
+    this->root = new treeNode(t.root->val);
+    this->root->left = t.root->left;
+    this->root->right = t.root->right;
+}
+tree& tree::operator=(const tree& t){
+    this->root->val = t.root->val;
+    this->root->left = t.root->left;
+    this->root->right = t.root->right;
+    return *this;
+}
+tree::~tree() {
+    delete this->root;
+    this->root = nullptr;
+}
+*///已新添tree类的析构方法^
