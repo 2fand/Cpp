@@ -52609,3 +52609,16 @@ int main() {
     return 0;
 }
 *///已测试stringPlus类的过滤无效字符功能^
+/*
+//stringPlus.h
+#pragma once
+#include <iostream>
+using namespace std;
+class stringPlus {
+protected:
+	string last;
+public:
+	virtual string getLast();
+	virtual string calc(string str, string stra);
+};
+*///已修改stringPlus类的构造^
