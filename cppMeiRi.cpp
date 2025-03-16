@@ -52701,3 +52701,16 @@ string stringSub::calc(string str, string stra) {
 	return this->last;
 }
 *///已新建stringSub.h与stringSub.cpp程序文件^
+/*
+//meiri.cpp
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+using namespace std;
+
+int main() {
+    stringPlus sp;
+    cout << sp.calc(sp.calc("-10", "7"), "999") << endl;
+    return 0;
+}
+*///已测试字符串的连续计算^
