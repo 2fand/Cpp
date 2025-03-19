@@ -53174,3 +53174,17 @@ string stringPlus::add(string str, string stra) {
 	return this->last;
 }
 *///已修改stringPlus类的add方法^
+/*
+//meiri.cpp
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+using namespace std;
+
+int main() {
+    stringPlus sp;
+    stringSub ss;
+    cout << ss.sub(sp.add("3", ""), "2");
+    return 0;
+}
+*///已测试stringPlus类和stringSub类的字符串混合计算^
