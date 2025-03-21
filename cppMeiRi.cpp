@@ -53394,3 +53394,29 @@ int main() {
     return 0;
 }
 *///测试一下stringTim类的tim方法^
+/*
+//meiri.cpp
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include <set>
+using namespace std;
+
+int main() {
+    stringTim st;
+    string timStr = "1";
+    int i = 0;
+    cout << "请输入你要求的2的次方数：";
+    cin >> i;
+    if (i < 0) {
+        cout << "不支持" << endl;
+        return 1;
+    }
+    for (; i; i--) {
+        timStr = st.tim(timStr, "2");
+    }
+    cout << timStr << endl;
+    return 0;
+}
+*///2的几次方计算器^
