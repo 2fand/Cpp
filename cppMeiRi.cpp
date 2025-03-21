@@ -53378,4 +53378,19 @@ string stringTim::tim(string str, string stra) {
 	this->last = timStr;
 	return timStr;
 }
-*///stringTin类的tim方法已基本无bug^
+*///stringTim类的tim方法已基本无bug^
+/*
+//meiri.cpp
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include <set>
+using namespace std;
+
+int main() {
+    stringTim st;
+    cout << st.tim("22", "22");
+    return 0;
+}
+*///测试一下stringTim类的tim方法^
