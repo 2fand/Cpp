@@ -53420,3 +53420,12 @@ int main() {
     return 0;
 }
 *///2的几次方计算器^
+/*
+//stringTim.h
+#pragma once
+#include "stringPlus.h"
+class stringTim : public stringPlus {
+public:
+	virtual string tim(string str, string stra);
+};
+*///已将tim方法设为虚方法^
