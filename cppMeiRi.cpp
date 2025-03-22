@@ -53429,3 +53429,19 @@ public:
 	virtual string tim(string str, string stra);
 };
 *///已将tim方法设为虚方法^
+/*
+//meiri.cpp
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include <set>
+using namespace std;
+
+int main() {
+    stringTim st;
+    stringPlus sp;
+    cout << sp.add(st.tim("29", "6"), st.tim("29", "4")) << endl;
+    return 0;
+}
+*///乘法分配律^
