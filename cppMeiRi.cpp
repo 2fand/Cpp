@@ -53445,3 +53445,11 @@ int main() {
     return 0;
 }
 *///乘法分配律^
+/*
+//stringDiv.h
+#pragma once
+#include "stringSub.h"
+class stringDiv : public stringSub {
+	string div(string str, string stra);
+};
+*///已创建stringDiv类^
