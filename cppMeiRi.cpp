@@ -53480,3 +53480,451 @@ string stringDiv::div(string str, string stra) {
 	return divStr;
 }
 *///已实现stringDiv类的div方法^
+/*
+//stringPlus.h
+#pragma once
+#include <iostream>
+using namespace std;
+class stringPlus {
+protected:
+        string last;
+public:
+        virtual string getLast();
+        virtual string add(string str, string stra);
+        virtual string addAssign(string& str, string stra);
+};
+//stringPlus.cpp
+#include "stringPlus.h"
+#include <cmath>
+string stringPlus::getLast() {
+        return this->last;
+}
+string stringPlus::add(string str, string stra) {
+        this->last.clear();
+        int addNum = 0;
+        int ix = 0;
+        int iy = 0;
+        int id = 0;
+        int toDel = 0;
+        string tempstr;
+        for (int index = 0; index < (str.size() > stra.size() ? str.size() : stra.size()); index++) {
+                if (index < str.size() && '-' != str[index] && ('0' > str[index] || '9' < str[index])) {
+                        str.erase(index);
+                }
+                if (index < stra.size() && '-' != stra[index] && ('0' > stra[index] || '9' < stra[index])) {
+                        stra.erase(index);
+                }
+        }
+        if (abs(atoi(stra.c_str())) > abs(atoi(str.c_str()))) {
+                str.swap(stra);
+        }
+        bool itIsZero = !str.size();
+        bool itaIsZero = !stra.size();
+        bool strIsNegative = (str.size() ? '-' == str.front() : false);
+        bool straIsNegative = (stra.size() ? '-' == stra.front() : false);
+        bool tenSub = 1 == strIsNegative + straIsNegative;
+        int absStr = abs(atoi(str.c_str()));
+        int absStra = abs(atoi(stra.c_str()));
+        bool isNegative = '-' == (absStr > absStra ? str.front() : absStr == absStra ? false : stra.front());
+        auto it = str.crbegin();
+        auto ita = stra.crbegin();
+        int digitNum = 0;
+        while (!itaIsZero || !itIsZero || addNum) {
+                if (str.crend() == it || '0' > *it || '9' < *it) {
+                        itIsZero = true;
+                }
+                if (stra.crend() == ita || '0' > *ita || '9' < *ita) {
+                        itaIsZero = true;
+                }
+                ix = (1 - 2 * strIsNegative) * (itIsZero ? 0 : *it++ - '0');
+                iy = (1 - 2 * straIsNegative) * (itaIsZero ? 0 : *ita++ - '0');
+                digitNum = (tenSub && abs(ix) < abs(iy)) ? 10 + abs(ix) - abs(iy) : ix + iy;
+                digitNum += !(0 > addNum && 2 == itIsZero + itaIsZero) * (1 - 2 * (digitNum < 0)) * addNum;
+                addNum = tenSub && abs(ix) < abs(iy) ? -1 : digitNum / 10;
+                digitNum = abs(digitNum % 10);
+                if (!itIsZero || !itaIsZero || addNum || digitNum) {
+                        this->last.insert(this->last.begin(), '0' + digitNum);
+                }
+        }
+        if (this->last.empty()) {
+                this->last.push_back('0');
+        }
+        else if (isNegative) {
+                this->last.insert(this->last.begin(), '-');
+        }
+        while ('-' == this->last[id] && id < this->last.size()) {
+                id++;
+        }
+        while (id < this->last.size() - 1 && '0' == this->last[id]) {
+                toDel = 0;
+                while (toDel < this->last.size()) {
+                        if (toDel == id && ++toDel) {
+                                continue;
+                        }
+                        tempstr.push_back(this->last[toDel++]);
+                }
+                this->last = tempstr;
+        }
+        return this->last;
+}
+string stringPlus::addAssign(string& str, string stra) {
+        this->last.clear();
+        int addNum = 0;
+        int ix = 0;
+        int iy = 0;
+        int id = 0;
+        int toDel = 0;
+        string tempstr;
+        for (int index = 0; index < (str.size() > stra.size() ? str.size() : stra.size()); index++) {
+                if (index < str.size() && '-' != str[index] && ('0' > str[index] || '9' < str[index])) {
+                        str.erase(index);
+                }
+                if (index < stra.size() && '-' != stra[index] && ('0' > stra[index] || '9' < stra[index])) {
+                        stra.erase(index);
+                }
+        }
+        if (abs(atoi(stra.c_str())) > abs(atoi(str.c_str()))) {
+                str.swap(stra);
+        }
+        bool itIsZero = !str.size();
+        bool itaIsZero = !stra.size();
+        bool strIsNegative = (str.size() ? '-' == str.front() : false);
+        bool straIsNegative = (stra.size() ? '-' == stra.front() : false);
+        bool tenSub = 1 == strIsNegative + straIsNegative;
+        int absStr = abs(atoi(str.c_str()));
+        int absStra = abs(atoi(stra.c_str()));
+        bool isNegative = '-' == (absStr > absStra ? str.front() : absStr == absStra ? false : stra.front());
+        auto it = str.crbegin();
+        auto ita = stra.crbegin();
+        int digitNum = 0;
+        while (!itaIsZero || !itIsZero || addNum) {
+                if (str.crend() == it || '0' > *it || '9' < *it) {
+                        itIsZero = true;
+                }
+                if (stra.crend() == ita || '0' > *ita || '9' < *ita) {
+                        itaIsZero = true;
+                }
+                ix = (1 - 2 * strIsNegative) * (itIsZero ? 0 : *it++ - '0');
+                iy = (1 - 2 * straIsNegative) * (itaIsZero ? 0 : *ita++ - '0');
+                digitNum = (tenSub && abs(ix) < abs(iy)) ? 10 + abs(ix) - abs(iy) : ix + iy;
+                digitNum += !(0 > addNum && 2 == itIsZero + itaIsZero) * (1 - 2 * (digitNum < 0)) * addNum;
+                addNum = tenSub && abs(ix) < abs(iy) ? -1 : digitNum / 10;
+                digitNum = abs(digitNum % 10);
+                if (!itIsZero || !itaIsZero || addNum || digitNum) {
+                        this->last.insert(this->last.begin(), '0' + digitNum);
+                }
+        }
+        if (this->last.empty()) {
+                this->last.push_back('0');
+        }
+        else if (isNegative) {
+                this->last.insert(this->last.begin(), '-');
+        }
+        while ('-' == this->last[id] && id < this->last.size()) {
+                id++;
+        }
+        while (id < this->last.size() - 1 && '0' == this->last[id]) {
+                toDel = 0;
+                while (toDel < this->last.size()) {
+                        if (toDel == id && ++toDel) {
+                                continue;
+                        }
+                        tempstr.push_back(this->last[toDel++]);
+                }
+                this->last = tempstr;
+        }
+        return str = this->last;
+}
+//stringSub.h
+#pragma once
+#include "stringPlus.h"
+#include <iostream>
+using namespace std;
+class stringSub{
+protected:
+        string last;
+public:
+        virtual string getLast();
+        virtual string sub(string str, string stra);
+        virtual string subAssign(string& str, string stra);
+};
+//stringSub.cpp
+#include "stringSub.h"
+string stringSub::getLast() {
+        return this->last;
+}
+string stringSub::sub(string str, string stra) {
+        this->last.clear();
+        int addNum = 0;
+        int ix = 0;
+        int iy = 0;
+        int id = 0;
+        int toDel = 0;
+        string tempstr;
+        for (int index = 0; index < (str.size() > stra.size() ? str.size() : stra.size()); index++) {
+                if (index < str.size() && '-' != str[index] && ('0' > str[index] || '9' < str[index])) {
+                        str.erase(index);
+                }
+                if (index < stra.size() && '-' != stra[index] && ('0' > stra[index] || '9' < stra[index])) {
+                        stra.erase(index);
+                }
+        }
+        if ('-' != stra.front()) {
+                stra.insert(0, "-");
+        }
+        else {
+                for (int i = 0; i < stra.size() - 1; i++) {
+                        stra[i] = stra[i + 1];
+                }
+                stra.pop_back();
+        }
+        if (abs(atoi(stra.c_str())) > abs(atoi(str.c_str()))) {
+                str.swap(stra);
+        }
+        auto it = str.crbegin();
+        auto ita = stra.crbegin();
+        bool itIsZero = !str.size();
+        bool itaIsZero = !stra.size();
+        bool strIsNegative = (str.size() ? '-' == str.front() : false);
+        bool straIsNegative = (stra.size() ? '-' == stra.front() : false);
+        bool tenSub = 1 == strIsNegative + straIsNegative;
+        int absStr = abs(atoi(str.c_str()));
+        int absStra = abs(atoi(stra.c_str()));
+        bool isNegative = '-' == (absStr > absStra ? str.front() : absStr == absStra ? false : stra.front());
+        int digitNum = 0;
+        while (!itaIsZero || !itIsZero || addNum) {
+                if (str.crend() == it || '0' > *it || '9' < *it) {
+                        itIsZero = true;
+                }
+                if (stra.crend() == ita || '0' > *ita || '9' < *ita) {
+                        itaIsZero = true;
+                }
+                ix = (1 - 2 * strIsNegative) * (itIsZero ? 0 : *it++ - '0');
+                iy = (1 - 2 * straIsNegative) * (itaIsZero ? 0 : *ita++ - '0');
+                digitNum = (tenSub && abs(ix) < abs(iy)) ? 10 + abs(ix) - abs(iy) : ix + iy;
+                digitNum += !(0 > addNum && 2 == itIsZero + itaIsZero) * (1 - 2 * (digitNum < 0)) * addNum;
+                addNum = tenSub && abs(ix) < abs(iy) ? -1 : digitNum / 10;
+                digitNum = abs(digitNum % 10);
+                if (!itIsZero || !itaIsZero || addNum || digitNum) {
+                        this->last.insert(this->last.begin(), '0' + digitNum);
+                }
+        }
+        if (this->last.empty()) {
+                this->last.push_back('0');
+        }
+        else if (isNegative) {
+                this->last.insert(this->last.begin(), '-');
+        }
+        while ('-' == this->last[id] && id < this->last.size()) {
+                id++;
+        }
+        while (id < this->last.size() - 1 && '0' == this->last[id]) {
+                toDel = 0;
+                while (toDel < this->last.size()) {
+                        if (toDel == id && ++toDel) {
+                                continue;
+                        }
+                        tempstr.push_back(this->last[toDel++]);
+                }
+                this->last = tempstr;
+        }
+        return this->last;
+}
+string stringSub::subAssign(string& str, string stra) {
+        this->last.clear();
+        int addNum = 0;
+        int ix = 0;
+        int iy = 0;
+        int id = 0;
+        int toDel = 0;
+        string tempstr;
+        for (int index = 0; index < (str.size() > stra.size() ? str.size() : stra.size()); index++) {
+                if (index < str.size() && '-' != str[index] && ('0' > str[index] || '9' < str[index])) {
+                        str.erase(index);
+                }
+                if (index < stra.size() && '-' != stra[index] && ('0' > stra[index] || '9' < stra[index])) {
+                        stra.erase(index);
+                }
+        }
+        if ('-' != stra.front()) {
+                stra.insert(0, "-");
+        }
+        else {
+                for (int i = 0; i < stra.size() - 1; i++) {
+                        stra[i] = stra[i + 1];
+                }
+                stra.pop_back();
+        }
+        if (abs(atoi(stra.c_str())) > abs(atoi(str.c_str()))) {
+                str.swap(stra);
+        }
+        auto it = str.crbegin();
+        auto ita = stra.crbegin();
+        bool itIsZero = !str.size();
+        bool itaIsZero = !stra.size();
+        bool strIsNegative = (str.size() ? '-' == str.front() : false);
+        bool straIsNegative = (stra.size() ? '-' == stra.front() : false);
+        bool tenSub = 1 == strIsNegative + straIsNegative;
+        int absStr = abs(atoi(str.c_str()));
+        int absStra = abs(atoi(stra.c_str()));
+        bool isNegative = '-' == (absStr > absStra ? str.front() : absStr == absStra ? false : stra.front());
+        int digitNum = 0;
+        while (!itaIsZero || !itIsZero || addNum) {
+                if (str.crend() == it || '0' > *it || '9' < *it) {
+                        itIsZero = true;
+                }
+                if (stra.crend() == ita || '0' > *ita || '9' < *ita) {
+                        itaIsZero = true;
+                }
+                ix = (1 - 2 * strIsNegative) * (itIsZero ? 0 : *it++ - '0');
+                iy = (1 - 2 * straIsNegative) * (itaIsZero ? 0 : *ita++ - '0');
+                digitNum = (tenSub && abs(ix) < abs(iy)) ? 10 + abs(ix) - abs(iy) : ix + iy;
+                digitNum += !(0 > addNum && 2 == itIsZero + itaIsZero) * (1 - 2 * (digitNum < 0)) * addNum;
+                addNum = tenSub && abs(ix) < abs(iy) ? -1 : digitNum / 10;
+                digitNum = abs(digitNum % 10);
+                if (!itIsZero || !itaIsZero || addNum || digitNum) {
+                        this->last.insert(this->last.begin(), '0' + digitNum);
+                }
+        }
+        if (this->last.empty()) {
+                this->last.push_back('0');
+        }
+        else if (isNegative) {
+                this->last.insert(this->last.begin(), '-');
+        }
+        while ('-' == this->last[id] && id < this->last.size()) {
+                id++;
+        }
+        while (id < this->last.size() - 1 && '0' == this->last[id]) {
+                toDel = 0;
+                while (toDel < this->last.size()) {
+                        if (toDel == id && ++toDel) {
+                                continue;
+                        }
+                        tempstr.push_back(this->last[toDel++]);
+                }
+                this->last = tempstr;
+        }
+        return str = this->last;
+}
+//stringTim.h
+#pragma once
+#include "stringPlus.h"
+class stringTim : public stringPlus {
+public:
+        virtual string tim(string str, string stra);
+        virtual string timAssign(string& str, string stra);
+};
+//stringTim.cpp
+#include "stringTim.h"
+string stringTim::tim(string str, string stra) {
+        string timStr = "0";
+        for (int index = 0; index < (str.size() > stra.size() ? str.size() : stra.size()); index++) {
+                if (index < str.size() && '-' != str[index] && ('0' > str[index] || '9' < str[index])) {
+                        str.erase(index);
+                }
+                if (index < stra.size() && '-' != stra[index] && ('0' > stra[index] || '9' < stra[index])) {
+                        stra.erase(index);
+                }
+        }
+        bool isNegative = 1 == ('-' == str.front()) + ('-' == stra.front()) && (atoi(str.c_str()) && atoi(stra.c_str()));
+        int i = abs(atoi(stra.c_str()));
+        for (; i; i--) {
+                timStr = add(timStr, str);
+        }
+        if (isNegative) {
+                timStr.insert(0, "-");
+                if ('-' == timStr[0] && '-' == timStr[1]) {
+                        for (int i = 0; i < timStr.size() - 2; i++) {
+                                timStr[i] = timStr[i + 2];
+                        }
+                        timStr.erase(timStr.size() - 2);
+                }
+        }
+        this->last = timStr;
+        return timStr;
+}
+string stringTim::timAssign(string& str, string stra) {
+        string timStr = "0";
+        for (int index = 0; index < (str.size() > stra.size() ? str.size() : stra.size()); index++) {
+                if (index < str.size() && '-' != str[index] && ('0' > str[index] || '9' < str[index])) {
+                        str.erase(index);
+                }
+                if (index < stra.size() && '-' != stra[index] && ('0' > stra[index] || '9' < stra[index])) {
+                        stra.erase(index);
+                }
+        }
+        bool isNegative = 1 == ('-' == str.front()) + ('-' == stra.front()) && (atoi(str.c_str()) && atoi(stra.c_str()));
+        int i = abs(atoi(stra.c_str()));
+        for (; i; i--) {
+                timStr = add(timStr, str);
+        }
+        if (isNegative) {
+                timStr.insert(0, "-");
+                if ('-' == timStr[0] && '-' == timStr[1]) {
+                        for (int i = 0; i < timStr.size() - 2; i++) {
+                                timStr[i] = timStr[i + 2];
+                        }
+                        timStr.erase(timStr.size() - 2);
+                }
+        }
+        str = this->last = timStr;
+        return timStr;
+}
+//stringDiv.h
+#pragma once
+#include "stringSub.h"
+class stringDiv : public stringSub {
+public:
+        virtual string div(string str, string stra);
+        virtual string divAssign(string& str, string stra);
+};
+//stringDiv.cpp
+#include "stringDiv.h"
+string stringDiv::div(string str, string stra) {
+        for (int index = 0; index < (str.size() > stra.size() ? str.size() : stra.size()); index++) {
+                if (index < str.size() && '-' != str[index] && ('0' > str[index] || '9' < str[index])) {
+                        str.erase(index);
+                }
+                if (index < stra.size() && '-' != stra[index] && ('0' > stra[index] || '9' < stra[index])) {
+                        stra.erase(index);
+                }
+        }
+        bool isNegative = (1 == ('-' == str.front()) + ('-' == stra.front()));
+        '-' == str.front() ? str = sub("0", str) : "";
+        '-' == stra.front() ? stra = sub("0", stra) : "";
+        string divStr = "0";
+        while (atoi(sub(str, stra).c_str()) >= 0) {
+                str = sub(str, stra);
+                divStr = sub(divStr, "-1");
+        }
+        if (isNegative) {
+                divStr.insert(0, "-");
+        }
+        this->last = divStr;
+        return divStr;
+}
+string stringDiv::divAssign(string& str, string stra) {
+        for (int index = 0; index < (str.size() > stra.size() ? str.size() : stra.size()); index++) {
+                if (index < str.size() && '-' != str[index] && ('0' > str[index] || '9' < str[index])) {
+                        str.erase(index);
+                }
+                if (index < stra.size() && '-' != stra[index] && ('0' > stra[index] || '9' < stra[index])) {
+                        stra.erase(index);
+                }
+        }
+        bool isNegative = (1 == ('-' == str.front()) + ('-' == stra.front()));
+        '-' == str.front() ? str = sub("0", str) : "";
+        '-' == stra.front() ? stra = sub("0", stra) : "";
+        string divStr = "0";
+        while (atoi(sub(str, stra).c_str()) >= 0) {
+                str = sub(str, stra);
+                divStr = sub(divStr, "-1");
+        }
+        if (isNegative) {
+                divStr.insert(0, "-");
+        }
+        str = this->last = divStr;
+        return divStr;
+}
+*///已往stringPlus类，stringSub类，stringTim类和stringDiv类，添加所对应的assign方法^
