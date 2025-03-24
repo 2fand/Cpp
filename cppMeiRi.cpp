@@ -53928,3 +53928,30 @@ string stringDiv::divAssign(string& str, string stra) {
         return divStr;
 }
 *///已往stringPlus类，stringSub类，stringTim类和stringDiv类，添加所对应的assign方法^
+/*
+//meiri.cpp
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include <set>
+using namespace std;
+
+int main() {
+    stringPlus sp;
+    stringSub ss;
+    stringTim st;
+    stringDiv sd;
+    string str = "0";
+    sp.addAssign(str, "5");
+    cout << str << " ";
+    ss.subAssign(str, "3");
+    cout << str << " ";
+    st.timAssign(str, "2");
+    cout << str << " ";
+    sd.divAssign(str, "4");
+    cout << str << endl;
+    return 0;
+}
+*///已测试stringPlus类，stringSub类，stringTim类和stringDiv类所对应的assign方法^
