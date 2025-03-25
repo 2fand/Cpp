@@ -54011,3 +54011,20 @@ string stringDiv::divAssign(string& str, string stra) {
 	return divStr;
 }
 *///已修正stringDiv的div和divAssign方法的可以除以0的bug^
+/*
+//meiri.cpp
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include <set>
+using namespace std;
+
+int main() {
+    stringDiv ss;
+    cout << ss.div("33", "-0") << endl;
+    cout << "OK" << endl;
+    return 0;
+}
+*///已测试stringDiv类的div方法是否可以除以0^
