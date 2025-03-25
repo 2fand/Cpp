@@ -53955,3 +53955,59 @@ int main() {
     return 0;
 }
 *///已测试stringPlus类，stringSub类，stringTim类和stringDiv类所对应的assign方法^
+/*
+//stringDiv.cpp
+#include "stringDiv.h"
+string stringDiv::div(string str, string stra) {
+	for (int index = 0; index < (str.size() > stra.size() ? str.size() : stra.size()); index++) {
+		if (index < str.size() && '-' != str[index] && ('0' > str[index] || '9' < str[index])) {
+			str.erase(index);
+		}
+		if (index < stra.size() && '-' != stra[index] && ('0' > stra[index] || '9' < stra[index])) {
+			stra.erase(index);
+		}
+	}
+	bool isNegative = (1 == ('-' == str.front()) + ('-' == stra.front()));
+	'-' == str.front() ? str = sub("0", str) : "";
+	'-' == stra.front() ? stra = sub("0", stra) : "";
+	if ("0" == stra) {
+		exit(1);
+	}
+	string divStr = "0";
+	while (atoi(sub(str, stra).c_str()) >= 0) {
+		str = sub(str, stra);
+		divStr = sub(divStr, "-1");
+	}
+	if (isNegative) {
+		divStr.insert(0, "-");
+	}
+	this->last = divStr;
+	return divStr;
+}
+string stringDiv::divAssign(string& str, string stra) {
+	for (int index = 0; index < (str.size() > stra.size() ? str.size() : stra.size()); index++) {
+		if (index < str.size() && '-' != str[index] && ('0' > str[index] || '9' < str[index])) {
+			str.erase(index);
+		}
+		if (index < stra.size() && '-' != stra[index] && ('0' > stra[index] || '9' < stra[index])) {
+			stra.erase(index);
+		}
+	}
+	bool isNegative = (1 == ('-' == str.front()) + ('-' == stra.front()));
+	'-' == str.front() ? str = sub("0", str) : "";
+	'-' == stra.front() ? stra = sub("0", stra) : "";
+	if ("0" == stra) {
+		exit(1);
+	}
+	string divStr = "0";
+	while (atoi(sub(str, stra).c_str()) >= 0) {
+		str = sub(str, stra);
+		divStr = sub(divStr, "-1");
+	}
+	if (isNegative) {
+		divStr.insert(0, "-");
+	}
+	str = this->last = divStr;
+	return divStr;
+}
+*///已修正stringDiv的div和divAssign方法的可以除以0的bug^
