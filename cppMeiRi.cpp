@@ -54176,3 +54176,22 @@ string stringMod::getLast() {
 	return this->last;
 }
 *///已重新实现stringMod类的mod计算方法^
+/*
+//meiri.cpp
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include "stringMod.h"
+#include <set>
+using namespace std;
+
+int main() {
+    stringMod sm;
+    cout << -1 % -3 << endl;
+    cout << sm.mod("-1", "-3") << endl;
+    cout << sm.getLast();
+    return 0;
+}
+*///已再次测试stringMod类的mod计算方法^
