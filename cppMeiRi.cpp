@@ -54148,3 +54148,31 @@ string stringMod::modAssign(string& str, string stra) {
 	return str;
 }
 *///已创建stringMod类，并实现该类的相关方法^
+/*
+//stringMod.h
+#pragma once
+#include "stringTim.h"
+#include "stringDiv.h"
+class stringMod : public stringTim, public stringDiv {
+	string last;
+public:
+	string getLast();
+	string mod(string str, string stra);
+	string modAssign(string& str, string stra);
+};
+
+
+//stringMod.cpp
+#include "stringMod.h"
+string stringMod::mod(string str, string stra) {
+	this->last = sub(str, tim(stra, div(str, stra)));
+	return str;
+}
+string stringMod::modAssign(string& str, string stra) {
+	this->last = subAssign(str, tim(stra, div(str, stra)));
+	return str;
+}
+string stringMod::getLast() {
+	return this->last;
+}
+*///已重新实现stringMod类的mod计算方法^
