@@ -54195,3 +54195,147 @@ int main() {
     return 0;
 }
 *///已再次测试stringMod类的mod计算方法^
+/*
+//stringTim.h
+#pragma once
+#include "stringPlus.h"
+class stringTim : protected stringPlus {
+protected:
+	string last;
+public:
+	virtual string getLast();
+	virtual string tim(string str, string stra);
+	virtual string timAssign(string& str, string stra);
+};
+//stringTim.cpp
+#include "stringTim.h"
+string stringTim::tim(string str, string stra) {
+	string timStr = "0";
+	for (int index = 0; index < (str.size() > stra.size() ? str.size() : stra.size()); index++) {
+		if (index < str.size() && '-' != str[index] && ('0' > str[index] || '9' < str[index])) {
+			str.erase(index);
+		}
+		if (index < stra.size() && '-' != stra[index] && ('0' > stra[index] || '9' < stra[index])) {
+			stra.erase(index);
+		}
+	}
+	bool isNegative = 1 == ('-' == str.front()) + ('-' == stra.front()) && (atoi(str.c_str()) && atoi(stra.c_str()));
+	int i = abs(atoi(stra.c_str()));
+	for (; i; i--) {
+		timStr = add(timStr, str);
+	}
+	if (isNegative) {
+		timStr.insert(0, "-");
+		if ('-' == timStr[0] && '-' == timStr[1]) {
+			for (int i = 0; i < timStr.size() - 2; i++) {
+				timStr[i] = timStr[i + 2];
+			}
+			timStr.erase(timStr.size() - 2);
+		}
+	}
+	this->last = timStr;
+	return timStr;
+}
+string stringTim::timAssign(string& str, string stra) {
+	string timStr = "0";
+	for (int index = 0; index < (str.size() > stra.size() ? str.size() : stra.size()); index++) {
+		if (index < str.size() && '-' != str[index] && ('0' > str[index] || '9' < str[index])) {
+			str.erase(index);
+		}
+		if (index < stra.size() && '-' != stra[index] && ('0' > stra[index] || '9' < stra[index])) {
+			stra.erase(index);
+		}
+	}
+	bool isNegative = 1 == ('-' == str.front()) + ('-' == stra.front()) && (atoi(str.c_str()) && atoi(stra.c_str()));
+	int i = abs(atoi(stra.c_str()));
+	for (; i; i--) {
+		timStr = add(timStr, str);
+	}
+	if (isNegative) {
+		timStr.insert(0, "-");
+		if ('-' == timStr[0] && '-' == timStr[1]) {
+			for (int i = 0; i < timStr.size() - 2; i++) {
+				timStr[i] = timStr[i + 2];
+			}
+			timStr.erase(timStr.size() - 2);
+		}
+	}
+	str = this->last = timStr;
+	return timStr;
+}
+string stringTim::getLast() {
+	return this->last;
+}
+//stringDiv.h
+#pragma once
+#include "stringSub.h"
+class stringDiv : protected stringSub {
+protected:
+	string last;
+public:
+	virtual string getLast();
+	virtual string div(string str, string stra);
+	virtual string divAssign(string& str, string stra);
+};
+
+
+//stringDiv.cpp
+#include "stringDiv.h"
+string stringDiv::div(string str, string stra) {
+	for (int index = 0; index < (str.size() > stra.size() ? str.size() : stra.size()); index++) {
+		if (index < str.size() && '-' != str[index] && ('0' > str[index] || '9' < str[index])) {
+			str.erase(index);
+		}
+		if (index < stra.size() && '-' != stra[index] && ('0' > stra[index] || '9' < stra[index])) {
+			stra.erase(index);
+		}
+	}
+	bool isNegative = (1 == ('-' == str.front()) + ('-' == stra.front()));
+	'-' == str.front() ? str = sub("0", str) : "";
+	'-' == stra.front() ? stra = sub("0", stra) : "";
+	if ("0" == stra) {
+		cout << "错误：不能除以0" << endl;
+		exit(1);
+	}
+	string divStr = "0";
+	while (atoi(sub(str, stra).c_str()) >= 0) {
+		str = sub(str, stra);
+		divStr = sub(divStr, "-1");
+	}
+	if (isNegative) {
+		divStr.insert(0, "-");
+	}
+	this->last = divStr;
+	return divStr;
+}
+string stringDiv::divAssign(string& str, string stra) {
+	for (int index = 0; index < (str.size() > stra.size() ? str.size() : stra.size()); index++) {
+		if (index < str.size() && '-' != str[index] && ('0' > str[index] || '9' < str[index])) {
+			str.erase(index);
+		}
+		if (index < stra.size() && '-' != stra[index] && ('0' > stra[index] || '9' < stra[index])) {
+			stra.erase(index);
+		}
+	}
+	bool isNegative = (1 == ('-' == str.front()) + ('-' == stra.front()));
+	'-' == str.front() ? str = sub("0", str) : "";
+	'-' == stra.front() ? stra = sub("0", stra) : "";
+	if ("0" == stra) {
+		cout << "错误：不能除以0" << endl;
+		exit(1);
+	}
+	string divStr = "0";
+	while (atoi(sub(str, stra).c_str()) >= 0) {
+		str = sub(str, stra);
+		divStr = sub(divStr, "-1");
+	}
+	if (isNegative) {
+		divStr.insert(0, "-");
+	}
+	str = this->last = divStr;
+	return divStr;
+}
+string stringDiv::getLast() {
+	return this->last;
+}
+*///已修改stringTim类和stringDiv类^
