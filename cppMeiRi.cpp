@@ -54470,3 +54470,18 @@ string stringDiv::divAssign(string& str, string stra, bool isUp) {
 	return divStr;
 }
 *///已添加stringDiv类的div重载方法和divAssign重载方法^
+/*
+//stringMod.cpp
+#include "stringMod.h"
+string stringMod::mod(string str, string stra) {
+	this->last = sub(str, tim(stra, div(str, stra, false)));
+	return this->last;
+}
+string stringMod::modAssign(string& str, string stra) {
+	this->last = subAssign(str, tim(stra, div(str, stra, false)));
+	return this->last;
+}
+string stringMod::getLast() {
+	return this->last;
+}
+*///已更改stringMod类中的mod计算方法的实现^
