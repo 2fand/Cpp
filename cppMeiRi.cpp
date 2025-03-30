@@ -54738,3 +54738,22 @@ string stringDiv::divAssign(string& str, string stra, bool isUp) {
 	return divStr;
 }
 *///已为stringTim类和stringDiv类的计算方法中添加字符串为空的检测^
+/*
+//meiri.cpp
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include "stringMod.h"
+#include <set>
+using namespace std;
+
+int main() {
+    stringTim st;
+    stringDiv sd;
+    cout << st.tim("", "") << endl;
+    cout << sd.div("", "") << endl;
+    return 0;
+}
+*///已测试stringTim类和stringDiv类的计算方法中添加字符串为空的检测^
