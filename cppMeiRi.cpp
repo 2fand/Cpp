@@ -54777,3 +54777,20 @@ int main() {
     return 0;
 }
 *///四则计算^
+/*
+//meiri.cpp
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include "stringMod.h"
+#include <set>
+using namespace std;
+
+int main() {
+    stringMod sm;
+    cout << sm.mod(sm.mod("7", "2"), "2");
+    return 0;
+}
+*///双重无用mod^
