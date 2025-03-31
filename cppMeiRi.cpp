@@ -54757,3 +54757,23 @@ int main() {
     return 0;
 }
 *///已测试stringTim类和stringDiv类的计算方法中添加字符串为空的检测^
+/*
+//meiri.cpp
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include "stringMod.h"
+#include <set>
+using namespace std;
+
+int main() {
+    stringPlus sp;
+    stringSub ss;
+    stringTim st;
+    stringDiv sd;
+    cout << st.tim(sp.add(sd.div("3", "1"), ss.sub("5", "2")), "6") << endl;
+    return 0;
+}
+*///四则计算^
