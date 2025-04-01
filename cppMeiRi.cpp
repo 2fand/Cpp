@@ -54794,3 +54794,18 @@ int main() {
     return 0;
 }
 *///双重无用mod^
+/*
+//stringPow.h
+#pragma once
+#include "stringDiv.h"
+class stringPow : protected stringDiv {
+	string last;
+public:
+	string getLast();
+};
+//stringPow.cpp
+#include "stringPow.h"
+string stringPow::getLast() {
+	return this->last;
+}
+*///已创建stringPow类^
