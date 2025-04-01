@@ -54809,3 +54809,26 @@ string stringPow::getLast() {
 	return this->last;
 }
 *///已创建stringPow类^
+/*
+//stringPow.h
+#pragma once
+#include "stringDiv.h"
+class stringPow : protected stringDiv {
+	string last;
+public:
+	string getLast();
+	string pow(string str, string stra);
+	string powAssign(string& str, string stra);
+};
+//stringPow.cpp
+#include "stringPow.h"
+string stringPow::getLast() {
+	return this->last;
+}
+string stringPow::pow(string str, string stra) {
+	return this->last;
+}
+string stringPow::powAssign(string& str, string stra) {
+	return this->last;
+}
+*///已新建一个pow方法和一个powAssign方法^
