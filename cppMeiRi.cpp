@@ -54832,3 +54832,40 @@ string stringPow::powAssign(string& str, string stra) {
 	return this->last;
 }
 *///已新建一个pow方法和一个powAssign方法^
+/*
+//stringPow.cpp
+#include "stringPow.h"
+string stringPow::getLast() {
+	return this->last;
+}
+string stringPow::pow(string str, string stra) {
+	for (int index = 0; index < (str.size() > stra.size() ? str.size() : stra.size()); index++) {
+		if (index < str.size() && '-' != str[index] && ('0' > str[index] || '9' < str[index])) {
+			str.erase(index);
+		}
+		if (index < stra.size() && '-' != stra[index] && ('0' > stra[index] || '9' < stra[index])) {
+			stra.erase(index);
+		}
+	}
+	if (!str.size()) {
+		str = "0";
+	}
+	if (!stra.size()) {
+		stra = "0";
+	}
+	string powStr = "1";
+	if ('-' == stra.front()) {
+		return this->last = "0";
+	}
+	else {
+		int i = atoi(stra.c_str());
+		for (; i; i--) {
+			timAssign(powStr, str);
+		}
+	}
+	return this->last = powStr;
+}
+string stringPow::powAssign(string& str, string stra) {
+	return this->last;
+}
+*///已实现pow方法^
