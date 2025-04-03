@@ -54930,3 +54930,21 @@ string stringPow::powAssign(string& str, string stra) {
 	return this->last = str = powStr;
 }
 *///已实现powAssign方法^
+/*
+//meiri.cpp
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include "stringMod.h"
+#include "stringPow.h"
+#include <set>
+using namespace std;
+
+int main() {
+    stringPow sa;
+    cout << sa.pow("2", "3") << endl;
+    return 0;
+}
+*///测试stringPow类的pow方法^
