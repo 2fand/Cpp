@@ -55107,3 +55107,22 @@ int main() {
     return 0;
 }
 *///已测试stringPow类pow方法的次方计算^
+/*
+//meiri.cpp
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include "stringMod.h"
+#include "stringPow.h"
+#include <set>
+using namespace std;
+
+int main() {
+    stringPow sa;
+    cout << sa.pow("1", "-1000") << endl;
+    cout << sa.pow("-1", "-1000") << endl;
+    return 0;
+}
+*///已测试stringPow类pow方法的基数为1或-1的计算^
