@@ -55089,3 +55089,21 @@ string stringDiv::divAssign(string& str, string stra, bool isUp) {
 	return divStr;
 }
 *///已修正stringDiv类的div及一系列计算方法^
+/*
+//meiri.cpp
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include "stringMod.h"
+#include "stringPow.h"
+#include <set>
+using namespace std;
+
+int main() {
+    stringPow sa;
+    cout << sa.pow("-2", "-3") << endl;
+    return 0;
+}
+*///已测试stringPow类pow方法的次方计算^
