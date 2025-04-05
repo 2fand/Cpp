@@ -55126,3 +55126,22 @@ int main() {
     return 0;
 }
 *///已测试stringPow类pow方法的基数为1或-1的计算^
+/*
+//meiri.cpp
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include "stringMod.h"
+#include "stringPow.h"
+#include <set>
+using namespace std;
+
+int main() {
+    stringPlus sa;
+    stringPow sp;
+    cout << "3^2 + 4^2 = " << sa.add(sp.pow("3", "2"), sp.pow("4", "2")) << endl;
+    return 0;
+}
+*///勾股定理^
