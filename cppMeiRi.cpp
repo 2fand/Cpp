@@ -55350,3 +55350,24 @@ string stringTimDecimal::timDecimalAssign(string& str, string stra) {
 	return this->last = str = timStr;
 }
 *///已修正timDecimal方法^
+/*
+//meiri.cpp
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include "stringMod.h"
+#include "stringPow.h"
+#include "stringTimDecimal.h"
+#include <set>
+using namespace std;
+
+int main() {
+    stringTimDecimal std;
+    cout << std.timDecimal("0.013", "0.3") << endl; 
+    cout << std.timDecimal("0.013", "0") << endl;
+    cout << std.timDecimal("0.013", "") << endl;
+    return 0;
+}
+*///再测试stringTimDecimal类的timDecimal方法^
