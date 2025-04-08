@@ -55554,3 +55554,43 @@ string stringTim::getLast() {
 	return this->last;
 }
 *///已优化stringTim类的tim计算方法，并修正stringPlus类中add方法中的有多余0的处理错误^
+/*
+//stringMod.h
+#pragma once
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+class stringMod : protected stringDiv {
+protected:
+	string last;
+public:
+	string getLast();
+	string mod(string str, string stra);
+	string modAssign(string& str, string stra);
+};
+
+//stringPow.h
+#pragma once
+#include "stringDiv.h"
+class stringPow : protected stringDiv {
+protected:
+	string last;
+public:
+	string getLast();
+	string pow(string str, string stra);
+	string powAssign(string& str, string stra);
+};
+//stringTimDecimal.h
+#pragma once
+#include "stringTim.h"
+#include <regex>
+class stringTimDecimal : protected stringTim {
+protected:
+	string last;
+public:
+	virtual string getLast();
+	virtual string timDecimal(string str, string stra);
+	virtual string timDecimalAssign(string& str, string stra);
+};
+
+*///已修改stringMod类，stringPow类，和stringTimDecimal类^
