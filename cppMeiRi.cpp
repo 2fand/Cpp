@@ -55594,3 +55594,80 @@ public:
 };
 
 *///已修改stringMod类，stringPow类，和stringTimDecimal类^
+/*
+//stringPlusDecimal.h
+#pragma once
+#include "stringTimDecimal.h"
+class stringPlusDecimal : public stringTimDecimal {
+protected:
+	string last;
+public:
+	virtual string getLast();
+	virtual string addDecimal(string str, string stra);
+	virtual string addDecimalAssign(string& str, string stra);
+};
+
+//stringPlusDecimal.cpp
+#include "stringPlusDecimal.h"
+string stringPlusDecimal::getLast() {
+	return this->last;
+}
+string stringPlusDecimal::addDecimal(string str, string stra) {
+	regex dotRegex("\\.");
+	for (int index = 0; index < (str.size() > stra.size() ? str.size() : stra.size()); index++) {
+		if (index < str.size() && '-' != str[index] && '.' != str[index] && ('0' > str[index] || '9' < str[index])) {
+			str.erase(index);
+		}
+		if (index < stra.size() && '-' != stra[index] && '.' != stra[index] && ('0' > stra[index] || '9' < stra[index])) {
+			stra.erase(index);
+		}
+	}
+	!str.size() ? str = "0" : "";
+	!stra.size() ? stra = "0" : "";
+	int strDotBackNum = regex_search(str, dotRegex) * (str.size() - str.find('.') - 1);
+	int straDotBackNum = regex_search(stra, dotRegex) * (stra.size() - stra.find('.') - 1);
+	int maxDotBackNum = strDotBackNum > straDotBackNum ? strDotBackNum : straDotBackNum;
+	string strDigit = regex_replace(str, dotRegex, "");
+	string straDigit = regex_replace(stra, dotRegex, "");
+	if (strDotBackNum != maxDotBackNum) {
+		strDigit.append(string(maxDotBackNum - strDotBackNum, '0'));
+	} 
+	else if (straDotBackNum != maxDotBackNum) {
+		straDigit.append(string(maxDotBackNum - straDotBackNum, '0'));
+	}
+	string addStr = add(strDigit, straDigit);
+	string timStr = "1";
+	timStr.insert(0, string(maxDotBackNum, '0'));
+	timStr.insert(1, ".");
+	return addStr = timDecimal(addStr, timStr);
+}
+string stringPlusDecimal::addDecimalAssign(string& str, string stra) {
+	regex dotRegex("\\.");
+	for (int index = 0; index < (str.size() > stra.size() ? str.size() : stra.size()); index++) {
+		if (index < str.size() && '-' != str[index] && '.' != str[index] && ('0' > str[index] || '9' < str[index])) {
+			str.erase(index);
+		}
+		if (index < stra.size() && '-' != stra[index] && '.' != stra[index] && ('0' > stra[index] || '9' < stra[index])) {
+			stra.erase(index);
+		}
+	}
+	!str.size() ? str = "0" : "";
+	!stra.size() ? stra = "0" : "";
+	int strDotBackNum = regex_search(str, dotRegex) * (str.size() - str.find('.') - 1);
+	int straDotBackNum = regex_search(stra, dotRegex) * (stra.size() - stra.find('.') - 1);
+	int maxDotBackNum = strDotBackNum > straDotBackNum ? strDotBackNum : straDotBackNum;
+	string strDigit = regex_replace(str, dotRegex, "");
+	string straDigit = regex_replace(stra, dotRegex, "");
+	if (strDotBackNum != maxDotBackNum) {
+		strDigit.append(string(maxDotBackNum - strDotBackNum, '0'));
+	}
+	else if (straDotBackNum != maxDotBackNum) {
+		straDigit.append(string(maxDotBackNum - straDotBackNum, '0'));
+	}
+	string addStr = add(strDigit, straDigit);
+	string timStr = "1";
+	timStr.insert(0, string(maxDotBackNum, '0'));
+	timStr.insert(1, ".");
+	return addStr = str = timDecimal(addStr, timStr);
+}
+*///已添加stringPlusDecimal类，并实现其中的一些方法^
