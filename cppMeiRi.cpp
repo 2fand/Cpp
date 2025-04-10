@@ -55758,3 +55758,26 @@ string stringTimDecimal::timDecimalAssign(string& str, string stra) {
 	return this->last = str = timStr;
 }
 *///已解决小数乘法计算中有多余数字的bug^
+/*
+//meiri.cpp
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include "stringMod.h"
+#include "stringPow.h"
+#include "stringTimDecimal.h"
+#include "stringPlusDecimal.h"
+#include <set>
+using namespace std;
+
+int main() {
+    stringPlusDecimal sp;
+    cout << sp.addDecimal("0.001", "100.009") << endl;
+    cout << sp.addDecimal("-0.001", "100.009") << endl;
+    cout << sp.addDecimal("-0.001", "-100.009") << endl;
+    cout << sp.addDecimal("0.001", "-100.009") << endl;
+    return 0;
+}
+*///已测试小数加法中负数的运算^
