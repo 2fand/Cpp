@@ -16,7 +16,7 @@ using namespace std;// <-- 必备
 #define PANADD(A,B) ((A) < (B) ? 1 : -1) // <------ “C++两点成一线”中的宏
 #define NAME(A) #A // <------ “#”中的宏
 #define CAT(A,B) A##B // <------ “##”中的宏
-#define NU 45 // <------ “##”中的宏
+#define NU 45 // <------ “##”中的宏0
 #define LL // <------ “##”中的宏
 #define E ; // <------ “##”中的宏
 #define OF using namespace std; // <------ “##”中的宏
@@ -55781,3 +55781,23 @@ int main() {
     return 0;
 }
 *///已测试小数加法中负数的运算^
+/*
+//meiri.cpp
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include "stringMod.h"
+#include "stringPow.h"
+#include "stringTimDecimal.h"
+#include "stringPlusDecimal.h"
+#include <set>
+using namespace std;
+
+int main() {
+    stringPlus sp;
+    cout << sp.add("1-0", "1-9") << endl;
+    return 0;
+}
+*///已测试异常计算^
