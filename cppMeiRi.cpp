@@ -56502,3 +56502,23 @@ string stringTimDecimal::timDecimalAssign(string& str, string stra) {
 	return this->last = str = timStr;
 }
 *///已更改删除str或stra多余字符的条件^
+/*
+//meiri.cpp
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include "stringMod.h"
+#include "stringPow.h"
+#include "stringTimDecimal.h"
+#include "stringPlusDecimal.h"
+#include <set>
+using namespace std;
+
+int main() {
+    stringPlus sp;
+    cout << sp.add("1-0", "1-9") << endl;
+    return 0;
+}
+*///已再次测试刚才异常的计算现在是否正常^
