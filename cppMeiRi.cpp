@@ -56608,6 +56608,8 @@ string stringTimDecimal::timDecimalAssign(string& str, string stra) {
 	}
 	return this->last = str = timStr;
 }
+*///已修改stringTimDecimal类的timDecimal方法^
+/*
 //meiri.cpp
 #include <iostream>
 #include "stringPlus.h"
