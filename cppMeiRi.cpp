@@ -56654,3 +56654,26 @@ int main() {
     return 0;
 }
 *///已试stringPlusDecimal类的addDecimalAssign方法和stringSubDecimal类的subDecimalAssign方法^
+/*
+//meiri.cpp
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include "stringMod.h"
+#include "stringPow.h"
+#include "stringTimDecimal.h"
+#include "stringPlusDecimal.h"
+#include "stringSubDecimal.h"
+#include <set>
+using namespace std;
+int main() {
+    string calc = "0.1";
+    stringPlusDecimal spd;
+    stringSubDecimal ssd;
+    stringTimDecimal std;
+    cout << std.timDecimalAssign(calc, "10.1") << endl;
+    return 0;
+}
+*///已再试stringTimDecimal类的timDecimalAssign方法^
