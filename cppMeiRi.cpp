@@ -56677,3 +56677,28 @@ int main() {
     return 0;
 }
 *///已再试stringTimDecimal类的timDecimalAssign方法^
+/*
+//stringPowDecimal.h
+#pragma once
+#include "stringTimDecimal.h"
+class stringPowDecimal : protected stringTimDecimal {
+	string last;
+public:
+	string getLast();
+	string powDecimal(string str, string stra);
+	string powDecimalAssign(string& str, string stra);
+};
+
+
+//stringPowDecimal.cpp
+#include "stringPowDecimal.h"
+string getLast() {
+
+}
+string powDecimal(string str, string stra) {
+
+}
+string powDecimalAssign(string& str, string stra) {
+
+}
+*///已新建stringPowDecimal类^
