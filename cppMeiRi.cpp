@@ -56702,3 +56702,16 @@ string powDecimalAssign(string& str, string stra) {
 
 }
 *///已新建stringPowDecimal类^
+/*
+//stringPowDecimal.cpp
+#include "stringPowDecimal.h"
+string stringPowDecimal::getLast() {
+	return this->last;
+}
+string stringPowDecimal::powDecimal(string str, string stra) {
+
+}
+string stringPowDecimal::powDecimalAssign(string& str, string stra) {
+
+}
+*///已实现stringPowDecimal类的简单方法^
