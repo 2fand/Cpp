@@ -56899,4 +56899,4 @@ string stringDivDecimal::divDecimalAssign(string& str, string stra, size_t maxDe
 	}
 	return this->last = str = DivStr;
 }
-*//已实现stringDivDecimal类方法^
+*///已实现stringDivDecimal类方法^
