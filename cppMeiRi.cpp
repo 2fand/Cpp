@@ -56752,3 +56752,29 @@ string stringPowDecimal::powDecimalAssign(string& str, string stra) {
 
 }
 *///已实现stringPowDecimal类的简单方法^
+/*
+//stringPowDecimal.h
+#pragma once
+#include "stringSubDecimal.h"
+class stringDivDecimal : protected stringSubDecimal {
+protected:
+	string last;
+public:
+	string getLast();
+	string divDecimal(string str, string stra, int maxDecimalNum);
+	string divDecimalAssign(string& str, string stra, int maxDecimalNum);
+};
+
+
+//stringPowDecimal.cpp
+#include "stringDivDecimal.h"
+string stringDivDecimal::getLast() {
+	return this->last;
+}
+string stringDivDecimal::divDecimal(string str, string stra, int maxDecimalNum) {
+
+}
+string stringDivDecimal::divDecimalAssign(string& str, string stra, int maxDecimalNum) {
+	
+}
+*///已修改方法参数^
