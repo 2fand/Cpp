@@ -57648,3 +57648,26 @@ string stringPowDecimal::powDecimalAssign(string& str, string stra) {
 	return this->last = str = powDecimal(str, stra);
 }
 *///已实现stringPowDecimal类的方法^
+/*
+//meiri.cpp
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include "stringMod.h"
+#include "stringPow.h"
+#include "stringTimDecimal.h"
+#include "stringPlusDecimal.h"
+#include "stringSubDecimal.h"
+#include "stringDivDecimal.h"
+#include "stringPowDecimal.h"
+#include <set>
+using namespace std;
+int main() {
+    stringPowDecimal p;
+    string str = "4";
+    cout << p.powDecimal("2", "0.5") << " " << p.powDecimalAssign(str, "0.50") << " " << str << endl;
+    return 0;
+}
+*///已测试stringPowDecimal类的方法^
