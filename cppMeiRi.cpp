@@ -57671,3 +57671,19 @@ int main() {
     return 0;
 }
 *///已测试stringPowDecimal类的方法^
+/*
+#include <iostream>
+#include <regex>
+using namespace std;
+
+int main() {
+    string s = "1a2s3d";
+    regex nums_regex("\\d+");
+    sregex_iterator it(s.begin(), s.end(), nums_regex);
+    sregex_iterator end;
+    for (; it != end; it++) {
+        cout << it->str() << endl;
+    }
+	return 0;
+}
+*///正则迭代器^
