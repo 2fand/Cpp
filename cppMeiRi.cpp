@@ -57719,3 +57719,28 @@ int main() {
 	return 0;
 }
 *///正则迭代器3^
+/*
+#define _CRT_SECURE_NO_WARNINGS true
+#include <iostream>
+#include <regex>
+using namespace std;
+
+int main() {
+    string s = "abcdeytyewaaxbbnmcvkdfgb";
+    unsigned int u_i = 0;
+    cout << "几个为一组？" << endl;
+    cin >> u_i;
+    cout << endl;
+    string rs = ".{1,";
+    char num[10] = "";
+    _itoa(u_i, num, 10);
+    rs.append(num).append("}");
+    regex r(rs);
+    sregex_iterator it(s.begin(), s.end(), r);
+    sregex_iterator end;
+    for (; it != end; it++) {
+        cout << it->str() << endl;
+    }
+	return 0;
+}
+*///字符串分组^
