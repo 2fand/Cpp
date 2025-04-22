@@ -57703,3 +57703,19 @@ int main() {
 	return 0;
 }
 *///正则迭代器2^
+/*
+#include <iostream>
+#include <regex>
+using namespace std;
+
+int main() {
+    string s = "abcd";
+    regex r(".{1,3}");
+    sregex_iterator it(s.begin(), s.end(), r);
+    sregex_iterator end;
+    for (; it != end; it++) {
+        cout << it->str() << endl;
+    }
+	return 0;
+}
+*///正则迭代器3^
