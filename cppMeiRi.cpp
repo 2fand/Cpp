@@ -57757,3 +57757,16 @@ int main() {
 	return 0;
 }
 *///字符串拼接1^
+/*
+#define _CRT_SECURE_NO_WARNINGS true
+#include <iostream>
+#include <regex>
+using namespace std;
+
+int main() {
+	string str = "00";
+	(str += "88") += "99";
+	cout << str << endl;
+	return 0;
+}
+*///字符串拼接2^
