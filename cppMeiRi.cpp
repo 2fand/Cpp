@@ -57844,3 +57844,40 @@ int main() {
     return 0;
 }
 *///不复杂减法计算器^
+/*
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include "stringMod.h"
+#include "stringPow.h"
+#include "stringTimDecimal.h"
+#include "stringPlusDecimal.h"
+#include "stringSubDecimal.h"
+#include "stringDivDecimal.h"
+#include "stringPowDecimal.h"
+#include <set>
+using namespace std;
+int main() {
+    string str = "";
+    cin >> str;
+    string strf = "";
+    string strb = "";
+    stringTim ss;
+    bool bswitch = false;
+    for (char ch : str) {
+        if ('*' == ch && !bswitch) {
+            bswitch = true;
+        }
+        else if (bswitch) {
+            strb.push_back(ch);
+        }
+        else {
+            strf.push_back(ch);
+        }
+    }
+    cout << ss.tim(strf, strb) << endl;
+    return 0;
+}
+*///不复杂乘法计算器^
