@@ -57918,3 +57918,25 @@ int main() {
     return 0;
 }
 *///不复杂除法计算器^
+/*
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include "stringMod.h"
+#include "stringPow.h"
+#include "stringTimDecimal.h"
+#include "stringPlusDecimal.h"
+#include "stringSubDecimal.h"
+#include "stringDivDecimal.h"
+#include "stringPowDecimal.h"
+#include <set>
+#include <array>
+using namespace std;
+int main() {
+    array<int, 6>a = { 1, 2, 3 };
+    cout << "a[0]：" << a[0] << " | a[1]：" << a[1] << " | a[4]：" << a[4] << endl;
+    return 0;
+}
+*///array类的使用^
