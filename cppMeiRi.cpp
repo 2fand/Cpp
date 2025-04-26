@@ -57940,3 +57940,27 @@ int main() {
     return 0;
 }
 *///array类的使用^
+/*
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include "stringMod.h"
+#include "stringPow.h"
+#include "stringTimDecimal.h"
+#include "stringPlusDecimal.h"
+#include "stringSubDecimal.h"
+#include "stringDivDecimal.h"
+#include "stringPowDecimal.h"
+#include <set>
+#include <array>
+using namespace std;
+int main() {
+    array<int, 6>a = { 1, 2, 3 };
+    int arr[6] = {};
+    memcpy(arr, a.data(), 24);
+    cout << "arr[2]：" << arr[2] << endl;
+    return 0;
+}
+*///array数组转为c数组^
