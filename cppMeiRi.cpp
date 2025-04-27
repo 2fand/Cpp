@@ -57987,3 +57987,25 @@ int main() {
     return 0;
 }
 *///fill方法的使用^
+/*
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include "stringMod.h"
+#include "stringPow.h"
+#include "stringTimDecimal.h"
+#include "stringPlusDecimal.h"
+#include "stringSubDecimal.h"
+#include "stringDivDecimal.h"
+#include "stringPowDecimal.h"
+#include <set>
+#include <array>
+using namespace std;
+int main() {
+    array<int, 3>a = { 1, 2, 3 };
+    cout << "a.front()：" << a.front() << " | a.back()：" << a.back() << endl;
+    return 0;
+}
+*///用front和back方法获取array数组的开头和结尾^
