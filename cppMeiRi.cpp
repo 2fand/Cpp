@@ -58009,3 +58009,35 @@ int main() {
     return 0;
 }
 *///用front和back方法获取array数组的开头和结尾^
+/*
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include "stringMod.h"
+#include "stringPow.h"
+#include "stringTimDecimal.h"
+#include "stringPlusDecimal.h"
+#include "stringSubDecimal.h"
+#include "stringDivDecimal.h"
+#include "stringPowDecimal.h"
+#include <set>
+#include <array>
+#include <list>
+using namespace std;
+int main() {
+    list<int>l;
+    list<int>la;
+    l.push_back(3);
+    l.push_back(5);
+    l.push_back(8);
+    la.push_back(1);
+    la.push_back(2);
+    l.splice(l.cend(), la);
+    for (int i : l) {
+        cout << i << " ";
+    }
+    return 0;
+}
+*///list类的splice链接方法的使用1^
