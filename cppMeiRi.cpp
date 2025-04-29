@@ -58100,3 +58100,28 @@ int main() {
     return 0;
 }
 *///截取string字符串类的子字符串1^
+/*
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include "stringMod.h"
+#include "stringPow.h"
+#include "stringTimDecimal.h"
+#include "stringPlusDecimal.h"
+#include "stringSubDecimal.h"
+#include "stringDivDecimal.h"
+#include "stringPowDecimal.h"
+#include <set>
+#include <array>
+#include <list>
+using namespace std;
+int main() {
+    string str = "abcdefg";
+    for (int i = 0; i < str.size() - 2; i++) {
+        cout << str.substr(i, 3) << endl;
+    }
+    return 0;
+}
+*///截取string字符串类的子字符串2^
