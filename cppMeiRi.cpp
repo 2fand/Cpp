@@ -58182,3 +58182,37 @@ int main() {
     return 0;
 }
 *///获取较长字符串str的所有子串^
+/*
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include "stringMod.h"
+#include "stringPow.h"
+#include "stringTimDecimal.h"
+#include "stringPlusDecimal.h"
+#include "stringSubDecimal.h"
+#include "stringDivDecimal.h"
+#include "stringPowDecimal.h"
+#include <set>
+#include <array>
+#include <list>
+using namespace std;
+int main() {
+    string str;
+    set<string>strs;
+    for (char ch = 33; ch <= 126; ch++) {
+        str.append(string(2, ch));
+    }
+    for (int ia = 0; ia <= str.size(); ia++) {
+        for (int i = 0; i < str.size() - ia; i++) {
+            strs.insert(str.substr(i, ia + 1));
+        }
+    }
+    for (string str : strs) {
+        cout << str << endl;
+    }
+    return 0;
+}
+*///获取str的全部不重复子串^
