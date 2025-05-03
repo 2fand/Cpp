@@ -58286,3 +58286,30 @@ int main() {
     return 0;
 }
 *///string类的查询方法3^
+/*
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include "stringMod.h"
+#include "stringPow.h"
+#include "stringTimDecimal.h"
+#include "stringPlusDecimal.h"
+#include "stringSubDecimal.h"
+#include "stringDivDecimal.h"
+#include "stringPowDecimal.h"
+#include <set>
+#include <array>
+#include <list>
+using namespace std;
+int main() {
+    string str = "aaabbbccddeeff";
+    cout << str << endl;
+    str.erase(0, 1);
+    cout << str << endl;
+    str.erase(0);
+    cout << str << endl;
+    return 0;
+}
+*///string类的erase方法1^
