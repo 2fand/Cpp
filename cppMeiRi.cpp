@@ -58346,3 +58346,30 @@ int main() {
     return 0;
 }
 *///string类的erase方法2^
+/*
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include "stringMod.h"
+#include "stringPow.h"
+#include "stringTimDecimal.h"
+#include "stringPlusDecimal.h"
+#include "stringSubDecimal.h"
+#include "stringDivDecimal.h"
+#include "stringPowDecimal.h"
+#include <set>
+#include <array>
+#include <list>
+using namespace std;
+int main() {
+    string str = "aaabbbccddeeff";
+    int i = 0;
+    for (; i < str.size(); i++) {
+        str.erase(i, 1);
+    }
+    cout << str;
+    return 0;
+}
+*///删除偶数位的字符^
