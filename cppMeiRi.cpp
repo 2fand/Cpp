@@ -58432,3 +58432,37 @@ int main() {
     return 0;
 }
 *///删除字符串中所有的字符a^
+/*
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include "stringMod.h"
+#include "stringPow.h"
+#include "stringTimDecimal.h"
+#include "stringPlusDecimal.h"
+#include "stringSubDecimal.h"
+#include "stringDivDecimal.h"
+#include "stringPowDecimal.h"
+#include <set>
+#include <array>
+#include <list>
+using namespace std;
+int main() {
+    string str = "aaaaddbbbccddeeffeee";
+    int i = 0;
+    char f = str.front();
+    char b = str.back();
+    for (; i < str.size(); ) {
+        if (f == str[i] || b == str[i]) {
+            str.erase(i, 1);
+        }
+        else {
+            i++;
+        }
+    }
+    cout << str;
+    return 0;
+}
+*///删除原字符串中的第一个字符及最后一个字符^
