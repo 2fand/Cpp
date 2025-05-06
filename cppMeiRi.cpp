@@ -58487,7 +58487,7 @@ using namespace std;
 string VectorToString(vector<int> list, string front, string split, string back) {
     char* str = new char[12];
     for (int i = 0; i < list.size(); i++) {
-        sprintf_s(str, 12, "%d", i);
+        sprintf_s(str, 12, "%d", list[i]);
         front += str;
         if (i == list.size() - 1) {
             front += back;
@@ -58525,7 +58525,7 @@ using namespace std;
 string VectorToString(vector<int> list, string front, string split, string back) {
     char* str = new char[12];
     for (int i = 0; i < list.size(); i++) {
-        sprintf_s(str, 12, "%d", i);
+        sprintf_s(str, 12, "%d", list[i]);
         front += str;
         if (i == list.size() - 1) {
             front += back;
