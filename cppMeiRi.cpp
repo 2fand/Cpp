@@ -59243,3 +59243,66 @@ int main() {
     return 0;
 }
 *///all_of函数^
+/*
+#define _CRT_SECURE_NO_WARNINGS true
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include "stringMod.h"
+#include "stringPow.h"
+#include "stringTimDecimal.h"
+#include "stringPlusDecimal.h"
+#include "stringSubDecimal.h"
+#include "stringDivDecimal.h"
+#include "stringPowDecimal.h"
+#include <set>
+#include <array>
+#include <list>
+using namespace std;
+string VectorToString(vector<int> list, string front, string split, string back) {
+    char* str = new char[12];
+    for (int i = 0; i < list.size(); i++) {
+        sprintf_s(str, 12, "%d", list[i]);
+        front += str;
+        if (i == list.size() - 1) {
+            front += back;
+        }
+        else {
+            front += split;
+        }
+    }
+    delete[] str;
+    return front;
+}
+string VectorToString(vector<string> list, string front, string split, string back) {
+    for (int i = 0; i < list.size(); i++) {
+        front += list[i];
+        if (i == list.size() - 1) {
+            front += back;
+        }
+        else {
+            front += split;
+        }
+    }
+    return front;
+}
+string stringSplit(string str, string front, string split, string back) {
+    for (int i = 0; i < str.size(); i++) {
+        front += str[i];
+        if (i == str.size() - 1) {
+            front += back;
+        }
+        else {
+            front += split;
+        }
+    }
+    return front;
+}
+int main() {
+    vector<int>v = { 1, 5, 7, 6, 3 };
+    cout << all_of(v.begin(), v.end(), [=](int i){return i >= 5; }) << endl;
+    return 0;
+}
+*///all_of函数的运用^
