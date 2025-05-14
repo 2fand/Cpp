@@ -59430,3 +59430,135 @@ int main() {
     return 0;
 }
 *///数字转字符串函数to_string (2)^
+/*
+#define _CRT_SECURE_NO_WARNINGS true
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include "stringMod.h"
+#include "stringPow.h"
+#include "stringTimDecimal.h"
+#include "stringPlusDecimal.h"
+#include "stringSubDecimal.h"
+#include "stringDivDecimal.h"
+#include "stringPowDecimal.h"
+#include <set>
+#include <array>
+#include <list>
+#include <unordered_map>
+using namespace std;
+string VectorToString(vector<int> list, string front, string split, string back) {
+    char* str = new char[12];
+    for (int i = 0; i < list.size(); i++) {
+        sprintf_s(str, 12, "%d", list[i]);
+        front += str;
+        if (i == list.size() - 1) {
+            front += back;
+        }
+        else {
+            front += split;
+        }
+    }
+    delete[] str;
+    return front;
+}
+string VectorToString(vector<string> list, string front, string split, string back) {
+    for (int i = 0; i < list.size(); i++) {
+        front += list[i];
+        if (i == list.size() - 1) {
+            front += back;
+        }
+        else {
+            front += split;
+        }
+    }
+    return front;
+}
+string stringSplit(string str, string front, string split, string back) {
+    for (int i = 0; i < str.size(); i++) {
+        front += str[i];
+        if (i == str.size() - 1) {
+            front += back;
+        }
+        else {
+            front += split;
+        }
+    }
+    return front;
+}
+int main() {
+    unordered_map<int, int>t;
+    t[0] = 3;
+    t[7] = 2;
+    cout << t[0] << " " << t[7] << endl;
+    return 0;
+}
+*///unordered_map哈希表1^
+/*
+#define _CRT_SECURE_NO_WARNINGS true
+#include <iostream>
+#include "stringPlus.h"
+#include "stringSub.h"
+#include "stringTim.h"
+#include "stringDiv.h"
+#include "stringMod.h"
+#include "stringPow.h"
+#include "stringTimDecimal.h"
+#include "stringPlusDecimal.h"
+#include "stringSubDecimal.h"
+#include "stringDivDecimal.h"
+#include "stringPowDecimal.h"
+#include <set>
+#include <array>
+#include <list>
+#include <unordered_map>
+using namespace std;
+string VectorToString(vector<int> list, string front, string split, string back) {
+    char* str = new char[12];
+    for (int i = 0; i < list.size(); i++) {
+        sprintf_s(str, 12, "%d", list[i]);
+        front += str;
+        if (i == list.size() - 1) {
+            front += back;
+        }
+        else {
+            front += split;
+        }
+    }
+    delete[] str;
+    return front;
+}
+string VectorToString(vector<string> list, string front, string split, string back) {
+    for (int i = 0; i < list.size(); i++) {
+        front += list[i];
+        if (i == list.size() - 1) {
+            front += back;
+        }
+        else {
+            front += split;
+        }
+    }
+    return front;
+}
+string stringSplit(string str, string front, string split, string back) {
+    for (int i = 0; i < str.size(); i++) {
+        front += str[i];
+        if (i == str.size() - 1) {
+            front += back;
+        }
+        else {
+            front += split;
+        }
+    }
+    return front;
+}
+int main() {
+    unordered_map<string, int>t;
+    t["aa"] = 3;
+    t["gg"] = 2;
+    cout << t["aa"] << " " << t["gg"] << endl;
+    return 0;
+}
+*///unordered_map哈希表2^
